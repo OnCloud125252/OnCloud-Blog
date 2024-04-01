@@ -10,6 +10,72 @@ import { Icons } from "./icons";
 import { siteConfig } from "@/config/site";
 
 
+const IconsList = {
+  email: (
+    <div className="flex items-center gap-1">
+      <Icons.email className="h-4 w-4" />
+      <span className="sr-only">Email</span>
+      Email
+    </div>
+  ),
+  github: (
+    <div className="flex items-center gap-1">
+      <Icons.github className="h-4 w-4" />
+      <span className="sr-only">GitHub</span>
+      GitHub
+    </div>
+  ),
+  twitter: (
+    <div className="flex items-center gap-1">
+      <Icons.twitter className="h-4 w-4" />
+      <span className="sr-only">Twitter</span>
+      Twitter
+    </div>
+  ),
+  linkedin: (
+    <div className="flex items-center gap-1">
+      <Icons.linkedin className="h-4 w-4" />
+      <span className="sr-only">LinkedIn</span>
+      LinkedIn
+    </div>
+  ),
+  facebook: (
+    <div className="flex items-center gap-1">
+      <Icons.facebook className="h-4 w-4" />
+      <span className="sr-only">Facebook</span>
+      Facebook
+    </div>
+  ),
+  instagram: (
+    <div className="flex items-center gap-1">
+      <Icons.instagram className="h-4 w-4" />
+      <span className="sr-only">Instagram</span>
+      Instagram
+    </div>
+  ),
+  youtube: (
+    <div className="flex items-center gap-1">
+      <Icons.youtube className="h-4 w-4" />
+      <span className="sr-only">YouTube</span>
+      YouTube
+    </div>
+  ),
+  discord: (
+    <div className="flex items-center gap-1">
+      <Icons.discord className="h-4 w-4" />
+      <span className="sr-only">Discord</span>
+      Discord
+    </div>
+  ),
+  gravatar: (
+    <div className="flex items-center gap-1">
+      <Icons.gravatar className="h-4 w-4" />
+      <span className="sr-only">Gravatar</span>
+      Gravatar
+    </div>
+  )
+};
+
 export function MobileNav() {
   const [open, setOpen] = useState(false);
 
@@ -34,19 +100,29 @@ export function MobileNav() {
           <MobileLink onOpenChange={setOpen} href="/blog">
             Blog
           </MobileLink>
+          <MobileLink onOpenChange={setOpen} href="/project">
+            Project
+          </MobileLink>
           <MobileLink onOpenChange={setOpen} href="/about">
             About
           </MobileLink>
-          <Link target="_blank" rel="noreferrer" href={siteConfig.links.github}>
-            GitHub
-          </Link>
-          <Link
-            target="_blank"
-            rel="noreferrer"
-            href={siteConfig.links.twitter}
-          >
-            Twitter
-          </Link>
+          {Object.keys(siteConfig.links).map((name: string, key: number) => {
+            if (name) {
+              return (
+                <Link
+                  href={siteConfig.links[name as keyof typeof siteConfig.links]}
+                  target="_blank"
+                  rel="noreferrer"
+                  key={key}
+                >
+                  {IconsList[name as keyof typeof IconsList]}
+                </Link>
+              );
+            }
+            else {
+              return <></>;
+            }
+          })}
         </div>
       </SheetContent>
     </Sheet>
