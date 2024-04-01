@@ -1,0 +1,120 @@
+---
+title: Installing Portainer with Docker and Configuring MTU
+description: A step-by-step guide to installing Portainer, a Docker management tool, and configuring the MTU setting. Includes Docker installation, MTU issue fixes, permission error resolution, and Portainer deployment using Docker
+date: 2024-04-02
+tags: ["docker", "portainer", "mtu", "ubuntu"]
+published: true
+---
+
+# Before Starting
+
+## Supported Installation
+
+| Operating System | Tool |
+|:-|-:|
+| Ubuntu Server `22.04 LTS` | Docker `version 20.10.25, build 20.10.25-0ubuntu1~23.04.1`, Portainer `2.18` |
+| Ubuntu Server `23.04` | Docker `version 20.10.25, build 20.10.25-0ubuntu1~23.04.1`, Portainer `2.18` |
+
+# Installation
+
+## Install Docker
+To configure the MTU properly, use Docker from `apt` instead of `snap`.  
+If you have already installed Docker through the system installation, remove the snap version of Docker first. Otherwise, skip this step.  
+
+Remove snap version of Docker:
+```bash
+sudo snap remove docker
+```
+Install Docker using apt:
+```bash
+sudo apt install docker.io
+```
+
+## Fixing Docker MTU issue (Otional)
+To specify/override the MTU for Docker, add a parameter to the Docker launch script. The file to edit is `/lib/systemd/system/docker.service`.
+
+If you're unsure which is the correct file, you can find it using the following command:
+```bash
+sudo systemctl status docker
+```
+Look for the line that starts with `Loaded:` and find the path after `loaded`. This is the file you're looking for.
+
+To change the MTU setting (for example, to 1400), modify the line in `/lib/systemd/system/docker.service` from:
+```
+ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+```
+to:
+```
+ExecStart=/usr/bin/dockerd --mtu 1400 -H fd:// --containerd=/run/containerd/containerd.sock
+```
+If you're using `docker-compose` to launch your instances, you also need to change some configuration to ensure they launch with the specified MTU.
+
+Your Docker Compose file should include the following section:
+```yaml
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
+```
+After making these changes, restart Docker to apply the new MTU setting:
+```bash
+sudo systemctl daemon-reload
+sudo service docker restart
+```
+
+## Fixing Docker permission error
+If you encounter a permission error like the following when executing `docker` commands:
+```
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/json": dial unix /var/run/docker.sock: connect: permission denied
+```
+You can either run `docker` commands with `sudo`, or enable a non-root user to access the `docker` command by following these steps:
+1. Create the `docker` group on the system:
+    ```bash
+    sudo groupadd -f docker
+    ```
+2. Add the active user to the `docker` group:
+    ```bash
+    sudo usermod -aG docker $USER
+    ```
+3. Apply the group changes to the current terminal session:
+    ```bash
+    newgrp docker
+    ```
+4. Check if the `docker` group is in the list of user groups.
+    ```bash
+    groups
+    ```
+    The group should appear in the command output.  
+    ![image](https://user-images.githubusercontent.com/75195127/263680860-0864390c-b2e1-4d9e-96e3-eaaf3e9b820a.png)  
+    You should now be able to issue Docker commands as a non-root user without using `sudo`.  
+
+## Install Portainer
+First, create the volume that Portainer Server will use to store its database:
+```bash
+docker volume create portainer_data
+```
+Then, download and install the Portainer Server container:
+```bash
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+```
+
+# Finishing
+
+Now that the installation is complete, you can log into your Portainer Server instance by opening a web browser and going to [https://localhost:9443](https://localhost:9443).  
+Once you have accessed the Portainer Server URL, you are ready to proceed with the initial setup.  
+
+For detailed instructions on the initial setup, please refer to the [official setup tutorial](https://docs.portainer.io/start/install-ce/server/setup).  
+
+If you encounter an issue accessing the Portainer panel and see the error message shown below, it is likely because Portainer shuts down internally for security if a new installation is not configured within 5 minutes:  
+![image](https://user-images.githubusercontent.com/75195127/263686335-818dc78f-c775-40a1-8779-3ac2962e9dc4.png)  
+You can resolve this issue by running the following command to restart Portainer:
+```shell
+docker restart portainer
+```
+
+# Links
+
+- [Fixing Docker MTU Issues on Ubuntu](https://www.civo.com/learn/fixing-networking-for-docker)
+- [Install Portainer CE with Docker on Linux](https://docs.portainer.io/start/install-ce/server/docker/linux)
+- [How to Fix Docker Permission Denied?](https://phoenixnap.com/kb/docker-permission-denied)
