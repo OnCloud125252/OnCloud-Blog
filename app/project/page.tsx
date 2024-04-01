@@ -16,8 +16,8 @@ import { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-  title: "My project",
-  description: "This is a description"
+  title: siteConfig.project.title,
+  description: siteConfig.project.description
 };
 
 export default async function ProjectPage() {

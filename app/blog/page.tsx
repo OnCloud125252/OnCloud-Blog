@@ -9,8 +9,8 @@ import { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-  title: "My blog",
-  description: "This is a description"
+  title: siteConfig.blog.title,
+  description: siteConfig.blog.description
 };
 
 const POSTS_PER_PAGE = 5;

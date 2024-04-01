@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "OnCloud Blog",
   url: "https://on-cloud.tw",
-  description: "A blog created with Next.js 14, Shadcn-ui and Tailwind.css",
+  description: "A place where I share my thoughts, tips, tricks, and tutorials",
   author: "OnCloud",
   githubRepo: "https://github.com/OnCloud125252/OnCloud-Blog",
   links: {
@@ -95,11 +95,12 @@ export const siteConfig = {
   },
   about: {
     title: "About Me",
+    description: "Information about me",
     name: "Alex Liao",
     location: "Taiwan, Taichung",
     aka: "OnCloud, 上雲",
     work: "Chief Technology Officer, Lazco Studio LTD",
-    description: [
+    detail: [
       "Greetings 👋",
       "I'm Alex, a dedicated student with a deep passion for coding, computers, and electronics. I am currently expanding my skills in system design and web development.",
       "In my role as Chief Technology Officer and full-stack developer at Lazco Studio, I oversee server management, deployment, and the creation of backend applications.",

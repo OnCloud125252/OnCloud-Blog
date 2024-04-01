@@ -5,13 +5,12 @@ import { Metadata } from "next";
 
 
 export const metadata: Metadata = {
-  title: "About Me",
-  description: "Information about me"
+  title: siteConfig.about.title,
+  description: siteConfig.about.description
 };
 
 export default async function AboutPage() {
-  const { title, name, location, aka, work, description, avatar } =
-    siteConfig.about;
+  const { title, name, location, aka, work, detail, avatar } = siteConfig.about;
 
   return (
     <div className="container max-w-6xl py-6 lg:py-10">
@@ -49,7 +48,7 @@ export default async function AboutPage() {
           </div>
         </div>
         <div className="py-4 flex-1">
-          {description?.map((line, index) => (
+          {detail?.map((line, index) => (
             <p className="text-muted-foreground text-lg mt-3 mb-3" key={index}>
               {line}
             </p>
