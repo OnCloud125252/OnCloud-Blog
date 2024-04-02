@@ -19,8 +19,11 @@ export function formatDate(input: string | number): string {
 
 export function sortPosts(posts: Array<Post>) {
   return posts.sort((a, b) => {
-    if (a.date > b.date) return -1;
-    if (a.date < b.date) return 1;
+    const aDate = a.update || a.date;
+    const bDate = b.update || b.date;
+
+    if (aDate > bDate) return -1;
+    if (aDate < bDate) return 1;
     return 0;
   });
 }

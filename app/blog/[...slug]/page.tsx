@@ -1,11 +1,15 @@
-import { posts } from "#site/content";
-import { MDXContent } from "@/components/mdx-components";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Calendar } from "lucide-react";
+import { posts } from "#site/content";
+
+import { siteConfig } from "@/config/site";
+import { formatDate } from "@/lib/utils";
+import { MDXContent } from "@/components/mdx-components";
+import { Tag } from "@/components/tag";
+import { Icons } from "@/components/icons";
 
 import "@/styles/mdx.css";
-import { Metadata } from "next";
-import { siteConfig } from "@/config/site";
-import { Tag } from "@/components/tag";
 
 
 interface PostPageProps {
@@ -82,8 +86,22 @@ export default async function PostPage({ params }: PostPageProps) {
         ))}
       </div>
       {post.description ? (
-        <p className="text-xl mt-0 text-muted-foreground">{post.description}</p>
+        <p className="text-xl mt-0 mb-2 text-muted-foreground">
+          {post.description}
+        </p>
       ) : null}
+      <div className="flex gap-6">
+        <div className="flex items-center gap-1">
+          <Calendar className="h-4 w-4" />
+          <time dateTime={post.date}>{formatDate(post.date)}</time>
+        </div>
+        {post.update && post.date !== post.update && (
+          <div className="flex items-center gap-1">
+            <Icons.penToSquare className="h-4 w-4" />
+            <time dateTime={post.update}>{formatDate(post.update)}</time>
+          </div>
+        )}
+      </div>
       <hr className="my-4" />
       <MDXContent code={post.body} />
     </article>

@@ -43,9 +43,10 @@ export function PostItem({
         </dl>
         <Link
           href={"/" + slug}
-          className={cn(buttonVariants({ variant: "link" }), "py-0")}
+          className={cn(buttonVariants({ variant: "link" }), "py-0 gap-1 group hover:no-underline")}
         >
-          Read more →
+          Read more
+          <span className="font-bold group-hover:translate-x-1 duration-300">→</span>
         </Link>
       </div>
     </article>
