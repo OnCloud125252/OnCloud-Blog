@@ -28,65 +28,131 @@ export const siteConfig = {
     description: "Some of my projects that I'm working on",
     projects: [
       {
-        name: "OnCloud Blog",
+        name: "NewMD",
+        technology: [
+          "Next.js",
+          "Mantine-ui",
+          "Express.js",
+          "MongoDB",
+          "JavaScript"
+        ],
         description:
-          "My personal blog created with Next.js, Shadcn-ui and Tailwind.css",
-        github: "https://github.com/OnCloud125252/OnCloud-Blog",
-        status: "active"
+          "A beautiful & faster version of Mingdao high school's timetable website.",
+        link: "https://newmd.eu.org",
+        github: "https://github.com/NewMD-org",
+        status: "done"
+      },
+      {
+        name: "Frontend Practice",
+        technology: ["Express.js", "HTML", "CSS", "JavaScript"],
+        description:
+          "A website that demonstrates popular frontend optimization techniques such as denouncing, throttling, and more.",
+        link: "https://frontend-practice.on-cloud.tw",
+        github: "https://github.com/OnCloud125252/Frontend-Practice",
+        status: "done"
+      },
+      {
+        name: "Discord Bot Template",
+        technology: ["Discord.js v14", "JavaScript"],
+        description:
+          "A powerful starting point for creating a Discord bot that utilizes modern slash commands and offers features such as ChatGPT, music player and more.",
+        github: "https://github.com/OnCloud125252/Discord-Bot-Template",
+        status: "done"
       },
       {
         name: "Update Install",
+        technology: ["Golang", "Shell script"],
         description:
-          "A tool designed to simplify the process of installing or updating applications on Linux, built with golang",
+          "A tool designed to simplify the process of installing or updating applications on Linux.",
         github: "https://github.com/Update-Install",
         status: "dev"
       },
       {
         name: "Update Install (Old)",
+        technology: ["Shell script"],
         description:
-          "A tool designed to simplify the process of installing or updating applications on Linux, built with shell scripts",
+          "A tool designed to simplify the process of installing or updating applications on Linux.",
         github: "https://github.com/OnCloud125252/Update-Install",
-        status: "inactive"
+        status: "deprecated"
       },
       {
-        name: "NewMD",
+        name: "Upload Share",
+        technology: ["Next.js", "Radix-ui", "Tailwind.css", "TypeScript"],
+        description: "A website for uploading and sharing files.",
+        github: "https://github.com/OnCloud125252/Upload-Share",
+        status: "dev"
+      },
+      {
+        name: "SpiderTrigger",
+        technology: ["Docker", "Golang", "Shell script"],
         description:
-          "A beautiful & faster version of Mingdao high school's timetable website, built with Next.js, Mantine-ui",
-        link: "https://newmd.eu.org",
-        github: "https://github.com/NewMD-org",
+          "A tool designed to automate the process of deploying your applications on your own server.",
+        github: "https://github.com/OnCloud125252/SpiderTrigger",
+        status: "paused"
+      },
+      {
+        name: "Spacedesk Viewer",
+        technology: ["Electron.js", "HTML", "CSS", "JavaScript"],
+        description: "A spacedesk client app that can be used offline.",
+        github: "https://github.com/OnCloud125252/Spacedesk-Viewer",
+        status: "outdated"
+      },
+      {
+        name: "KILLTWG-App",
+        technology: ["Visual Basic .NET"],
+        description: "A app that can be use to disable the TWG client app.",
+        github: "https://github.com/OnCloud125252/KILLTWG-App",
+        status: "deprecated"
+      },
+      {
+        name: "OnCloud Blog",
+        technology: ["Next.js", "Shadcn-ui", "Tailwind.css", "TypeScript"],
+        description: "My personal blog.",
+        link: "https://on-cloud.tw",
+        github: "https://github.com/OnCloud125252/OnCloud-Blog",
         status: "active"
       }
     ],
     getStatus: (status: string) => {
       switch (status) {
+        case "done":
+          return {
+            color: "#1cad34",
+            text: "DONE"
+          };
         case "active":
           return {
-            color: "#12c931",
+            color: "#2f67c2",
             text: "ACTIVE"
           };
-        case "inactive":
+        case "dev":
+          return {
+            color: "#8222e3",
+            text: "DEV"
+          };
+        case "paused":
+          return {
+            color: "#a69526",
+            text: "PAUSED"
+          };
+        case "deprecated":
+          return {
+            color: "#a65526",
+            text: "DEPRECATED"
+          };
+        case "outdated":
+          return {
+            color: "#a62626",
+            text: "OUTDATED"
+          };
+        default:
           return {
             color: "#949494",
             text: "INACTIVE"
           };
-        case "bug":
-          return {
-            color: "#ba0000",
-            text: "BUG"
-          };
-        case "dev":
-          return {
-            color: "#7b20d6",
-            text: "DEV"
-          };
-        default:
-          return {
-            color: "#12c931",
-            text: "ACTIVE"
-          };
       }
     },
-    view: "list", // grid | list
+    defaultView: "list", // grid | list
     target: "_blank"
   },
   blog: {

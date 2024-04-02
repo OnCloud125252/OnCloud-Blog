@@ -7,6 +7,14 @@ export default {
   webpack: (config) => {
     config.plugins.push(new VeliteWebpackPlugin());
     return config;
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "github-readme-stats.on-cloud.eu.org"
+      }
+    ]
   }
 };
 
