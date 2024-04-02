@@ -3,6 +3,11 @@ import Link from "next/link";
 
 import { cn, formatDate } from "@/lib/utils";
 import { buttonVariants } from "./ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from "@/components/ui/tooltip";
 import { Tag } from "./tag";
 
 
@@ -35,13 +40,18 @@ export function PostItem({
       </div>
       <div className="max-w-none text-muted-foreground">{description}</div>
       <div className="flex justify-between items-center">
-        <dl>
-          <dt className="sr-only">Published On</dt>
-          <dd className="text-sm sm:text-base font-medium flex items-center gap-1">
-            <Calendar className="h-4 w-4" />
-            <time dateTime={date}>{formatDate(date)}</time>
-          </dd>
-        </dl>
+        <Tooltip>
+          <TooltipTrigger>
+            <dl>
+              <dt className="sr-only">Latest update</dt>
+              <dd className="text-sm sm:text-base font-medium flex items-center gap-1">
+                <Calendar className="h-4 w-4" />
+                <time dateTime={date}>{formatDate(date)}</time>
+              </dd>
+            </dl>
+          </TooltipTrigger>
+          <TooltipContent>Latest update on {formatDate(date)}</TooltipContent>
+        </Tooltip>
         <Link
           href={"/" + slug}
           className={cn(
