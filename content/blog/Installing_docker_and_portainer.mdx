@@ -1,7 +1,8 @@
 ---
-title: Installing Portainer with Docker and Configuring MTU
-description: A step-by-step guide to installing Portainer, a Docker management tool, and configuring the MTU setting. Includes Docker installation, MTU issue fixes, permission error resolution, and Portainer deployment using Docker
+title: Installing Docker and Portainer
+description: A step-by-step guide to installing Portainer, Docker, and configuring the MTU setting.
 date: 2024-04-02
+update: 2024-04-03
 tags: ["docker", "portainer", "mtu", "ubuntu"]
 published: true
 ---
@@ -95,6 +96,8 @@ First, create the volume that Portainer Server will use to store its database:
 docker volume create portainer_data
 ```
 Then, download and install the Portainer Server container:
+> Remember to config the port mapping (-p) in the command to fit your needs.  
+> The format of port mapping is `[host]:[container]`.
 ```bash
 docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
 ```
@@ -111,6 +114,29 @@ If you encounter an issue accessing the Portainer panel and see the error messag
 You can resolve this issue by running the following command to restart Portainer:
 ```shell
 docker restart portainer
+```
+
+# Little tip
+
+## Update Portainer
+```zsh
+# Stop container
+docker stop portainer
+
+# Remove container
+docker rm portainer
+
+# Pull latest image
+docker pull portainer/portainer-ce:latest
+
+# Run new version
+docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+```
+
+## Stop all container
+If you run into docker start issue, please refer to the following command for solution.
+```zsh
+docker stop $(docker ps -a -q)
 ```
 
 # Links

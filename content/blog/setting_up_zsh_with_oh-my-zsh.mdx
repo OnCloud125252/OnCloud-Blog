@@ -1,8 +1,9 @@
 ---
-title: Setting Up Zsh With Oh-My-Zsh
+title: Setting up Zsh with Oh-My-Zsh
 description: Setting up Zsh with Oh-My-Zsh and custom theme on Ubuntu
 date: 2024-04-02
-tags: ["zsh", "oh-my-zsh", "ubuntu", "shell"]
+update: 2024-04-03
+tags: ["zsh", "oh-my-zsh", "ubuntu", "shell", "warp"]
 published: true
 ---
 
@@ -112,9 +113,28 @@ Enjoy your perfect terminal with fantastic looking, autosuggestions and syntax-h
 ![](https://i.ibb.co/rQPxfnD/image.png)
 
 # Little tip
+
+## Fix prompt at the bottom
 Add the following lines to the end of `.zshrc` file to anchor the prompt to the bottom of the terminal window.
 ```zsh
-# Fix prompt at the bottom of the terminal window
 alias clear="clear && printf '\n%.0s' {1..100}"
 printf '\n%.0s' {1..100}
 ```
+
+## Warp terminal patch
+If you are using Warp terminal with powerlevel10k multi-line prompt, you may face the issue of the prompt and input on different lines.
+![](https://i.ibb.co/sRCr1Yy/image.png)
+
+To fix the issue, create a seperate configuration file that uses powerlevel10k one-line prompt at home directory and name it `.p10k-warp.zsh`.
+
+Finally, replace the line `[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh` in `.zshrc` with the following one.
+```zsh
+if [[ $(printenv | grep WARP) ]];
+then
+	[[ ! -f ~/.p10k-warp.zsh ]] || source ~/.p10k-warp.zsh
+else
+	[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
+```
+
+Don't forget to run `source ~/.zshrc` to apply the changes.
