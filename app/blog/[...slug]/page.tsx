@@ -5,6 +5,11 @@ import { posts } from "#site/content";
 
 import { siteConfig } from "@/config/site";
 import { formatDate } from "@/lib/utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from "@/components/ui/tooltip";
 import { MDXContent } from "@/components/mdx-components";
 import { Tag } from "@/components/tag";
 import { Icons } from "@/components/icons";
@@ -91,15 +96,27 @@ export default async function PostPage({ params }: PostPageProps) {
         </p>
       ) : null}
       <div className="flex gap-6">
-        <div className="flex items-center gap-1">
-          <Calendar className="h-4 w-4" />
-          <time dateTime={post.date}>{formatDate(post.date)}</time>
-        </div>
+        <Tooltip>
+          <TooltipTrigger>
+            <div className="flex items-center gap-1">
+              <Calendar className="h-4 w-4" />
+              <time dateTime={post.date}>{formatDate(post.date)}</time>
+            </div>
+          </TooltipTrigger>
+          <TooltipContent>Posted on {formatDate(post.date)}</TooltipContent>
+        </Tooltip>
         {post.update && post.date !== post.update && (
-          <div className="flex items-center gap-1">
-            <Icons.penToSquare className="h-4 w-4" />
-            <time dateTime={post.update}>{formatDate(post.update)}</time>
-          </div>
+          <Tooltip>
+            <TooltipTrigger>
+              <div className="flex items-center gap-1">
+                <Icons.penToSquare className="h-4 w-4" />
+                <time dateTime={post.update}>{formatDate(post.update)}</time>
+              </div>
+            </TooltipTrigger>
+            <TooltipContent>
+              Updated on {formatDate(post.update)}
+            </TooltipContent>
+          </Tooltip>
         )}
       </div>
       <hr className="my-4" />

@@ -1,7 +1,8 @@
 import { Calendar } from "lucide-react";
 import Link from "next/link";
-import { buttonVariants } from "./ui/button";
+
 import { cn, formatDate } from "@/lib/utils";
+import { buttonVariants } from "./ui/button";
 import { Tag } from "./tag";
 
 
@@ -43,10 +44,15 @@ export function PostItem({
         </dl>
         <Link
           href={"/" + slug}
-          className={cn(buttonVariants({ variant: "link" }), "py-0 gap-1 group hover:no-underline")}
+          className={cn(
+            buttonVariants({ variant: "link" }),
+            "py-0 gap-1 group hover:no-underline"
+          )}
         >
           Read more
-          <span className="font-bold group-hover:translate-x-1 duration-300">→</span>
+          <span className="font-bold group-hover:translate-x-1 duration-300">
+            →
+          </span>
         </Link>
       </div>
     </article>

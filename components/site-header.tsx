@@ -1,6 +1,7 @@
+import Link from "next/link";
+
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import {
   Tooltip,
@@ -130,7 +131,7 @@ export function SiteHeader() {
                       </Link>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>{IconsList[name as keyof typeof IconsList].name}</p>
+                      {IconsList[name as keyof typeof IconsList].name}
                     </TooltipContent>
                   </Tooltip>
                 );
