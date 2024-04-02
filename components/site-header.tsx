@@ -2,6 +2,11 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger
+} from "@/components/ui/tooltip";
 import { Icons } from "./icons";
 import { MainNav } from "./main-nav";
 import { MobileNav } from "./mobile-nav";
@@ -9,60 +14,87 @@ import { ModeToggle } from "./mode-toggle";
 
 
 const IconsList = {
-  email: (
-    <>
-      <Icons.email className="h-4 w-4" />
-      <span className="sr-only">Email</span>
-    </>
-  ),
-  github: (
-    <>
-      <Icons.github className="h-4 w-4" />
-      <span className="sr-only">GitHub</span>
-    </>
-  ),
-  twitter: (
-    <>
-      <Icons.twitter className="h-4 w-4" />
-      <span className="sr-only">Twitter</span>
-    </>
-  ),
-  linkedin: (
-    <>
-      <Icons.linkedin className="h-4 w-4" />
-      <span className="sr-only">LinkedIn</span>
-    </>
-  ),
-  facebook: (
-    <>
-      <Icons.facebook className="h-4 w-4" />
-      <span className="sr-only">Facebook</span>
-    </>
-  ),
-  instagram: (
-    <>
-      <Icons.instagram className="h-4 w-4" />
-      <span className="sr-only">Instagram</span>
-    </>
-  ),
-  youtube: (
-    <>
-      <Icons.youtube className="h-4 w-4" />
-      <span className="sr-only">YouTube</span>
-    </>
-  ),
-  discord: (
-    <>
-      <Icons.discord className="h-4 w-4" />
-      <span className="sr-only">Discord</span>
-    </>
-  ),
-  gravatar: (
-    <>
-      <Icons.gravatar className="h-4 w-4" />
-      <span className="sr-only">Gravatar</span>
-    </>
-  )
+  email: {
+    name: "Email",
+    html: (
+      <>
+        <Icons.email className="h-4 w-4" />
+        <span className="sr-only">Email</span>
+      </>
+    )
+  },
+  github: {
+    name: "GitHub",
+    html: (
+      <>
+        <Icons.github className="h-4 w-4" />
+        <span className="sr-only">GitHub</span>
+      </>
+    )
+  },
+  twitter: {
+    name: "Twitter",
+    html: (
+      <>
+        <Icons.twitter className="h-4 w-4" />
+        <span className="sr-only">Twitter</span>
+      </>
+    )
+  },
+  linkedin: {
+    name: "Linkedin",
+    html: (
+      <>
+        <Icons.linkedin className="h-4 w-4" />
+        <span className="sr-only">Linkedin</span>
+      </>
+    )
+  },
+  facebook: {
+    name: "Facebook",
+    html: (
+      <>
+        <Icons.facebook className="h-4 w-4" />
+        <span className="sr-only">Facebook</span>
+      </>
+    )
+  },
+  instagram: {
+    name: "Instagram",
+    html: (
+      <>
+        <Icons.instagram className="h-4 w-4" />
+        <span className="sr-only">Instagram</span>
+      </>
+    )
+  },
+  youtube: {
+    name: "YouTube",
+    html: (
+      <>
+        <Icons.youtube className="h-4 w-4" />
+        <span className="sr-only">YouTube</span>
+      </>
+    )
+  },
+  discord: {
+    name: "Discord",
+    html: (
+      <>
+        <Icons.discord className="h-4 w-4" />
+        <span className="sr-only">Discord</span>
+      </>
+    )
+  },
+  gravatar: {
+    name: "Gravatar",
+    html: (
+      <>
+        <Icons.gravatar className="h-4 w-4" />
+        <span className="sr-only">Gravatar</span>
+      </>
+    )
+  }
 };
 
 export function SiteHeader() {
@@ -75,27 +107,36 @@ export function SiteHeader() {
             {Object.keys(siteConfig.links).map((name: string, key: number) => {
               if (name) {
                 return (
-                  <Link
-                    href={
-                      siteConfig.links[name as keyof typeof siteConfig.links]
-                    }
-                    target="_blank"
-                    rel="noreferrer"
-                    key={key}
-                  >
-                    <div
-                      className={cn(
-                        buttonVariants({ variant: "ghost" }),
-                        "w-10 px-0 hidden sm:inline-flex"
-                      )}
-                    >
-                      {IconsList[name as keyof typeof IconsList]}
-                    </div>
-                  </Link>
+                  <Tooltip key={key}>
+                    <TooltipTrigger>
+                      <Link
+                        href={
+                          siteConfig.links[
+                            name as keyof typeof siteConfig.links
+                          ]
+                        }
+                        target="_blank"
+                        rel="noreferrer"
+                        key={key}
+                      >
+                        <div
+                          className={cn(
+                            buttonVariants({ variant: "ghost" }),
+                            "w-10 px-0 hidden sm:inline-flex"
+                          )}
+                        >
+                          {IconsList[name as keyof typeof IconsList].html}
+                        </div>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>{IconsList[name as keyof typeof IconsList].name}</p>
+                    </TooltipContent>
+                  </Tooltip>
                 );
               }
               else {
-                return <></>;
+                return null;
               }
             })}
             <ModeToggle />

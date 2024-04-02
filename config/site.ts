@@ -4,8 +4,9 @@ export const siteConfig = {
   description: "A place where I share my thoughts, tips, tricks, and tutorials",
   author: "OnCloud",
   githubRepo: "https://github.com/OnCloud125252/OnCloud-Blog",
+  personalSite: "https://on-cloud.tw",
+
   links: {
-    personalSite: "https://on-cloud.tw",
     email: "oncloud@lazco.dev",
     github: "https://github.com/OnCloud125252",
     // twitter: "",

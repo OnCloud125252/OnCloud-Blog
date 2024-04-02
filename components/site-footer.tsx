@@ -1,5 +1,10 @@
+"use client";
+
+import Lottie from "react-lottie-player";
+
 import { siteConfig } from "@/config/site";
-import { Icons } from "./icons";
+
+import octocat from "@/assets/lottie/github-icon-animation.json";
 
 
 export function SiteFooter() {
@@ -10,10 +15,10 @@ export function SiteFooter() {
           target="_blank"
           rel="noreferrer"
           href={siteConfig.githubRepo}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 bg-white text-black py-[1px] px-[4px] rounded-lg"
         >
           <span className="sr-only">GitHub</span>
-          <Icons.github className="h-5 w-5" />
+          <Lottie loop animationData={octocat} play className="h-5 w-5" />
           <p>Blog repository</p>
         </a>
       </div>

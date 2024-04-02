@@ -33,13 +33,13 @@ export default async function AboutPage() {
             {aka}
           </p>
           <div>
-            <p className="w-full text-muted-foreground text-left break-words flex items-center justify-start gap-1">
+            <p className="mt-1 mb-2 w-full text-muted-foreground text-left break-words flex items-center justify-start gap-1">
               <div className="w-5">
                 <Icons.location className="h-4 w-4" />
               </div>
               {location}
             </p>
-            <p className="w-full text-muted-foreground text-left break-words flex items-center justify-start gap-1">
+            <p className="w-full text-muted-foreground text-left leading-5 break-words flex items-center justify-start gap-1">
               <div className="w-5">
                 <Icons.building className="h-5 w-5" />
               </div>
