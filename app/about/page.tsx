@@ -2,7 +2,6 @@ import { Icons } from "@/components/icons";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { siteConfig } from "@/config/site";
 import { Metadata } from "next";
-import Image from "next/image";
 
 
 export const metadata: Metadata = {
