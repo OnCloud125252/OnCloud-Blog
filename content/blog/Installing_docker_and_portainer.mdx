@@ -51,7 +51,7 @@ ExecStart=/usr/bin/dockerd --mtu 1400 -H fd:// --containerd=/run/containerd/cont
 If you're using `docker-compose` to launch your instances, you also need to change some configuration to ensure they launch with the specified MTU.
 
 Your Docker Compose file should include the following section:
-```yaml
+```yaml title="docker-compose.yml"
 networks:
   default:
     driver: bridge

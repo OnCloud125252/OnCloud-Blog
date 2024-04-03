@@ -128,7 +128,7 @@ If you are using Warp terminal with powerlevel10k multi-line prompt, you may fac
 To fix the issue, create a seperate configuration file that uses powerlevel10k one-line prompt at home directory and name it `.p10k-warp.zsh`.
 
 Finally, replace the line `[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh` in `.zshrc` with the following one.
-```zsh
+```zsh title=".zshrc"
 if [[ $(printenv | grep WARP) ]];
 then
 	[[ ! -f ~/.p10k-warp.zsh ]] || source ~/.p10k-warp.zsh
