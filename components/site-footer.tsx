@@ -9,7 +9,7 @@ import octocat from "@/assets/lottie/github-icon-animation.json";
 
 export function SiteFooter() {
   return (
-    <footer className="z-10 sticky bottom-0 w-full border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <footer className="[grid-area:footer] z-10 w-full border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mt-2 mb-1 flex justify-center gap-3">
         <a
           target="_blank"

@@ -31,15 +31,16 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-pt-[3.5rem]">
       <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          inter.variable
-        )}
+        className={cn("bg-background font-sans antialiased", inter.variable)}
       >
         <Providers>
-          <div className="relative flex min-h-dvh flex-col bg-background">
+          <div className="relative h-screen w-full grid grid-cols-[100%] grid-rows-[auto_1fr_auto] [grid-template-areas:'header''main''footer'] bg-background">
             <SiteHeader />
-            <main className="flex-1">{children}</main>
+            <main className="[grid-area:main] relative">
+              <div className="absolute top-0 bottom-0 w-full overflow-auto">
+                {children}
+              </div>
+            </main>
             <SiteFooter />
           </div>
         </Providers>
