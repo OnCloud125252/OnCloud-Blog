@@ -2,15 +2,36 @@
   @apply px-0;
 }
 
+span[data-rehype-pretty-code-figure]>code {
+  border-radius: 4px;
+  display: inline;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 1rem;
+  font-weight: normal;
+  overflow-wrap: break-word;
+  padding: 3px 5px 1px 3px;
+  margin: 0 2px;
+  @apply !bg-cyan-100 !text-cyan-600 dark:!text-cyan-200 dark:!bg-cyan-950;
+}
+
+span[data-rehype-pretty-code-figure]>code>span {
+  padding: 0 !important;
+}
+
+span[data-rehype-pretty-code-figure]>code::before,
+span[data-rehype-pretty-code-figure]>code::after {
+  display: none;
+}
+
 [data-rehype-pretty-code-figure] code {
-  @apply text-sm !leading-loose md:text-base border-0 p-0;
+  @apply text-sm !leading-7 md:text-base border-0 p-0;
 }
 
 [data-rehype-pretty-code-figure] code[data-line-numbers] {
   counter-reset: line;
 }
 
-[data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
+[data-rehype-pretty-code-figure] code[data-line-numbers]>[data-line]::before {
   counter-increment: line;
   content: counter(line);
   @apply mr-4 inline-block w-4 text-right text-gray-500;
