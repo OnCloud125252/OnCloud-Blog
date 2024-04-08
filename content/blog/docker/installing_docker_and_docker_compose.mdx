@@ -1,0 +1,129 @@
+---
+title: Installing Docker and Docker Compose
+description: A step-by-step guide to install Docker, Docker Compose and configuring the docker MTU setting
+date: 2024-04-09
+tags: ["docker", "docker-compose", "mtu", "ubuntu"]
+published: true
+---
+
+# Before Starting
+
+## Supported Installation
+
+This installation procedure is tested on Ubuntu 22.04.x LTS and x86_64 architecture.
+
+# Installation
+
+## Install Docker
+To configure the MTU properly, use Docker from `apt` instead of `snap`.  
+If you have already installed Docker through the system installation, remove the snap version of Docker first. Otherwise, skip this step.  
+
+Remove snap version of Docker:
+```bash
+sudo snap remove docker
+```
+Install Docker using apt:
+```bash
+sudo apt install docker.io
+```
+
+> You may test the installation by running:
+> ```zsh
+> docker --version
+> ```
+
+## Fixing Docker permission error
+If you encounter a permission error like the following when executing `docker` commands:
+```
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/json": dial unix /var/run/docker.sock: connect: permission denied
+```
+You can either run `docker` commands with `sudo`, or enable a non-root user to access the `docker` command by following these steps:
+1. Create the `docker` group on the system:
+    ```bash
+    sudo groupadd -f docker
+    ```
+2. Add the active user to the `docker` group:
+    ```bash
+    sudo usermod -aG docker $USER
+    ```
+3. Apply the group changes to the current terminal session:
+    ```bash
+    newgrp docker
+    ```
+4. Check if the `docker` group is in the list of user groups.
+    ```bash
+    groups
+    ```
+    The group should appear in the command output.  
+    ![image](https://user-images.githubusercontent.com/75195127/263680860-0864390c-b2e1-4d9e-96e3-eaaf3e9b820a.png)  
+    > You should now be able to issue Docker commands as a non-root user without using `sudo`.  
+
+
+## Install Docker Compose Plugin
+
+Docker Compose is a tool for defining and running multi-container applications. It appears as a plugin for Docker.  
+You won't be required to install Docker Compose in order to use Docker, but it is recommended.
+
+Download and install the Compose CLI plugin:
+```zsh
+DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+
+mkdir -p $DOCKER_CONFIG/cli-plugins
+
+curl -SL https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+```
+Apply executable permissions to the binary:
+```zsh
+chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+```
+
+> You may test the installation by running:
+> ```zsh
+> docker compose version
+> ```
+
+## Fixing Docker MTU issue (Otional)
+To specify/override the MTU for Docker, add a parameter to the Docker launch script. The file to edit is `/lib/systemd/system/docker.service`.
+
+If you're unsure which is the correct file, you can find it using the following command:
+```bash
+sudo systemctl status docker
+```
+Look for the line that starts with `Loaded:` and find the path after `loaded`. This is the file you're looking for.
+
+To change the MTU setting (for example, to 1400), modify the line in `/lib/systemd/system/docker.service` from:
+```
+ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+```
+to:
+```
+ExecStart=/usr/bin/dockerd --mtu 1400 -H fd:// --containerd=/run/containerd/containerd.sock
+```
+If you're using `docker-compose` to launch your instances, you also need to change some configuration to ensure they launch with the specified MTU.
+
+Your Docker Compose file should include the following section:
+```yaml title="docker-compose.yml"
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
+```
+After making these changes, restart Docker to apply the new MTU setting:
+```bash
+sudo systemctl daemon-reload
+sudo service docker restart
+```
+
+# Little tip
+
+## Stop all container
+If you run into docker start issue, please refer to the following command for solution.
+```zsh
+docker stop $(docker ps -a -q)
+```
+
+## List the mounted volumes of a container
+```zsh
+docker inspect -f '{{ .Mounts }}' [container name/id] | python -m json.tool
+```

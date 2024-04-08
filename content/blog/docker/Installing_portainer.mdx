@@ -1,0 +1,64 @@
+---
+title: Installing Portainer
+description: A step-by-step guide to install Portainer, a gui tool for managing docker containers, volumes, images, networks and more
+date: 2024-04-02
+update: 2024-04-09
+tags: ["docker", "portainer", "ubuntu"]
+published: true
+---
+
+# Before Starting
+
+## Supported Installation
+
+This installation procedure is tested on Ubuntu 22.04.x LTS and x86_64 architecture.
+
+## Required Dependencies
+
+- [Docker](/blog/docker/installing_docker_and_docker_compose#install-docker)
+- [Docker Compose](/blog/docker/installing_docker_and_docker_compose#install-docker-compose-plugin)
+
+# Installation
+
+## Install Portainer
+First, create the volume that Portainer Server will use to store its database:
+```bash
+docker volume create portainer_data
+```
+Then, download and install the Portainer Server container:
+> Remember to config the port mapping (-p) in the command to fit your needs.  
+> The format of port mapping is `[host]:[container]`.
+```bash
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+```
+
+# Finishing
+
+Now that the installation is complete, you can log into your Portainer Server instance by opening a web browser and going to [https://localhost:9443](https://localhost:9443).  
+Once you have accessed the Portainer Server URL, you are ready to proceed with the initial setup.  
+
+For detailed instructions on the initial setup, please refer to the [official setup tutorial](https://docs.portainer.io/start/install-ce/server/setup).  
+
+If you encounter an issue accessing the Portainer panel and see the error message shown below, it is likely because Portainer shuts down internally for security if a new installation is not configured within 5 minutes:  
+![image](https://user-images.githubusercontent.com/75195127/263686335-818dc78f-c775-40a1-8779-3ac2962e9dc4.png)  
+You can resolve this issue by running the following command to restart Portainer:
+```shell
+docker restart portainer
+```
+
+# Little tip
+
+## Update Portainer
+```zsh
+# Stop container
+docker stop portainer
+
+# Remove container
+docker rm portainer
+
+# Pull latest image
+docker pull portainer/portainer-ce:latest
+
+# Run new version
+docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+```

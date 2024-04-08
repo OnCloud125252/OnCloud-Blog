@@ -1,0 +1,72 @@
+---
+title: Setting up Pi-hole
+description: Set up Pi-hole using Docker and Docker Compose for ad-blocking and DNS server
+date: 2024-04-09
+tags: ["docker", "docker-compose", "pi-hole", "ubuntu", "ad-blocking", "dhcp", "dns"]
+published: true
+---
+
+# Before Starting
+
+## Supported Installation
+
+This installation procedure is tested on Ubuntu 22.04.x LTS and x86_64 architecture.
+
+## Required Dependencies
+
+- [Docker](/blog/docker/installing_docker_and_docker_compose#install-docker)
+- [Docker Compose](/blog/docker/installing_docker_and_docker_compose#install-docker-compose-plugin)
+
+# Installation
+
+## Install Pi-hole
+Create a `docker-compose.yml` file with the following content:
+```yml title="docker-compose.yml"
+version: "3"
+
+# More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    # For DHCP it is recommended to remove these ports and instead add: network_mode: "host"
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "67:67/udp" # Only required if you are using Pi-hole as your DHCP server
+      - "80:80/tcp"
+    environment:
+      TZ: 'America/Chicago'
+      # WEBPASSWORD: 'set a secure password here or it will be random'
+    # Volumes store your data between container upgrades
+    volumes:
+      - './etc-pihole:/etc/pihole'
+      - './etc-dnsmasq.d:/etc/dnsmasq.d'
+    #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN # Required if you are using Pi-hole as your DHCP server, else not needed
+    restart: unless-stopped
+```
+[*Official `docker-compose.yml` example*](https://github.com/pi-hole/docker-pi-hole/blob/master/examples/docker-compose.yml.example)
+
+## Disable default DNS resolver
+
+Modern releases of Ubuntu include a caching DNS stub resolver by default.  
+To disable this, run the following command:
+```zsh
+sudo sed -r -i.orig 's/#?DNSStubListener=yes/DNSStubListener=no/g' /etc/systemd/resolved.conf
+```
+
+After that, change the nameserver settings to point to "systemd-resolved":
+```zsh
+sudo sh -c 'rm /etc/resolv.conf && ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf'
+```
+
+Run the following command to apply the changes:
+```zsh
+systemctl restart systemd-resolved
+```
+
+# Finishing
+
+Now that you've set up Pi-hole, you can log in using the `WEBPASSWORD` by opening your browser and go to `http://localhost/admin`.
