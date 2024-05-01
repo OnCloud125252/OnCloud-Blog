@@ -1,0 +1,57 @@
+---
+title: Streamlining Development Processes with GitHub Actions
+description: Using GitHub Actions to streamline build and release processes
+date: 2024-05-01
+tags: ["github", "github-actions", "actions", "automation"]
+published: true
+---
+
+# Streamlining Development Processes with GitHub Actions
+***透過 GitHub Actions 來精簡開發流程***
+
+> This article was written by me in English, submitted to ChatGPT for editing and summarizing, and then translated into Chinese for me to refine.
+> 
+> 這篇文章是用英文寫的，交由 ChatGPT 修改並總結，翻譯成中文後再微調。
+
+*GitHub Action:*
+![](https://sig-api.lazco.dev/image/6630ac573165987835e6d8ac)
+
+---
+
+Recently, my partner [@lazp](https://www.instagram.com/pn0818x) and I developed a [CLI tool](https://github.com/lazco-studio/Component-Manager) in Golang for [Lazco Studio, LTD.](https://www.lazco.dev/). This tool is intended to be used in the development of other projects, specifically targeting JS/TS language projects. It is designed to work with React components as well.
+
+最近，我和 [@lazp](https://www.instagram.com/pn0818x) 用 Golang 為 [Lazco Studio, LTD.](https://www.lazco.dev/) 開發了一個 [CLI 工具](https://github.com/lazco-studio/Component-Manager)。這個工具會被用於其他 JS/TS 專案的開發，而且也支援 React 元件一起使用。
+
+---
+
+The development of this CLI tool necessitates a build process to acquire the executable binary and a compression process to decrease the size of the executable file. Before incorporating GitHub Actions into our workflow, we had to execute the entire process manually. Although functional, it was not flawless. The process was intricate, and discrepancies could arise between the build command and the resulting output due to variations in the architecture used during the build process. Furthermore, every time we needed to release the executable binaries, we had to repeat the same process.
+
+開發這個 CLI 工具需要進行編譯來產生可執行檔，並進行壓縮以減小可執行檔的大小。在將 GitHub Actions 加入我們的工作流程之前，我們必須手動執行整個過程。儘管功能正常，但並非完美。不僅流程復雜，而且在不同架構的機器上，編譯指令和編譯出的可執行檔可能存在差異。此外，每次需要發布可執行檔時，我們都必須重複相同的過程。
+
+---
+
+Now, with the integration of the GitHub Actions, we are able to automate the entire build and release process. Because the actions runs on the GitHub server, so there is no discrepancies between every build job.
+
+現在，通過整合 GitHub Actions，我們能夠自動化整個編譯和發布過程。且由於這些操作是統一在 GitHub 伺服器上運行，因此每個編譯出的可執行檔間不存在架構差異。
+
+---
+
+In our project as an example, I configured it to trigger whenever a new commit is pushed. It then goes through three main processes: "*check commit message*", "*build and compress binary*", and "*create release and upload asset*". Firstly, it checks if the commit message adheres to the version format; if not, it skips the rest of the process. Subsequently, it builds the binary for three platforms: `linux/amd64`, `darwin/amd64`, and `windows/amd64`, and then compresses them using [UPX](https://upx.github.io/ "the Ultimate Packer for eXecutables"). Finally, it creates a new release with release notes and uploads the binary as an attachment.
+
+以我們的專案為例，我將其設定為在推送新提交時觸發。之後，它將進行三個主要過程：「*檢查提交內容*」、「*編譯和壓縮可執行檔*」和「*創建發布並上傳附件*」。首先，檢查提交內容是否符合版本格式；如果不符合，則跳過其餘過程。隨後，它會為三個平台分別編譯可執行檔：`linux/amd64`、`darwin/amd64` 和 `windows/amd64`，然後使用 [UPX](https://upx.github.io/ "the Ultimate Packer for eXecutables") 對其進行壓縮。最後，它將創建帶有發布說明的新版本並將可執行檔上傳為附件。
+
+---
+
+The entire process described above can be defined using a YAML file located under `.github/workflows` in the project's root directory, requiring no additional configuration. This method is convenient and straightforward to set up. Additionally, GitHub offers a feature that enables developers to utilize actions from the marketplace. By selecting the appropriate action, the complexity of the configuration file can be greatly simplified.
+
+上述整個過程可以通過位於專案根目錄下的 `.github/workflows` 下的 YAML 檔案來定義，無需進行其他配置。這種方法方便且簡單易於設置。此外，GitHub 還提供了一個功能，使開發者可以從市場中使用 Action。通過選擇適合的 Action，可以大大簡化配置檔案的複雜性。
+
+---
+
+By integrating GitHub Actions, we have automated our build and release processes, ensuring consistency and efficiency. With actions running on the GitHub server, discrepancies are eliminated, simplifying configuration and enhancing our development workflow. This automation saves time and guarantees accuracy in project releases.
+
+通過整合 GitHub Actions，我們已經自動化了編譯和發布過程，確保了一致性和效率。所有操作在 GitHub 伺服器上運行，解決了機器架構差異，簡化了配置並加快了我們的工作流程。這種自動化節省了時間，並確保了專案發布的準確性。
+
+## Links
+專案連結：[Lazco-Studio / Component-Manager](https://github.com/lazco-studio/Component-Manager)  
+GitHub Action：[官方介紹](https://github.com/features/actions)
