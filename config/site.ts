@@ -43,10 +43,18 @@ export const siteConfig = {
         status: "done"
       },
       {
+        name: "Component Manager",
+        technology: ["Golang", "Shell script"],
+        description:
+          "Seamlessly manage and integrate your JS/TS components with ease.",
+        github: "https://github.com/Lazco-Studio/Component-Manager",
+        status: "dev"
+      },
+      {
         name: "Frontend Practice",
         technology: ["Express.js", "HTML", "CSS", "JavaScript"],
         description:
-          "A website that demonstrates popular frontend optimization techniques such as denouncing, throttling, and more.",
+          "A website that demonstrates popular frontend optimization techniques such as debouncing, throttling, and more.",
         link: "https://frontend-practice.on-cloud.tw",
         github: "https://github.com/OnCloud125252/Frontend-Practice",
         status: "done"
@@ -63,7 +71,7 @@ export const siteConfig = {
         name: "Update Install",
         technology: ["Golang", "Shell script"],
         description:
-          "A tool designed to simplify the process of installing or updating applications on Linux.",
+          "Easy way to install deb package for Linux distributions.",
         github: "https://github.com/Update-Install",
         status: "dev"
       },
