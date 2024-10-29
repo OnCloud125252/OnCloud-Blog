@@ -13,7 +13,7 @@ export default async function AboutPage() {
   const { title, name, location, aka, work, detail, avatar } = siteConfig.about;
 
   return (
-    <div className="container max-w-6xl py-6 lg:py-10 flex flex-col gap-20">
+    <div className="container max-w-7xl py-6 lg:py-10 flex flex-col gap-20">
       <div>
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
           <div className="flex-1 space-x-4">
