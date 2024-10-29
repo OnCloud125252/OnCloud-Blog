@@ -28,6 +28,36 @@ export const siteConfig = {
     description: "Some of my projects that I'm working on",
     projects: [
       {
+        name: "Component Manager",
+        technology: ["Golang", "Shell script"],
+        description:
+          "Seamlessly manage and integrate your JS/TS components with ease.",
+        github: "https://github.com/Lazco-Studio/Component-Manager",
+        status: "active"
+      },
+      {
+        name: "Spacedesk Viewer",
+        technology: ["Electron.js", "HTML", "CSS", "JavaScript"],
+        description: "A spacedesk client app that can be used offline.",
+        github: "https://github.com/OnCloud125252/Spacedesk-Viewer",
+        status: "active"
+      },
+      {
+        name: "Mingdao SIG 2.0 (MDSIG)",
+        technology: [
+          "Next.js",
+          "TailwindCSS",
+          "Express.js",
+          "MongoDB",
+          "TypeScript"
+        ],
+        description:
+          "The MDSIG Sharing Platform provides students of Mingdao High School with a space for discussing various topics.",
+        link: "https://sig.mingdao.edu.tw",
+        github: "https://github.com/MingdaoSIG",
+        status: "done"
+      },
+      {
         name: "NewMD",
         technology: [
           "Next.js",
@@ -43,12 +73,12 @@ export const siteConfig = {
         status: "done"
       },
       {
-        name: "Component Manager",
-        technology: ["Golang", "Shell script"],
+        name: "Discord Bot Template",
+        technology: ["Discord.js v14", "JavaScript"],
         description:
-          "Seamlessly manage and integrate your JS/TS components with ease.",
-        github: "https://github.com/Lazco-Studio/Component-Manager",
-        status: "dev"
+          "A powerful starting point for creating a Discord bot that utilizes modern slash commands and offers features such as ChatGPT, music player and more.",
+        github: "https://github.com/OnCloud125252/Discord-Bot-Template",
+        status: "done"
       },
       {
         name: "Frontend Practice",
@@ -60,20 +90,11 @@ export const siteConfig = {
         status: "done"
       },
       {
-        name: "Discord Bot Template",
-        technology: ["Discord.js v14", "JavaScript"],
-        description:
-          "A powerful starting point for creating a Discord bot that utilizes modern slash commands and offers features such as ChatGPT, music player and more.",
-        github: "https://github.com/OnCloud125252/Discord-Bot-Template",
-        status: "done"
-      },
-      {
         name: "Update Install",
         technology: ["Golang", "Shell script"],
-        description:
-          "Easy way to install deb package for Linux distributions.",
+        description: "Easy way to install deb package for Linux distributions.",
         github: "https://github.com/Update-Install",
-        status: "dev"
+        status: "developing"
       },
       {
         name: "Update Install (Old)",
@@ -88,7 +109,7 @@ export const siteConfig = {
         technology: ["Next.js", "Radix-ui", "Tailwind.css", "TypeScript"],
         description: "A website for uploading and sharing files.",
         github: "https://github.com/OnCloud125252/Upload-Share",
-        status: "dev"
+        status: "paused"
       },
       {
         name: "SpiderTrigger",
@@ -97,13 +118,6 @@ export const siteConfig = {
           "A tool designed to automate the process of deploying your applications on your own server.",
         github: "https://github.com/OnCloud125252/SpiderTrigger",
         status: "paused"
-      },
-      {
-        name: "Spacedesk Viewer",
-        technology: ["Electron.js", "HTML", "CSS", "JavaScript"],
-        description: "A spacedesk client app that can be used offline.",
-        github: "https://github.com/OnCloud125252/Spacedesk-Viewer",
-        status: "outdated"
       },
       {
         name: "KILLTWG-App",
@@ -118,7 +132,7 @@ export const siteConfig = {
         description: "My personal blog.",
         link: "https://on-cloud.tw",
         github: "https://github.com/OnCloud125252/OnCloud-Blog",
-        status: "active"
+        status: "developing"
       }
     ],
     getStatus: (status: string) => {
@@ -133,10 +147,10 @@ export const siteConfig = {
             color: "#2f67c2",
             text: "ACTIVE"
           };
-        case "dev":
+        case "developing":
           return {
             color: "#8222e3",
-            text: "DEV"
+            text: "DEVELOPING"
           };
         case "paused":
           return {
