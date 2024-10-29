@@ -2,7 +2,7 @@
 title: Setting up Zsh with Oh-My-Zsh
 description: Set up beautiful terminal using Zsh with Oh-My-Zsh and install custom theme and plugins
 date: 2024-04-02
-update: 2024-04-03
+update: 2024-10-29
 tags: ["zsh", "oh-my-zsh", "ubuntu", "shell", "warp"]
 published: true
 ---
@@ -18,15 +18,12 @@ published: true
 
 ## Supported Installation
 
-This installation procedure is tested on Ubuntu 22.04.x LTS and x86_64 architecture.
-
-## Note
-Each command is separate with a blank line, please execute them separately.
+This installation procedure is tested on Ubuntu `22.04.x LTS` with `x86_64 architecture`, but should be compatible with other Linux distributions and macOS.
 
 # Installation
 
 ## Install dependencies
-```zsh
+```bash
 sudo apt install vim curl git
 ```
 It's recommended to install Nerd Font in this step to avoid display problems.  
@@ -49,19 +46,22 @@ If Nerd Font isn't properly installed, you will not be able to experience the fu
    - Rebuild the font cache with `fc-cache -f -v`
 
 ## Install Zsh
-```zsh
+```bash
 sudo apt install zsh
+```
 
+## Set Zsh as default shell
+```bash
 sudo chsh -s $(which zsh)
 ```
 
 ## Install On My Zsh
-```zsh
+```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
 ## Install Powerlevel10k
-```zsh
+```bash
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 ```
 Switch the theme to Powerlevel10k by editing the config file which located in `/home/$USER/.zshrc` (`~/.zshrc`).  
@@ -78,24 +78,24 @@ My personal favorite configs are: `3121132342221y1y` (Start from "Prompt Style")
 ## Install plugins (Optional)
 ***[Zsh-Completions](https://github.com/zsh-users/zsh-completions)***  
 Additional completion definitions for Zsh.  
-```zsh
+```bash
 git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 ```
 
 ***[Zsh-Autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)***  
 It suggests commands as you type based on history and completions.  
-```zsh
+```bash
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ```
 
 ***[Zsh-Syntax-Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)***  
 It enables highlighting of commands whilst they are typed at a zsh prompt into an interactive terminal.  
-```zsh
+```bash
 git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
 Finally, add the following configuration to `.zshrc`:
-```zsh
+```bash
 plugins=(
   git
   zsh-completions 
@@ -114,10 +114,15 @@ Enjoy your perfect terminal with fantastic looking, autosuggestions and syntax-h
 
 ## Fix prompt at the bottom
 Add the following lines to the end of `.zshrc` file to anchor the prompt to the bottom of the terminal window.
-```zsh
-alias clear="clear && printf '\n%.0s' {1..100}"
-printf '\n%.0s' {1..100}
+```bash
+alias _clear=$(which clear)
+clear() {
+  _clear
+  printf '\n%.0s' {1..$(($(tput lines) - 2))}
+}
+printf '\n%.0s' {1..$(($(tput lines) - 2))}
 ```
+> The original "clear" command is now called `_clear`.
 
 ## Warp terminal patch
 If you are using Warp terminal with powerlevel10k multi-line prompt, you may face the issue of the prompt and input on different lines.
@@ -126,7 +131,7 @@ If you are using Warp terminal with powerlevel10k multi-line prompt, you may fac
 To fix the issue, create a seperate configuration file that uses powerlevel10k one-line prompt at home directory and name it `.p10k-warp.zsh`.
 
 Finally, replace the line `[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh` in `.zshrc` with the following one.
-```zsh title=".zshrc"
+```bash title=".zshrc"
 if [[ $(printenv | grep WARP) ]];
 then
 	[[ ! -f ~/.p10k-warp.zsh ]] || source ~/.p10k-warp.zsh

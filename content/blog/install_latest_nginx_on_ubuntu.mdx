@@ -1,0 +1,46 @@
+---
+title: Install Latest Nginx on Ubuntu
+description: Install the latest version of Nginx on Ubuntu
+date: 2024-10-29
+tags: ["script", "nginx", "ubuntu"]
+published: true
+---
+
+# Before Starting
+
+## Links
+
+- [Official installation guide](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/#installing-a-prebuilt-ubuntu-package-from-the-official-nginx-repository)
+
+## Supported Installation
+
+This installation procedure is tested on Ubuntu `22.04.x LTS` with `x86_64 architecture`, but should be compatible with other version of Ubuntu.
+
+# Installation
+
+## Install dependencies
+```bash
+sudo apt install curl gpg
+```
+
+## Add gpg key
+```bash
+curl https://nginx.org/keys/nginx_signing.key | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/nginx_signing.gpg
+```
+
+## Setup apt source list
+```bash
+printf "deb [signed-by=/etc/apt/trusted.gpg.d/nginx_signing.gpg] https://nginx.org/packages/ubuntu $(lsb_release -cs) nginx\ndeb-src [signed-by=/etc/apt/trusted.gpg.d/nginx_signing.gpg] https://nginx.org/packages/ubuntu $(lsb_release -cs) nginx\n" | sudo tee /etc/apt/sources.list.d/nginx.list
+```
+
+## Install Nginx
+```bash
+sudo apt update && sudo apt install nginx
+```
+
+# Finishing
+
+## Start Nginx
+```bash
+sudo systemctl start nginx
+```
