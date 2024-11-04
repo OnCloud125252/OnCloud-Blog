@@ -1,0 +1,97 @@
+---
+title: Fix Proxmox VE LXC Startup
+description: Fix Proxmox VE LXC Startup After Updating Container To Ubuntu 24.04
+date: 2024-11-05
+tags: ["pve", "pve-container", "ubuntu"]
+published: true
+---
+
+# Before Starting
+
+I am using Proxmox VE 8.2.2, but the solution should work on any Proxmox VE version.
+
+This issue was fixed officially but it's currently only available in the "Test" repository but not in the "No-Subscription" or "Enterprise" repository as of 2024-11-05.  
+Ref: [setup: support Ubuntu 24.04 Noble](https://git.proxmox.com/?p=pve-container.git;a=commitdiff;h=3d800f832c25e4bf2435d88ab190fd8e681a67b1)
+
+# Issue
+
+After updating the container with id 100 from Ubuntu 22.04 to Ubuntu 24.04, the startup failed with the following error:
+```log
+run_buffer: 571 Script exited with status 255
+lxc_init: 845 Failed to run lxc.hook.pre-start for container "100"
+__lxc_start: 2034 Failed to initialize container "100"
+TASK ERROR: startup for container '100' failed
+```
+
+Let's start the container again but in foreground mode and store the debug logs so we can debug the issue.  
+Execute the following command in PVE shell:
+```bash
+lxc-start -n 100 -F -l DEBUG -o /tmp/lxc-100.log
+```
+
+
+Inspecting the logs, we can see that the startup failed because of "unsupported Ubuntu version '24.04'":
+
+```log title="/tmp/lxc-100.log" {5,18}
+lxc-start 100 20241104192347.208 INFO     confile - ../src/lxc/confile.c:set_config_idmaps:2273 - Read uid map: type u nsid 0 hostid 100000 range 65536
+lxc-start 100 20241104192347.208 INFO     confile - ../src/lxc/confile.c:set_config_idmaps:2273 - Read uid map: type g nsid 0 hostid 100000 range 65536
+lxc-start 100 20241104192347.208 INFO     lsm - ../src/lxc/lsm/lsm.c:lsm_init_static:38 - Initialized LSM security driver AppArmor
+lxc-start 100 20241104192347.208 INFO     utils - ../src/lxc/utils.c:run_script_argv:587 - Executing script "/usr/share/lxc/hooks/lxc-pve-prestart-hook" for container "100", config section "lxc"
+lxc-start 100 20241104192347.853 DEBUG    utils - ../src/lxc/utils.c:run_buffer:560 - Script exec /usr/share/lxc/hooks/lxc-pve-prestart-hook 100 lxc pre-start produced output: unsupported Ubuntu version '24.04'
+
+lxc-start 100 20241104192347.868 ERROR    utils - ../src/lxc/utils.c:run_buffer:571 - Script exited with status 255
+lxc-start 100 20241104192347.868 ERROR    start - ../src/lxc/start.c:lxc_init:845 - Failed to run lxc.hook.pre-start for container "100"
+lxc-start 100 20241104192347.868 ERROR    start - ../src/lxc/start.c:__lxc_start:2034 - Failed to initialize container "100"
+lxc-start 100 20241104192347.868 INFO     utils - ../src/lxc/utils.c:run_script_argv:587 - Executing script "/usr/share/lxcfs/lxc.reboot.hook" for container "100", config section "lxc"
+lxc-start 100 20241104192348.370 INFO     utils - ../src/lxc/utils.c:run_script_argv:587 - Executing script "/usr/share/lxc/hooks/lxc-pve-poststop-hook" for container "100", config section "lxc"
+lxc-start 100 20241104192348.972 ERROR    lxc_start - ../src/lxc/tools/lxc_start.c:lxc_start_main:307 - The container failed to start
+lxc-start 100 20241104192348.972 ERROR    lxc_start - ../src/lxc/tools/lxc_start.c:lxc_start_main:312 - Additional information can be obtained by setting the --logfile and --logpriority options
+lxc-start 100 20241104192454.590 INFO     confile - ../src/lxc/confile.c:set_config_idmaps:2273 - Read uid map: type u nsid 0 hostid 100000 range 65536
+lxc-start 100 20241104192454.590 INFO     confile - ../src/lxc/confile.c:set_config_idmaps:2273 - Read uid map: type g nsid 0 hostid 100000 range 65536
+lxc-start 100 20241104192454.591 INFO     lsm - ../src/lxc/lsm/lsm.c:lsm_init_static:38 - Initialized LSM security driver AppArmor
+lxc-start 100 20241104192454.591 INFO     utils - ../src/lxc/utils.c:run_script_argv:587 - Executing script "/usr/share/lxc/hooks/lxc-pve-prestart-hook" for container "100", config section "lxc"
+lxc-start 100 20241104192455.246 DEBUG    utils - ../src/lxc/utils.c:run_buffer:560 - Script exec /usr/share/lxc/hooks/lxc-pve-prestart-hook 100 lxc pre-start produced output: unsupported Ubuntu version '24.04'
+
+lxc-start 100 20241104192455.261 ERROR    utils - ../src/lxc/utils.c:run_buffer:571 - Script exited with status 255
+lxc-start 100 20241104192455.261 ERROR    start - ../src/lxc/start.c:lxc_init:845 - Failed to run lxc.hook.pre-start for container "100"
+lxc-start 100 20241104192455.261 ERROR    start - ../src/lxc/start.c:__lxc_start:2034 - Failed to initialize container "100"
+lxc-start 100 20241104192455.261 INFO     utils - ../src/lxc/utils.c:run_script_argv:587 - Executing script "/usr/share/lxcfs/lxc.reboot.hook" for container "100", config section "lxc"
+lxc-start 100 20241104192455.763 INFO     utils - ../src/lxc/utils.c:run_script_argv:587 - Executing script "/usr/share/lxc/hooks/lxc-pve-poststop-hook" for container "100", config section "lxc"
+lxc-start 100 20241104192456.385 ERROR    lxc_start - ../src/lxc/tools/lxc_start.c:lxc_start_main:307 - The container failed to start
+lxc-start 100 20241104192456.385 ERROR    lxc_start - ../src/lxc/tools/lxc_start.c:lxc_start_main:312 - Additional information can be obtained by setting the --logfile and --logpriority options
+```
+
+# Solution
+
+The error happens because Ubuntu 24.04 container is not yet available in Proxmox VE.  
+We can resolve this issue by modifying the Ubuntu container setup script at `/usr/share/perl5/PVE/LXC/Setup/Ubuntu.pm` and manually add `'24.04' => 1` to the `$known_versions`.
+
+```perl title="/usr/share/perl5/PVE/LXC/Setup/Ubuntu.pm" {3}
+# ... previous content ...
+my $known_versions = {
+    '24.04' => 1, # noble LTS
+    '23.10' => 1, # mantic
+    '23.04' => 1, # lunar
+    '22.10' => 1, # kinetic
+    '22.04' => 1, # jammy LTS
+    '21.10' => 1, # impish
+    '21.04' => 1, # hirsute
+    '20.10' => 1, # groovy
+    '20.04' => 1, # focal LTS
+    '19.10' => 1, # eoan
+    '19.04' => 1, # disco
+    '18.10' => 1, # cosmic
+    '18.04' => 1, # bionic LTS
+    '17.10' => 1, # artful
+    '17.04' => 1, # zesty
+    '16.10' => 1, # yakkety
+    '16.04' => 1, # xenial LTS
+    '15.10' => 1, # wily
+    '15.04' => 1, # vivid
+    '14.04' => 1, # trusty LTS
+    '12.04' => 1, # precise LTS
+};
+# ... more content ...
+```
+
+After modifying the container setup script, the container should now be able to start.
