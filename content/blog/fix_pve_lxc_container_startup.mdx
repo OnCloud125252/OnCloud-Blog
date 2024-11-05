@@ -1,6 +1,6 @@
 ---
-title: Fix Proxmox VE LXC Startup
-description: Fix Proxmox VE LXC Startup After Updating Container To Ubuntu 24.04
+title: Fix PVE LXC Container Startup
+description: Fix Proxmox VE LXC Container Startup After Updating Container To Ubuntu 24.04
 date: 2024-11-05
 tags: ["pve", "pve-container", "ubuntu"]
 published: true
@@ -28,7 +28,6 @@ Execute the following command in PVE shell:
 ```bash
 lxc-start -n 100 -F -l DEBUG -o /tmp/lxc-100.log
 ```
-
 
 Inspecting the logs, we can see that the startup failed because of "unsupported Ubuntu version '24.04'":
 
