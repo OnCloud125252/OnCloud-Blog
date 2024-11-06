@@ -1,21 +1,23 @@
 ---
 title: Fix PVE LXC Container Startup
-description: Fix Proxmox VE LXC Container Startup After Updating Container To Ubuntu 24.04
+description: Fixing Proxmox VE LXC container startup after upgrading to Ubuntu 24.04
 date: 2024-11-05
+update: 2024-11-06
 tags: ["pve", "pve-container", "ubuntu"]
 published: true
 ---
 
 # Before Starting
 
-I am using Proxmox VE 8.2.2, but the solution should work on any Proxmox VE version.
+I am using **Proxmox VE 8.2.2**, but the solution should work on any Proxmox VE version.
 
-This issue was fixed officially but it's currently only available in the "Test" repository but not in the "No-Subscription" or "Enterprise" repository as of 2024-11-05.  
+This issue was fixed officially but it's currently only available in the "**Test**" repository but not in the "**No-Subscription**" or "**Enterprise**" repository as of **2024-11-05**.  
 Ref: [setup: support Ubuntu 24.04 Noble](https://git.proxmox.com/?p=pve-container.git;a=commitdiff;h=3d800f832c25e4bf2435d88ab190fd8e681a67b1)
 
-# Issue
+# The Problem
 
-After updating the container with id 100 from Ubuntu 22.04 to Ubuntu 24.04, the startup failed with the following error:
+After updating a Proxmox VE LXC container with ID `100` from Ubuntu 22.04 to Ubuntu 24.04, the container failed to start with the following error:
+
 ```log
 run_buffer: 571 Script exited with status 255
 lxc_init: 845 Failed to run lxc.hook.pre-start for container "100"
@@ -23,13 +25,18 @@ __lxc_start: 2034 Failed to initialize container "100"
 TASK ERROR: startup for container '100' failed
 ```
 
+This blog post will guide you through the steps to resolve the startup failure caused by the unsupported Ubuntu version.
+
+# Identifying the Issue
+
 Let's start the container again but in foreground mode and store the debug logs so we can debug the issue.  
-Execute the following command in PVE shell:
+Replace `100` with the ID of your container:
+
 ```bash
 lxc-start -n 100 -F -l DEBUG -o /tmp/lxc-100.log
 ```
 
-Inspecting the logs, we can see that the startup failed because of "unsupported Ubuntu version '24.04'":
+Inspecting the logs, we can see that the startup failed because of "**unsupported Ubuntu version '24.04'**":
 
 ```log title="/tmp/lxc-100.log" {5,18}
 lxc-start 100 20241104192347.208 INFO     confile - ../src/lxc/confile.c:set_config_idmaps:2273 - Read uid map: type u nsid 0 hostid 100000 range 65536
@@ -62,11 +69,13 @@ lxc-start 100 20241104192456.385 ERROR    lxc_start - ../src/lxc/tools/lxc_start
 
 # Solution
 
-The error happens because Ubuntu 24.04 container is not yet available in Proxmox VE.  
-We can resolve this issue by modifying the Ubuntu container setup script at `/usr/share/perl5/PVE/LXC/Setup/Ubuntu.pm` and manually add `'24.04' => 1` to the `$known_versions`.
+The error occurs because the Proxmox VE container setup script does not yet include support for the latest Ubuntu 24.04 release.  
+To resolve this issue, we need to manually add the new version to the `$known_versions` list in the container setup script.
 
-```perl title="/usr/share/perl5/PVE/LXC/Setup/Ubuntu.pm" {3}
-# ... previous content ...
+1. Open the Ubuntu container setup script located at `/usr/share/perl5/PVE/LXC/Setup/Ubuntu.pm`.
+2. Find the `$known_versions` hash and add the entry for Ubuntu 24.04.
+
+```perl title="/usr/share/perl5/PVE/LXC/Setup/Ubuntu.pm" {2}
 my $known_versions = {
     '24.04' => 1, # noble LTS
     '23.10' => 1, # mantic
@@ -81,16 +90,12 @@ my $known_versions = {
     '19.04' => 1, # disco
     '18.10' => 1, # cosmic
     '18.04' => 1, # bionic LTS
-    '17.10' => 1, # artful
-    '17.04' => 1, # zesty
-    '16.10' => 1, # yakkety
-    '16.04' => 1, # xenial LTS
-    '15.10' => 1, # wily
-    '15.04' => 1, # vivid
-    '14.04' => 1, # trusty LTS
-    '12.04' => 1, # precise LTS
+    # ... other Ubuntu versions ...
 };
-# ... more content ...
 ```
 
-After modifying the container setup script, the container should now be able to start.
+After making this change, the Proxmox VE container should now be able to start with the Ubuntu 24.04 image.
+
+# Conclusion
+By following the steps outlined in this blog post, you should be able to resolve the startup issues with Proxmox VE LXC containers after upgrading to Ubuntu 24.04.  
+*Remember to keep an eye out for any official updates from the Proxmox VE team, as they may provide a more permanent solution in the future.*
