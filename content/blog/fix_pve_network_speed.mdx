@@ -1,0 +1,97 @@
+---
+title: Fix PVE Network Speed
+description: Fix Proxmox VE Network Speed stuck at 100Mb/s
+date: 2024-11-07
+tags: ["pve", "pve-container", "network"]
+published: true
+---
+
+# Before Starting
+
+I am using **Proxmox VE 8.2.2**, but the solution should work on any Proxmox VE version.
+
+# The Problem
+
+After installing Proxmox VE, you may notice that the network speed is stuck at 100Mb/s, even though your network card is capable of 1000Mb/s.  
+In this blog post, we'll walk through the steps to identify the problem and fix the network speed on your PVE.
+
+# Identifying the Issue
+
+First, let's inspect the network card information using the `ethtool` command.  
+Replace `enp1s0` with the name of your network interface:
+
+```bash
+ethtool enp1s0
+```
+
+The output should look similar to this:
+
+```log showLineNumbers {5,21}
+Settings for enp1s0:
+        Supported ports: [ TP    MII ]
+        Supported link modes:   10baseT/Half 10baseT/Full
+                                100baseT/Half 100baseT/Full
+                                1000baseT/Full
+        Supported pause frame use: Symmetric Receive-only
+        Supports auto-negotiation: Yes
+        Supported FEC modes: Not reported
+        Advertised link modes:  10baseT/Half 10baseT/Full
+                                100baseT/Half 100baseT/Full
+                                1000baseT/Full
+        Advertised pause frame use: Symmetric Receive-only
+        Advertised auto-negotiation: Yes
+        Advertised FEC modes: Not reported
+        Link partner advertised link modes:  10baseT/Half 10baseT/Full
+                                             100baseT/Half 100baseT/Full
+                                             1000baseT/Full
+        Link partner advertised pause frame use: No
+        Link partner advertised auto-negotiation: Yes
+        Link partner advertised FEC modes: Not reported
+        Speed: 100Mb/s
+        Duplex: Full
+        Auto-negotiation: on
+        master-slave cfg: preferred slave
+        master-slave status: slave
+        Port: Twisted Pair
+        PHYAD: 0
+        Transceiver: external
+        MDI-X: Unknown
+        Supports Wake-on: pumbg
+        Wake-on: d
+        Link detected: yes
+```
+
+As you can see, the network card is capable of 1000Mb/s (line 5), but it's currently operating at 100Mb/s (line 21).
+
+# Fixing the Network Speed
+
+To fix the network speed issue, you can use the `ethtool` command. The following command will set the network interface `enp1s0` to operate at **1000Mb/s**, **full duplex**, and **disable auto-negotiation**.  
+Replace `enp1s0` with the name of your network interface:
+
+```bash
+ethtool -s enp1s0 speed 1000 duplex full autoneg off
+```
+
+In order to apply these changes, you may try to unplug and replug the network cable, or reboot the PVE.
+
+## Verifying the Network Speed
+
+You can verify the network speed using the `ethtool` command again.  
+Replace `enp1s0` with the name of your network interface:
+
+```bash
+ethtool enp1s0
+```
+
+The output should now show that the network speed is set to 1000Mb/s:
+
+```log showLineNumbers {3}
+Settings for enp1s0:
+        ...
+        Speed: 1000Mb/s
+        ...
+```
+
+# Conclusion
+
+By following the steps outlined in this blog post, you should be able to resolve the network speed issue in your Proxmox VE environment and get your system running at its full network capacity.
