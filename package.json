@@ -1,5 +1,5 @@
 {
-  "name": "my-first-blog",
+  "name": "oncloud-blog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -49,5 +49,6 @@
     "tailwindcss": "^3.3.0",
     "typescript": "^5.3.3",
     "velite": "0.1.0-beta.11"
-  }
+  },
+  "packageManager": "pnpm@9.15.0"
 }
