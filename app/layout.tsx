@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { SiteHeader } from "@/components/site-header";
 import { Providers } from "@/components/providers";
 import { siteConfig } from "@/config/site";
+
 
 const SiteFooter = dynamic(() => import("@/components/site-footer"), {
   ssr: false
