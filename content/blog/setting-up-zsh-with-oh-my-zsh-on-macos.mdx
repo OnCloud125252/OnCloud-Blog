@@ -15,6 +15,7 @@ published: true
 - [Official repository of Powerlevel10k](https://github.com/romkatv/powerlevel10k)
 - [WezTerm Website](https://wezfurlong.org/wezterm/)
 - [Homebrew](https://brew.sh)
+- [Setting up Zsh with Oh-My-Zsh (Ubuntu)](/blog/setting_up_zsh_with_oh-my-zsh)
 
 ## Supported Installation
 
@@ -90,25 +91,37 @@ Restart your terminal. The Powerlevel10k configuration wizard should start autom
 p10k configure
 ```
 
+Choose your favorites configuration!
+
+My personal favorite configs are: `3121132342221y1y` (Start from "Prompt Style")
+
 # Install Plugins (Optional)
 
-## zsh-autosuggestions
+***[Zsh-Completions](https://github.com/zsh-users/zsh-completions)***  
+Additional completion definitions for Zsh.  
 ```bash
-brew install zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions
 ```
 
-## zsh-syntax-highlighting
+***[Zsh-Autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)***  
+It suggests commands as you type based on history and completions.  
 ```bash
-brew install zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 ```
 
-## Enable Plugins
-Add the following to the bottom of your `~/.zshrc` to enable the plugins installed via Homebrew:
-
-```bash title="~/.zshrc"
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+***[Zsh-Syntax-Highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)***  
+It enables highlighting of commands whilst they are typed at a zsh prompt into an interactive terminal.  
+```bash
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 ```
 
-# Finishing
-Restart WezTerm to apply all changes. Enjoy your new terminal setup!
+Finally, add the following configuration to `.zshrc`:
+```bash
+plugins=(
+  git
+  zsh-completions 
+  zsh-autosuggestions 
+  zsh-syntax-highlighting
+)
+```
+Apply the changes by executing `source ~/.zshrc`.
