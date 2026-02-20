@@ -1,23 +1,21 @@
-import Link from "next/link";
 import { ExternalLink } from "lucide-react";
-
-import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { Icons } from "@/components/icons";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Icons } from "@/components/icons";
 import { siteConfig } from "@/config/site";
-
+import { cn } from "@/lib/utils";
 
 export function ProjectList({
   isGrid,
-  project
+  project,
 }: {
   isGrid: boolean;
   project: typeof siteConfig.project;
@@ -27,26 +25,26 @@ export function ProjectList({
   return (
     <div
       className={cn(
-        "grid gap-4 mt-5",
-        isGrid ? "grid-cols-1 md:grid-cols-3" : "grid-cols-1"
+        "mt-5 grid gap-4",
+        isGrid ? "grid-cols-1 md:grid-cols-3" : "grid-cols-1",
       )}
     >
-      {projects.map((project: any, index: number): any => {
+      {projects.map((project) => {
         const { name, technology, description, github, link } = project;
-        const { color, text }: any = getStatus(project.status);
+        const { color, text } = getStatus(project.status);
         return (
           <Card
-            key={index}
+            key={name}
             className={cn(
               "not-prose",
-              !isGrid && "flex flex-row justify-between p-6"
+              !isGrid && "flex flex-row justify-between p-6",
             )}
           >
             <CardHeader className={cn(!isGrid && "p-0")}>
               <div
                 className={cn(
-                  "flex items-center mb-2",
-                  isGrid && "justify-between"
+                  "mb-2 flex items-center",
+                  isGrid && "justify-between",
                 )}
               >
                 <CardTitle className={"mr-3"}>{name}</CardTitle>
@@ -65,7 +63,7 @@ export function ProjectList({
             <CardFooter
               className={cn(
                 "flex items-center justify-end space-x-1",
-                !isGrid && "p-0"
+                !isGrid && "p-0",
               )}
             >
               {github && (

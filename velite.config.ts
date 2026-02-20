@@ -1,12 +1,11 @@
-import { defineConfig, defineCollection, s } from "velite";
-import rehypeSlug from "rehype-slug";
-import rehypePrettyCode from "rehype-pretty-code";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-
+import rehypePrettyCode from "rehype-pretty-code";
+import rehypeSlug from "rehype-slug";
+import { defineCollection, defineConfig, s } from "velite";
 
 const computedFields = <T extends { slug: string }>(data: T) => ({
   ...data,
-  slugAsParams: data.slug.split("/").slice(1).join("/")
+  slugAsParams: data.slug.split("/").slice(1).join("/"),
 });
 
 const posts = defineCollection({
@@ -21,9 +20,9 @@ const posts = defineCollection({
       update: s.isodate().optional(),
       published: s.boolean().default(true),
       tags: s.array(s.string()).optional(),
-      body: s.mdx()
+      body: s.mdx(),
     })
-    .transform(computedFields)
+    .transform(computedFields),
 });
 
 export default defineConfig({
@@ -33,7 +32,7 @@ export default defineConfig({
     assets: "public/static",
     base: "/static/",
     name: "[name]-[hash:6].[ext]",
-    clean: true
+    clean: true,
   },
   collections: { posts },
   mdx: {
@@ -44,9 +43,9 @@ export default defineConfig({
         {
           theme: "one-dark-pro",
           defaultLang: {
-            inline: "plain-text"
-          }
-        }
+            inline: "plain-text",
+          },
+        },
       ],
       [
         rehypeAutolinkHeadings,
@@ -54,11 +53,11 @@ export default defineConfig({
           behavior: "wrap",
           properties: {
             className: ["subheading-anchor"],
-            ariaLabel: "Link to section"
-          }
-        }
-      ]
+            ariaLabel: "Link to section",
+          },
+        },
+      ],
     ],
-    remarkPlugins: []
-  }
+    remarkPlugins: [],
+  },
 });

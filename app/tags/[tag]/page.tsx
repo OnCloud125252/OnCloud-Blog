@@ -1,11 +1,10 @@
+import { slug } from "github-slugger";
+import { Metadata } from "next";
 import { posts } from "#site/content";
 import { PostItem } from "@/components/post-item";
 import { Tag } from "@/components/tag";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getAllTags, getPostsByTagSlug, sortTagsByCount } from "@/lib/utils";
-import { slug } from "github-slugger";
-import { Metadata } from "next";
-
 
 interface TagPageProps {
   params: {
@@ -14,12 +13,12 @@ interface TagPageProps {
 }
 
 export async function generateMetadata({
-  params
+  params,
 }: TagPageProps): Promise<Metadata> {
   const { tag } = params;
   return {
     title: tag,
-    description: `Posts on the topic of ${tag}`
+    description: `Posts on the topic of ${tag}`,
   };
 }
 
@@ -41,12 +40,12 @@ export default function TagPage({ params }: TagPageProps) {
     <div className="container max-w-4xl py-6 lg:py-10">
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="flex-1 space-y-4">
-          <h1 className="inline-block font-black text-4xl lg:text-5xl capitalize">
+          <h1 className="inline-block font-black text-4xl capitalize lg:text-5xl">
             {title}
           </h1>
         </div>
       </div>
-      <div className="grid grid-cols-12 gap-3 mt-8">
+      <div className="mt-8 grid grid-cols-12 gap-3">
         <div className="col-span-12 col-start-1 sm:col-span-8">
           <hr />
           {displayPosts?.length > 0 ? (

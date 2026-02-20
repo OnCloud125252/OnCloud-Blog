@@ -1,6 +1,5 @@
-import { cn } from "@/lib/utils";
 import { ReactNode } from "react";
-
+import { cn } from "@/lib/utils";
 
 interface CalloutProps {
   children?: ReactNode;
@@ -15,11 +14,11 @@ export function Callout({
   return (
     <div
       className={cn(
-        "my-6 items-start rounded-md border boder-l-4 p-4 w-full dark:max-w-none",
+        "boder-l-4 my-6 w-full items-start rounded-md border p-4 dark:max-w-none",
         {
-          "border-red-900 bg-red-50 dark:prose": type === "danger",
-          "border-yellow-900 bg-yellow-50 dark:prose": type === "warning"
-        }
+          "dark:prose border-red-900 bg-red-50": type === "danger",
+          "dark:prose border-yellow-900 bg-yellow-50": type === "warning",
+        },
       )}
       {...props}
     >

@@ -1,14 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
-import { Icons } from "./icons";
+import { useState } from "react";
 import { siteConfig } from "@/config/site";
-
+import { Icons } from "./icons";
+import { Button } from "./ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
 const IconsList = {
   email: (
@@ -73,7 +72,7 @@ const IconsList = {
       <span className="sr-only">Gravatar</span>
       Gravatar
     </div>
-  )
+  ),
 };
 
 export function MobileNav() {
@@ -96,7 +95,7 @@ export function MobileNav() {
           <Icons.logo className="mr-2 h-4 w-4" />
           <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
-        <div className="flex flex-col gap-3 mt-3">
+        <div className="mt-3 flex flex-col gap-3">
           <MobileLink onOpenChange={setOpen} href="/blog">
             Blog
           </MobileLink>
@@ -106,22 +105,20 @@ export function MobileNav() {
           <MobileLink onOpenChange={setOpen} href="/about">
             About
           </MobileLink>
-          {Object.keys(siteConfig.links).map((name: string, key: number) => {
+          {Object.keys(siteConfig.links).map((name: string) => {
             if (name) {
               return (
                 <Link
                   href={siteConfig.links[name as keyof typeof siteConfig.links]}
                   target="_blank"
                   rel="noreferrer"
-                  key={key}
+                  key={name}
                 >
                   {IconsList[name as keyof typeof IconsList]}
                 </Link>
               );
             }
-            else {
-              return <></>;
-            }
+            return null;
           })}
         </div>
       </SheetContent>

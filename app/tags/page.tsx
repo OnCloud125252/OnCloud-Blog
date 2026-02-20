@@ -1,12 +1,11 @@
-import { getAllTags, sortTagsByCount } from "@/lib/utils";
 import { Metadata } from "next";
 import { posts } from "#site/content";
 import { Tag } from "@/components/tag";
-
+import { getAllTags, sortTagsByCount } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Tags",
-  description: "Topic I've written about"
+  description: "Topic I've written about",
 };
 
 export default async function TagsPage() {

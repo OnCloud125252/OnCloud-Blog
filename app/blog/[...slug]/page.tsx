@@ -1,21 +1,19 @@
+import { Calendar } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Calendar } from "lucide-react";
 import { posts } from "#site/content";
-
-import { siteConfig } from "@/config/site";
-import { formatDate } from "@/lib/utils";
+import { Icons } from "@/components/icons";
+import { MDXContent } from "@/components/mdx-components";
+import { Tag } from "@/components/tag";
 import {
   Tooltip,
   TooltipContent,
-  TooltipTrigger
+  TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { MDXContent } from "@/components/mdx-components";
-import { Tag } from "@/components/tag";
-import { Icons } from "@/components/icons";
+import { siteConfig } from "@/config/site";
+import { formatDate } from "@/lib/utils";
 
 import "@/styles/mdx.css";
-
 
 interface PostPageProps {
   params: {
@@ -29,7 +27,7 @@ async function getPostFromParams(params: PostPageProps["params"]) {
 }
 
 export async function generateMetadata({
-  params
+  params,
 }: PostPageProps): Promise<Metadata> {
   const post = await getPostFromParams(params);
 
@@ -54,22 +52,22 @@ export async function generateMetadata({
           url: `/api/og?${ogSearchParams.toString()}`,
           width: 1200,
           height: 630,
-          alt: post.title
-        }
-      ]
+          alt: post.title,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [`/api/og?${ogSearchParams.toString()}`]
-    }
+      images: [`/api/og?${ogSearchParams.toString()}`],
+    },
   };
 }
 
 export async function generateStaticParams(): Promise<
   PostPageProps["params"][]
-  > {
+> {
   return posts.map((post) => ({ slug: post.slugAsParams.split("/") }));
 }
 
@@ -81,15 +79,15 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   return (
-    <article className="container py-6 prose dark:prose-invert max-w-7xl mx-auto">
+    <article className="prose dark:prose-invert container mx-auto max-w-7xl py-6">
       <h1 className="mb-2">{post.title}</h1>
-      <div className="flex gap-2 mb-2">
+      <div className="mb-2 flex gap-2">
         {post.tags?.map((tag) => (
           <Tag tag={tag} key={tag} />
         ))}
       </div>
       {post.description ? (
-        <p className="text-xl mt-0 mb-2 text-muted-foreground">
+        <p className="mt-0 mb-2 text-muted-foreground text-xl">
           {post.description}
         </p>
       ) : null}

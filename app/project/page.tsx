@@ -1,18 +1,16 @@
 import { Metadata } from "next";
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ProjectList } from "@/components/project-list";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { siteConfig } from "@/config/site";
-
 
 export const metadata: Metadata = {
   title: siteConfig.project.title,
-  description: siteConfig.project.description
+  description: siteConfig.project.description,
 };
 
 export default async function ProjectPage() {
   const {
-    project: { title, description, defaultView }
+    project: { title, description, defaultView },
   } = siteConfig;
 
   return (
@@ -22,7 +20,7 @@ export default async function ProjectPage() {
           <h1 className="inline-block font-black text-4xl lg:text-5xl">
             {title}
           </h1>
-          <p className="text-xl text-muted-foreground">{description}</p>
+          <p className="text-muted-foreground text-xl">{description}</p>
         </div>
       </div>
       <Tabs defaultValue={defaultView} className="mt-8">

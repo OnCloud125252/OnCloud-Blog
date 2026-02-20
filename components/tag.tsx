@@ -1,11 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { slug } from "github-slugger";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { badgeVariants } from "./ui/badge";
-
 
 interface TagProps {
   tag: string;
@@ -21,8 +20,8 @@ export function Tag({ tag, current, count }: TagProps) {
       className={
         badgeVariants({
           variant: current ? "default" : "secondary",
-          className: "no-underline rounded-md"
-        }) + (pathname === `/tags/${slug(tag)}` ? " bg-primary" : "")
+          className: "rounded-md no-underline",
+        }) + (pathname === `/tags/${slug(tag)}` ? "bg-primary" : "")
       }
       href={`/tags/${slug(tag)}`}
     >

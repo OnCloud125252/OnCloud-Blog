@@ -6,10 +6,9 @@ import {
   PaginationContent,
   PaginationItem,
   PaginationLink,
+  PaginationNext,
   PaginationPrevious,
-  PaginationNext
 } from "./ui/pagination";
-
 
 interface QueryPaginationProps {
   totalPages: number;
@@ -18,7 +17,7 @@ interface QueryPaginationProps {
 
 export function QueryPagination({
   totalPages,
-  className
+  className,
 }: QueryPaginationProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -43,21 +42,19 @@ export function QueryPagination({
           </PaginationItem>
         ) : null}
 
-        {Array(totalPages)
-          .fill("")
-          .map((_, index) => (
-            <PaginationItem
-              className="hidden sm:inline-block"
-              key={`page-button-${index}`}
+        {Array.from({ length: totalPages }, (_, i) => i).map((index) => (
+          <PaginationItem
+            className="hidden sm:inline-block"
+            key={`page-${index + 1}`}
+          >
+            <PaginationLink
+              isActive={currentPage === index + 1}
+              href={createPageURL(index + 1)}
             >
-              <PaginationLink
-                isActive={currentPage === index + 1}
-                href={createPageURL(index + 1)}
-              >
-                {index + 1}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
+              {index + 1}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
 
         {nextPage <= totalPages ? (
           <PaginationItem>

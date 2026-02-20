@@ -1,8 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
+import { slug } from "github-slugger";
 import { twMerge } from "tailwind-merge";
 import { Post } from "#site/content";
-import { slug } from "github-slugger";
-
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -13,7 +12,7 @@ export function formatDate(input: string | number): string {
   return date.toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
-    year: "numeric"
+    year: "numeric",
   });
 }
 
@@ -22,19 +21,25 @@ export function sortPosts(posts: Array<Post>) {
     const aDate = a.update || a.date;
     const bDate = b.update || b.date;
 
-    if (aDate > bDate) return -1;
-    if (aDate < bDate) return 1;
+    if (aDate > bDate) {
+      return -1;
+    }
+    if (aDate < bDate) {
+      return 1;
+    }
     return 0;
   });
 }
 
 export function getAllTags(posts: Array<Post>) {
   const tags: Record<string, number> = {};
-  posts.forEach((post) => {
-    post.tags?.forEach((tag) => {
-      tags[tag] = (tags[tag] ?? 0) + 1;
-    });
-  });
+  for (const post of posts) {
+    if (post.tags) {
+      for (const tag of post.tags) {
+        tags[tag] = (tags[tag] ?? 0) + 1;
+      }
+    }
+  }
 
   return tags;
 }
@@ -45,7 +50,9 @@ export function sortTagsByCount(tags: Record<string, number>) {
 
 export function getPostsByTagSlug(posts: Array<Post>, tag: string) {
   return posts.filter((post) => {
-    if (!post.tags) return false;
+    if (!post.tags) {
+      return false;
+    }
     const slugifiedTags = post.tags.map((tag) => slug(tag));
     return slugifiedTags.includes(tag);
   });
