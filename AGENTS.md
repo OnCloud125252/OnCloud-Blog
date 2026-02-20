@@ -81,6 +81,13 @@ MDX pipeline: rehype-slug → rehype-pretty-code (one-dark-pro theme) → rehype
 
 All site metadata, social links, project listings, and page descriptions are centralized in `config/site.ts`. Modify this file to update site-wide content.
 
+## Writing Guidelines
+
+When generating or editing content, you **MUST** follow the instructions in [`docs/writing-style.md`](docs/writing-style.md).
+
+- **English Technical Voice:** For technical tutorials (imperative, impersonal).
+- **Chinese Personal Voice:** For dev logs/updates (casual, energetic, first-person).
+
 ## Code Style
 
 - **Indentation:** 2 spaces
