@@ -89,3 +89,26 @@ Restart your terminal. The Powerlevel10k configuration wizard should start autom
 ```bash
 p10k configure
 ```
+
+# Install Plugins (Optional)
+
+## zsh-autosuggestions
+```bash
+brew install zsh-autosuggestions
+```
+
+## zsh-syntax-highlighting
+```bash
+brew install zsh-syntax-highlighting
+```
+
+## Enable Plugins
+Add the following to the bottom of your `~/.zshrc` to enable the plugins installed via Homebrew:
+
+```bash title="~/.zshrc"
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+```
+
+# Finishing
+Restart WezTerm to apply all changes. Enjoy your new terminal setup!
