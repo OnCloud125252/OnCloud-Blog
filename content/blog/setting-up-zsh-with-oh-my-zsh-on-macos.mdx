@@ -42,3 +42,28 @@ Install `MesloLGS NF` font for the best Powerlevel10k experience.
 ```bash
 brew install --cask font-meslo-lg-nerd-font
 ```
+
+## Install Zsh
+macOS comes with Zsh, but it's recommended to install the latest version via Homebrew.
+
+```bash
+brew install zsh
+```
+
+Set Zsh as your default shell:
+
+```bash
+chsh -s $(which zsh)
+```
+
+## Install Oh My Zsh
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+
+## Install Powerlevel10k
+```bash
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+```
+
+Set `ZSH_THEME="powerlevel10k/powerlevel10k"` in your `~/.zshrc`.
