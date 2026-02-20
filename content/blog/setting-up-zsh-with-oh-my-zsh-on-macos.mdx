@@ -67,3 +67,25 @@ git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$
 ```
 
 Set `ZSH_THEME="powerlevel10k/powerlevel10k"` in your `~/.zshrc`.
+
+# Configuration
+
+## Configure WezTerm
+Create a configuration file at `~/.wezterm.lua` with the following content to use the installed font and remove the window decoration.
+
+```lua title="~/.wezterm.lua"
+local wezterm = require 'wezterm'
+local config = wezterm.config_builder()
+
+config.font = wezterm.font 'MesloLGS NF'
+config.window_decorations = "RESIZE"
+
+return config
+```
+
+## Configure Powerlevel10k
+Restart your terminal. The Powerlevel10k configuration wizard should start automatically. If it doesn't, run:
+
+```bash
+p10k configure
+```
