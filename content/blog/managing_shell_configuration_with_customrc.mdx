@@ -1,0 +1,119 @@
+---
+title: Managing Shell Configuration with CustomRC
+description: Break down massive rc files into manageable modules with automatic caching.
+date: 2026-02-20
+tags: ["shell", "zsh", "bash", "configuration", "dotfiles"]
+published: true
+---
+
+# Managing Shell Configuration with CustomRC
+
+Managing shell configuration files (like `.zshrc` or `.bashrc`) can often become messy as they grow over time. **CustomRC** solves this by breaking down these monolithic files into manageable, modular scripts that are automatically sourced and cached for performance.
+
+## Before Starting
+
+Ensure you have the following prerequisites:
+-   **Git** installed on your system.
+-   **Bash** or **Zsh** as your shell.
+
+You can find the project repository here: [CustomRC on GitHub](https://github.com/OnCloud125252/CustomRC).
+
+## Installation
+
+To get started, clone the repository to your home directory and run the installation script.
+
+```bash
+git clone https://github.com/OnCloud125252/CustomRC.git ~/.customrc
+~/.customrc/install.sh
+```
+
+This script will back up your existing configuration and set up CustomRC to load automatically when you open a new shell.
+
+## Understanding the Structure
+
+CustomRC organizes your configurations into a dedicated directory: `~/.customrc/rc-modules/`. Inside, you will find subdirectories that help categorize your scripts:
+
+-   **Global/**: Scripts that run on any operating system.
+-   **Darwin/**: Scripts specific to macOS.
+-   **Linux/**: Scripts specific to Linux distributions.
+
+Any shell script (`.sh`) placed in these directories will be automatically sourced based on your current OS.  
+Note that only files ending in `.sh` are loaded—directories and other file extensions are ignored. This allows you to place dependencies, binaries, or other assets anywhere within `~/.customrc/rc-modules/` without them being executed.
+
+## Basic Usage
+
+Once installed, you can manage your modules using the `customrc` command.
+
+Check the status of your configuration:
+
+```bash
+customrc status
+```
+
+List all available and active modules:
+
+```bash
+customrc modules list
+```
+
+If you add or remove modules manually, you can refresh the cache:
+
+```bash
+customrc sync
+```
+
+## Showcase Modules
+
+Here are some examples of how you can organize your tools using CustomRC. These files can be found in `~/.customrc/rc-modules/` after installation or added manually.
+
+### Global Modules
+These are useful regardless of your OS:
+
+#### `p10k.sh`
+Configure [Powerlevel10k](https://github.com/romkatv/powerlevel10k) theme settings.
+
+```bash
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+```
+
+### macOS (Darwin) Modules
+Specific optimizations for Mac users:
+
+#### `brew.sh`
+Set up Homebrew environment variables.
+
+```bash
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_ENV_HINTS=1
+export PATH=/opt/homebrew/bin:$PATH
+
+# Use a function instead of alias to avoid subshell evaluation at definition time
+# Also runs upgrades in parallel for better performance
+brew-full-update() {
+  brew update
+  brew upgrade --cask --greedy &
+  brew upgrade $(brew outdated | awk '{ print $1 }') &
+  wait
+  brew cleanup
+}
+```
+
+#### `trash-cli.sh`
+Setup `trash-cli` environment.
+
+```bash
+export PATH="/opt/homebrew/opt/trash-cli/bin:$PATH"
+```
+
+#### `finder.sh`
+Add aliases to interact with the macOS Finder.
+
+```bash
+alias finder="open"
+```
+
+## Finishing
+
+After setting up your modules, restart your terminal or run `source ~/.zshrc` (or `~/.bashrc`) to apply the changes. Run `customrc status` one last time to verify everything is loaded correctly.
+
+Happy customization!
