@@ -185,6 +185,7 @@ export const siteConfig = {
   blog: {
     title: "My Blog",
     description: "A collection of tips, tricks, and tutorials",
+    placeholder: "No posts found",
   },
   about: {
     title: "About Me",
