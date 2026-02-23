@@ -177,11 +177,6 @@ export const siteConfig = {
     defaultView: "list", // grid | list
     target: "_blank",
   },
-  gallery: {
-    title: "My Gallery",
-    description: "A collection of my favorite photos and videos",
-    placeholder: "Nothing to see here yet",
-  },
   blog: {
     title: "My Blog",
     description: "A collection of tips, tricks, and tutorials",
