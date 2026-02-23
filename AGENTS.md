@@ -38,9 +38,8 @@ app/                  # Next.js App Router pages
 ├── about/            # About page
 ├── api/              # API routes
 ├── blog/             # Blog listing and post pages
-├── gallery/          # Photo/video gallery (new)
 ├── project/          # Project showcase page
-├── tags/             # Tag-based blog filtering
+├── tags/             # Tag-based blog filtering (with category organization)
 ├── layout.tsx        # Root layout
 ├── page.tsx          # Home page
 └── globals.css       # Global styles
@@ -51,10 +50,15 @@ components/           # React components
 ├── main-nav.tsx      # Desktop navigation
 ├── mobile-nav.tsx    # Mobile navigation
 ├── post-item.tsx     # Blog post card
+├── post-list.tsx     # Blog post list component
+├── post-skeleton.tsx # Blog post loading skeleton
+├── tag.tsx           # Tag component
+├── tags-by-category.tsx # Tags organized by category
 ├── mdx-components.tsx # MDX rendering components
 └── ...
 config/
-└── site.ts           # Site configuration (metadata, links, projects list)
+├── site.ts           # Site configuration (metadata, links, projects list)
+└── tags.ts           # Tag categories configuration
 content/
 └── blog/             # MDX blog posts (processed by Velite)
 lib/
@@ -114,6 +118,7 @@ Biome handles both linting and formatting. Run formatting checks via the Biome C
 - Components use default exports for page-level components and named exports for shared components
 - `SiteFooter` is dynamically imported in the layout for performance
 - The project list in `config/site.ts` uses a status system: `active`, `developing`, `done`, `paused`, `deprecated`, `outdated`
+- Tags are organized into categories in `config/tags.ts` (e.g., "技術", "作業系統", "工具")
 - shadcn/ui components live in `components/ui/` and follow the shadcn convention (copy-paste, not library import)
 
 ## Testing

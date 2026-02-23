@@ -3,6 +3,13 @@ import { slug } from "github-slugger";
 import { twMerge } from "tailwind-merge";
 import { Post } from "#site/content";
 
+import {
+  getAllCategories,
+  getCategoryConfig,
+  getCategoryForTag,
+  type TagCategory,
+} from "@/config/tags";
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -56,4 +63,67 @@ export function getPostsByTagSlug(posts: Array<Post>, tag: string) {
     const slugifiedTags = post.tags.map((tag) => slug(tag));
     return slugifiedTags.includes(tag);
   });
+}
+
+export interface TagsByCategory {
+  category: TagCategory;
+  label: string;
+  color: string;
+  tags: Array<{ name: string; count: number }>;
+}
+
+export function getTagsByCategory(
+  tags: Record<string, number>,
+): Array<TagsByCategory> {
+  const tagsByCategory: Record<
+    string,
+    Array<{ name: string; count: number }>
+  > = {};
+
+  // Initialize all categories
+  for (const category of getAllCategories()) {
+    tagsByCategory[category] = [];
+  }
+
+  // Group tags by category
+  for (const [tagName, count] of Object.entries(tags)) {
+    const category = getCategoryForTag(tagName);
+    if (category) {
+      tagsByCategory[category].push({ name: tagName, count });
+    }
+  }
+
+  // Convert to array and sort tags within each category
+  const result: Array<TagsByCategory> = [];
+  for (const category of getAllCategories()) {
+    const categoryTags = tagsByCategory[category];
+    if (categoryTags.length > 0) {
+      categoryTags.sort((a, b) => b.count - a.count);
+      const config = getCategoryConfig(category);
+      result.push({
+        category,
+        label: config.label,
+        color: config.color,
+        tags: categoryTags,
+      });
+    }
+  }
+
+  return result;
+}
+
+export function getUncategorizedTags(
+  tags: Record<string, number>,
+): Array<{ name: string; count: number }> {
+  const uncategorized: Array<{ name: string; count: number }> = [];
+
+  for (const [tagName, count] of Object.entries(tags)) {
+    const category = getCategoryForTag(tagName);
+    if (!category) {
+      uncategorized.push({ name: tagName, count });
+    }
+  }
+
+  uncategorized.sort((a, b) => b.count - a.count);
+  return uncategorized;
 }
