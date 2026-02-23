@@ -1,18 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Post } from "#site/content";
 import { PostItem } from "@/components/post-item";
 import { PostSkeleton } from "@/components/post-skeleton";
-
-interface Post {
-  slug: string;
-  title: string;
-  description?: string;
-  date: string;
-  update?: string;
-  tags?: Array<string>;
-  published: boolean;
-}
 
 interface PostListProps {
   posts: Post[];
