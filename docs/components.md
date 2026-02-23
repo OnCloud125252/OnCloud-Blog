@@ -46,7 +46,6 @@ The root layout (`app/layout.tsx`) composes the page shell:
 |-----------|------|---------|
 | `PostItem` | `post-item.tsx` | Blog post card showing title, date, description, and tags |
 | `Tag` | `tag.tsx` | Tag badge rendered as a link to `/tags/[tag]` |
-| `QueryPagination` | `query-pagination.tsx` | Pagination using URL search params (`?page=N`) |
 | `MDXContent` | `mdx-components.tsx` | Renders compiled MDX code string with custom component mappings |
 | `Callout` | `callout.tsx` | Highlighted note block for MDX content (default/warning/danger) |
 
