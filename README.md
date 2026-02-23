@@ -24,11 +24,11 @@ This starts the Next.js development server with hot reload and Velite content pr
 
 ## Features
 
+- **Cyberpunk/neon design system** with theme-aware styling and custom scrollbar
 - **MDX blog posts** with syntax highlighting (One Dark Pro theme via rehype-pretty-code), auto-linked headings, and custom components like `<Callout>`
-- **Tag system** for filtering and browsing posts by topic
+- **Tag system** with category organization for filtering and browsing posts by topic
 - **Dynamic Open Graph images** generated per-page via the `/api/og` route
 - **Project showcase** with status indicators (`active`, `developing`, `done`, `paused`, `deprecated`, `outdated`)
-- **Photo/video gallery**
 - **Dark mode** powered by next-themes
 - **Responsive design** with separate desktop and mobile navigation
 - **shadcn/ui components** (Radix UI primitives) for consistent UI
@@ -38,21 +38,23 @@ This starts the Next.js development server with hot reload and Velite content pr
 ```
 app/                  # Next.js App Router pages
 ├── about/            # About page
-├── api/og/           # OG image generation endpoint
+├── api/              # API routes (OG image generation)
 ├── blog/             # Blog listing and individual posts
-├── gallery/          # Photo/video gallery
 ├── project/          # Project showcase
-├── tags/             # Tag-based blog filtering
+├── tags/             # Tag-based blog filtering with category organization
 └── layout.tsx        # Root layout with header/footer
 
 components/           # React components
 ├── ui/               # shadcn/ui base components
 ├── mdx-components.tsx # Custom MDX rendering
 ├── site-header.tsx   # Navigation header
-└── post-item.tsx     # Blog post card
+├── post-item.tsx     # Blog post card
+└── tags-by-category.tsx # Tags organized by category
 
 content/blog/         # MDX blog posts (processed by Velite)
-config/site.ts        # Site metadata, social links, project list
+config/
+├── site.ts           # Site metadata, social links, project list
+└── tags.ts           # Tag categories configuration
 ```
 
 **Path aliases:** `@/*` maps to the project root, `#site/content` maps to `.velite/` (generated content).
@@ -110,8 +112,9 @@ bun run build
 # Start production server
 bun start
 
-# Lint
-bun lint
+# Lint and check
+bun check
+bun check --fix
 ```
 
 Requires [Bun](https://bun.sh/) and [Node.js](https://nodejs.org/) 18+.
