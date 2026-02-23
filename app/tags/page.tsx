@@ -1,16 +1,21 @@
 import { Metadata } from "next";
 import { posts } from "#site/content";
-import { Tag } from "@/components/tag";
-import { getAllTags, sortTagsByCount } from "@/lib/utils";
+import { TagsByCategoryList } from "@/components/tags-by-category";
+import {
+  getAllTags,
+  getTagsByCategory,
+  getUncategorizedTags,
+} from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Tags",
   description: "Topic I've written about",
 };
 
-export default async function TagsPage() {
+export default function TagsPage() {
   const tags = getAllTags(posts);
-  const sortedTags = sortTagsByCount(tags);
+  const tagsByCategory = getTagsByCategory(tags);
+  const uncategorizedTags = getUncategorizedTags(tags);
 
   return (
     <div className="container max-w-4xl py-6 lg:py-10">
@@ -20,11 +25,11 @@ export default async function TagsPage() {
         </div>
       </div>
       <hr className="my-4" />
-      <div className="flex flex-wrap gap-2">
-        {sortedTags?.map((tag) => (
-          <Tag tag={tag} count={tags[tag]} key={tag} />
-        ))}
-      </div>
+
+      <TagsByCategoryList
+        tagsByCategory={tagsByCategory}
+        uncategorizedTags={uncategorizedTags}
+      />
     </div>
   );
 }
