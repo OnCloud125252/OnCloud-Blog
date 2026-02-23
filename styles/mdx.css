@@ -5,13 +5,13 @@
 span[data-rehype-pretty-code-figure]>code {
   border-radius: 4px;
   display: inline;
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 1rem;
   font-weight: normal;
   overflow-wrap: break-word;
   padding: 3px 5px 1px 3px;
   margin: 0 2px;
-  @apply !bg-cyan-100 !text-cyan-600 dark:!text-cyan-200 dark:!bg-cyan-950;
+  @apply !bg-primary/10 !text-primary dark:!bg-primary/15 dark:!text-primary;
 }
 
 span[data-rehype-pretty-code-figure]>code>span {
@@ -43,7 +43,7 @@ span[data-rehype-pretty-code-figure]>code::after {
 
 [data-rehype-pretty-code-figure] [data-highlighted-line] {
   background: rgba(200, 200, 255, 0.1);
-  @apply border-l-blue-400;
+  @apply border-l-secondary;
 }
 
 [data-rehype-pretty-code-figure] [data-highlighted-chars] {
@@ -53,6 +53,16 @@ span[data-rehype-pretty-code-figure]>code::after {
 
 [data-rehype-pretty-code-figure] [data-chars-id] {
   @apply border-b-2 p-1 shadow-none;
+}
+
+/* Code block top border accent */
+[data-rehype-pretty-code-figure] pre {
+  border-top: 1px solid hsl(185 100% 55% / 0.2);
+}
+
+/* Prose headings use display font */
+.prose :where(h1, h2, h3, h4):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  font-family: var(--font-display);
 }
 
 .prose :where(h1):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
@@ -71,4 +81,22 @@ span[data-rehype-pretty-code-figure]>code::after {
 blockquote>p::before,
 blockquote>p::after {
   display: none;
+}
+
+/* Blockquote neon left border */
+.prose :where(blockquote):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  border-left-color: hsl(185 100% 55% / 0.4);
+  box-shadow: -2px 0 8px hsl(185 100% 55% / 0.1);
+}
+
+/* HR in prose uses cyber gradient */
+.prose :where(hr):not(:where([class~="not-prose"],[class~="not-prose"] *)) {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    hsl(185 100% 55% / 0.6),
+    hsl(315 90% 60% / 0.4),
+    transparent
+  );
 }

@@ -58,12 +58,12 @@ export default function TagPage({ params }: TagPageProps) {
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
         <div className="flex-1 space-y-4">
           <div className="flex items-center gap-3">
-            <h1 className="inline-block font-black text-4xl capitalize lg:text-5xl">
+            <h1 className="inline-block font-black font-display text-4xl capitalize lg:text-5xl">
               {title}
             </h1>
             {currentCategoryConfig && (
               <span
-                className="rounded-full px-3 py-1 font-medium text-sm text-white"
+                className="rounded-full px-3 py-1 font-medium font-mono text-sm text-white shadow-neon-cyan"
                 style={{ backgroundColor: currentCategoryConfig.color }}
               >
                 {currentCategoryConfig.label}
@@ -74,7 +74,7 @@ export default function TagPage({ params }: TagPageProps) {
       </div>
       <div className="mt-8 grid grid-cols-12 gap-3">
         <div className="col-span-12 col-start-1 sm:col-span-8">
-          <hr />
+          <hr className="cyber-hr" />
           {displayPosts?.length > 0 ? (
             <ul className="flex flex-col">
               {displayPosts.map((post) => {

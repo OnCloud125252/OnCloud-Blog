@@ -16,32 +16,32 @@ export default async function AboutPage() {
       <div>
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
           <div className="flex-1 space-x-4">
-            <h1 className="inline-block font-black text-4xl lg:text-5xl">
+            <h1 className="inline-block font-black font-display text-4xl lg:text-5xl">
               {title}
             </h1>
           </div>
         </div>
-        <hr className="my-8" />
+        <hr className="cyber-hr my-8" />
         <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
           <div className="flex w-full min-w-56 flex-col items-center gap-2 md:max-w-56">
-            <Avatar className="h-48 w-48">
+            <Avatar className="h-48 w-48 shadow-neon-cyan ring-2 ring-primary/30 ring-offset-2 ring-offset-background">
               <AvatarImage src={avatar.url} alt={name} />
               <AvatarFallback>{avatar.fallback}</AvatarFallback>
             </Avatar>
-            <h2 className="break-words text-center font-bold text-2xl">
+            <h2 className="break-words text-center font-bold font-display text-2xl">
               {name}
             </h2>
-            <p className="w-full break-words border-b-2 pb-2 text-center text-muted-foreground">
+            <p className="w-full break-words border-primary/20 border-b-2 pb-2 text-center text-muted-foreground">
               {aka}
             </p>
             <div>
-              <p className="mt-1 mb-2 flex w-full items-center justify-start gap-1 break-words text-left text-muted-foreground">
+              <p className="mt-1 mb-2 flex w-full items-center justify-start gap-1 break-words text-left font-mono text-muted-foreground text-sm">
                 <div className="w-5">
                   <Icons.location className="h-4 w-4" />
                 </div>
                 {location}
               </p>
-              <p className="flex w-full items-center justify-start gap-1 break-words text-left text-muted-foreground leading-5">
+              <p className="flex w-full items-center justify-start gap-1 break-words text-left font-mono text-muted-foreground text-sm leading-5">
                 <div className="w-5">
                   <Icons.building className="h-5 w-5" />
                 </div>
@@ -61,12 +61,12 @@ export default async function AboutPage() {
       <div>
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
           <div className="flex-1 space-x-4">
-            <h1 className="inline-block font-black text-4xl lg:text-5xl">
+            <h1 className="inline-block font-black font-display text-4xl lg:text-5xl">
               GitHub Status
             </h1>
           </div>
         </div>
-        <hr className="my-8" />
+        <hr className="cyber-hr my-8" />
         <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-start lg:justify-center">
           {/* biome-ignore lint/performance/noImgElement: external dynamic SVG from GitHub stats API */}
           <img
@@ -85,12 +85,12 @@ export default async function AboutPage() {
       <div>
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
           <div className="flex-1 space-x-4">
-            <h1 className="inline-block font-black text-4xl lg:text-5xl">
+            <h1 className="inline-block font-black font-display text-4xl lg:text-5xl">
               Coding Activity (All Time)
             </h1>
           </div>
         </div>
-        <hr className="my-8" />
+        <hr className="cyber-hr my-8" />
         <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-start lg:justify-center">
           {/* biome-ignore lint/performance/noImgElement: external dynamic SVG from GitHub stats API */}
           <img

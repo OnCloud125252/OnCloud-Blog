@@ -29,7 +29,7 @@ export default async function BlogPage() {
       <div className="container relative right-0 left-0 flex h-full max-w-7xl flex-col py-6 lg:py-10">
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
           <div className="flex-1 space-y-4">
-            <h1 className="inline-block font-black text-4xl lg:text-5xl">
+            <h1 className="inline-block font-black font-display text-4xl lg:text-5xl">
               {title}
             </h1>
             <p className="text-muted-foreground text-xl">{description}</p>
@@ -37,7 +37,7 @@ export default async function BlogPage() {
         </div>
         <div className="relative mt-8 grid flex-1 grid-cols-12 gap-3 sm:max-h-[calc(100%-10rem)]">
           <div className="relative col-span-12 col-start-1 max-h-full sm:col-span-8">
-            <hr />
+            <hr className="cyber-hr" />
             {sortedPosts?.length > 0 ? (
               <PostList posts={sortedPosts} />
             ) : (

@@ -80,7 +80,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
   return (
     <article className="prose dark:prose-invert container mx-auto max-w-7xl py-6">
-      <h1 className="mb-2">{post.title}</h1>
+      <h1 className="mb-2 font-display">{post.title}</h1>
       <div className="mb-2 flex gap-2">
         {post.tags?.map((tag) => (
           <Tag tag={tag} key={tag} />
@@ -91,7 +91,7 @@ export default async function PostPage({ params }: PostPageProps) {
           {post.description}
         </p>
       ) : null}
-      <div className="flex gap-6">
+      <div className="flex gap-6 font-mono text-sm">
         <Tooltip>
           <TooltipTrigger>
             <div className="flex items-center gap-1">
@@ -115,7 +115,7 @@ export default async function PostPage({ params }: PostPageProps) {
           </Tooltip>
         )}
       </div>
-      <hr className="my-4" />
+      <hr className="cyber-hr my-4" />
       <MDXContent code={post.body} />
     </article>
   );
