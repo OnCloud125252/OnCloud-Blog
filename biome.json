@@ -14,18 +14,15 @@
       "*.jsx",
       "*.json",
       "*.css",
-      "src/**",
       "app/**",
       "components/**",
       "lib/**",
       "hooks/**",
-      "prisma/**/*.ts",
       "!node_modules",
       "!.next",
       "!dist",
       "!build",
       "!**/generated",
-      "!prisma/migrations",
       "!.worktrees"
     ]
   },
