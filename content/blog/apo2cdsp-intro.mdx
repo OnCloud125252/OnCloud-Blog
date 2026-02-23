@@ -1,0 +1,58 @@
+---
+title: "寫了一個 APO 轉 CamillaDSP 的小工具"
+description: "因為最近在搞音響，寫了一個 CLI 工具把 EqualizerAPO 的參數轉給 CamillaDSP 用～"
+date: "2026-02-20"
+tags: ["bun", "typescript", "audio", "dev-log", "life"]
+published: true
+---
+
+最近因為在搞音響，把原本在 Windows 上用的 EqualizerAPO 設定檔搬到 Mac/Linux 上用 CamillaDSP。
+但 CamillaDSP 的設定檔是 YAML/JSON 格式，手動轉換實在太麻煩了...
+
+所以我就寫了一個小工具來自動轉換。
+
+## 什麼是 APO2cDSP?
+
+[APO2cDSP-ParametricEQ](https://github.com/OnCloud125252/APO2cDSP-ParametricEQ) 是一個簡單的 CLI 工具，可以把 EqualizerAPO 的 Filter 轉換成 CamillaDSP 的 JSON 格式。
+
+主要功能：
+- 解析 EqualizerAPO 的 `Filter: ON PK Fc ...` 格式
+- 自動計算 Q 值與 Bandwidth
+- 輸出可以直接貼到 CamillaDSP Config 的 JSON
+
+## 這幾日ㄉ進度
+
+1.  研究格式 — EqualizerAPO 的文字檔其實蠻好懂的，稍微看一下 document 就知道怎麼 parse 了。
+2.  寫 Parser — 這次決定用 Bun 來寫，因為它原生支援 TypeScript，不用在那邊搞 `ts-node` 或 compile，省了不少事。
+3.  發布 — 雖然功能還很陽春，但已經推上 GitHub 啦～
+
+## 碎碎念
+
+說真的，用 Bun 寫 TypeScript 的體驗真的很好。
+以前用 Node.js 寫小工具，光是設定 `tsconfig.json` 和 build process 就覺得心累。
+現在直接 `bun run index.ts` 就跑起來了，開發速度快很多。
+
+寫這個 Parser 的時候，最麻煩的其實是 Regex... Regex 永遠是痛點。
+不過搞定之後，現在只要一行指令：
+
+```bash
+bun run index.ts filters.txt
+```
+
+就能拿到乾淨的 JSON 了，超爽ㄉ。
+
+## 技術小細節
+
+雖然只是個小工具，但也學到了一些關於數位訊號處理（DSP）的小知識。
+比如 EqualizerAPO 用的 Q factor 和 Bandwidth 的換算，還有不同 Filter Type 的對應。
+老實說我很菜，但看到轉換出來的聲音是對的，就覺得很有成就感。
+
+## 結語
+
+如果你也剛好有這個需求（雖然我覺得機率很低 XD），歡迎去用用看。
+有 bug 也可以發 issue 給我～
+
+GitHub Repo: [APO2cDSP-ParametricEQ](https://github.com/OnCloud125252/APO2cDSP-ParametricEQ)
+
+好啦，繼續去聽歌了。
+ฅ^•ﻌ•^ฅ
