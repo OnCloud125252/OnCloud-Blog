@@ -139,32 +139,32 @@ export const siteConfig = {
       switch (status) {
         case "done":
           return {
-            color: "#1cad34",
+            color: "#00e676",
             text: "DONE",
           };
         case "active":
           return {
-            color: "#2f67c2",
+            color: "#00e5ff",
             text: "ACTIVE",
           };
         case "developing":
           return {
-            color: "#8222e3",
+            color: "#d500f9",
             text: "DEVELOPING",
           };
         case "paused":
           return {
-            color: "#a69526",
+            color: "#ffea00",
             text: "PAUSED",
           };
         case "deprecated":
           return {
-            color: "#a65526",
+            color: "#ff6e40",
             text: "DEPRECATED",
           };
         case "outdated":
           return {
-            color: "#a62626",
+            color: "#ff1744",
             text: "OUTDATED",
           };
         default:

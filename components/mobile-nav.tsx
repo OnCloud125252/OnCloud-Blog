@@ -20,23 +20,35 @@ export function MobileNav() {
           <span className="sr-only">Toggle Theme</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right">
+      <SheetContent side="right" className="border-border/50 bg-card">
         <MobileLink
           onOpenChange={setOpen}
           href="/"
           className="flex items-center"
         >
-          <Icons.logo className="mr-2 h-4 w-4" />
-          <span className="font-bold">{siteConfig.name}</span>
+          <Icons.logo className="mr-2 h-4 w-4 text-primary" />
+          <span className="font-bold font-display">{siteConfig.name}</span>
         </MobileLink>
         <div className="mt-3 flex flex-col gap-3">
-          <MobileLink onOpenChange={setOpen} href="/blog">
+          <MobileLink
+            onOpenChange={setOpen}
+            href="/blog"
+            className="border-transparent border-l-2 pl-2 font-display transition-colors hover:border-primary hover:text-primary"
+          >
             Blog
           </MobileLink>
-          <MobileLink onOpenChange={setOpen} href="/project">
+          <MobileLink
+            onOpenChange={setOpen}
+            href="/project"
+            className="border-transparent border-l-2 pl-2 font-display transition-colors hover:border-primary hover:text-primary"
+          >
             Project
           </MobileLink>
-          <MobileLink onOpenChange={setOpen} href="/about">
+          <MobileLink
+            onOpenChange={setOpen}
+            href="/about"
+            className="border-transparent border-l-2 pl-2 font-display transition-colors hover:border-primary hover:text-primary"
+          >
             About
           </MobileLink>
           {Object.keys(siteConfig.links).map((name: string) => {
@@ -47,6 +59,7 @@ export function MobileNav() {
                   target="_blank"
                   rel="noreferrer"
                   key={name}
+                  className="transition-colors hover:text-primary"
                 >
                   <SocialIcon name={name as SocialLinkKey} showLabel />
                 </Link>

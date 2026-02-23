@@ -17,14 +17,14 @@ export function TagSidebar({
   return (
     <Card className="col-span-12 row-start-3 h-fit max-h-[60vh] overflow-y-auto sm:col-span-4 sm:col-start-9 sm:row-start-1">
       <CardHeader>
-        <CardTitle>Tags</CardTitle>
+        <CardTitle className="font-display">Tags</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
         {tagsByCategory.map((categoryGroup) => (
           <div key={categoryGroup.category} className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
               <span
-                className="h-3 w-3 rounded-full"
+                className="h-3 w-3 rounded-full shadow-[0_0_6px_var(--glow-primary)]"
                 style={{
                   backgroundColor: categoryGroup.color,
                 }}
@@ -49,7 +49,7 @@ export function TagSidebar({
         {uncategorizedTags.length > 0 && (
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full bg-gray-400" />
+              <span className="h-3 w-3 rounded-full bg-gray-400 shadow-[0_0_6px_var(--glow-primary)]" />
               <span className="font-medium text-sm">Other</span>
             </div>
             <div className="flex flex-wrap gap-2 pl-5">

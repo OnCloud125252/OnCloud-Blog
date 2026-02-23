@@ -25,9 +25,10 @@ export function PostItem({
   tags,
 }: PostItemProps) {
   return (
-    <article className="flex flex-col gap-2 border-border border-b py-3">
+    <article className="group flex flex-col gap-2 border-b border-b-transparent border-l-2 border-l-transparent py-3 pl-3 transition-all duration-300 hover:border-l-primary [&:not(:last-child)]:border-b-border/30">
+      <div className="cyber-hr mb-0 hidden [article:last-child>&]:block" />
       <div>
-        <h2 className="font-bold text-2xl">
+        <h2 className="font-bold font-display text-2xl transition-colors group-hover:text-primary">
           <Link href={`/${slug}`}>{title}</Link>
         </h2>
       </div>
@@ -42,7 +43,7 @@ export function PostItem({
           <TooltipTrigger>
             <dl>
               <dt className="sr-only">Latest update</dt>
-              <dd className="flex items-center gap-1 font-medium text-sm sm:text-base">
+              <dd className="flex items-center gap-1 font-mono text-muted-foreground text-sm sm:text-base">
                 <Calendar className="h-4 w-4" />
                 <time dateTime={date}>{formatDate(date)}</time>
               </dd>
@@ -54,11 +55,11 @@ export function PostItem({
           href={`/${slug}`}
           className={cn(
             buttonVariants({ variant: "link" }),
-            "group gap-1 py-0 hover:no-underline",
+            "group/link gap-1 py-0 hover:no-underline",
           )}
         >
           Read more
-          <span className="font-bold duration-300 group-hover:translate-x-1">
+          <span className="font-bold duration-300 group-hover/link:translate-x-1">
             →
           </span>
         </Link>

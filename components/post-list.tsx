@@ -77,7 +77,12 @@ export function PostList({ posts }: PostListProps) {
         const { slug, date, update, title, description, tags } = post;
         const isLastItem = index === lastPostIndex && !showSkeleton;
         return (
-          <li key={slug} ref={isLastItem ? observerTarget : null}>
+          <li
+            key={slug}
+            ref={isLastItem ? observerTarget : null}
+            className="animate-fade-in-up opacity-0"
+            style={{ animationDelay: `${(index % POSTS_PER_PAGE) * 80}ms` }}
+          >
             <PostItem
               slug={slug}
               date={update || date}

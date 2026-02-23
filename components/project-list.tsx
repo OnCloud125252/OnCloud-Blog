@@ -50,7 +50,7 @@ export function ProjectList({
                 <CardTitle className={"mr-3"}>{name}</CardTitle>
                 <Badge color={color}>{text}</Badge>
               </div>
-              <div className="!mt-0 !mb-2 flex items-center gap-1 text-gray-500 text-sm">
+              <div className="!mt-0 !mb-2 flex items-center gap-1 font-mono text-muted-foreground text-sm">
                 {technology.length && (
                   <>
                     <Icons.bolt className="h-3 w-3" />

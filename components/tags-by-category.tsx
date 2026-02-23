@@ -37,7 +37,7 @@ export function TagsByCategoryList({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span
-                  className="h-3 w-3 rounded-full"
+                  className="h-3 w-3 rounded-full shadow-[0_0_6px_var(--glow-primary)]"
                   style={{ backgroundColor: categoryGroup.color }}
                 />
                 <span className="font-semibold">{categoryGroup.label}</span>
@@ -45,7 +45,7 @@ export function TagsByCategoryList({
                   ({categoryGroup.tags.length})
                 </span>
               </div>
-              <span className="text-muted-foreground">
+              <span className="font-mono text-muted-foreground">
                 {expandedCategories[categoryGroup.category] ? "−" : "+"}
               </span>
             </div>
@@ -73,13 +73,13 @@ export function TagsByCategoryList({
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="h-3 w-3 rounded-full bg-gray-400" />
+                <span className="h-3 w-3 rounded-full bg-gray-400 shadow-[0_0_6px_var(--glow-primary)]" />
                 <span className="font-semibold">Other</span>
                 <span className="text-muted-foreground text-sm">
                   ({uncategorizedTags.length})
                 </span>
               </div>
-              <span className="text-muted-foreground">
+              <span className="font-mono text-muted-foreground">
                 {expandedCategories.other ? "−" : "+"}
               </span>
             </div>
