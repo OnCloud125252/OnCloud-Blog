@@ -1,37 +1,29 @@
 import { Metadata } from "next";
 import { posts } from "#site/content";
-import { PostItem } from "@/components/post-item";
-import { QueryPagination } from "@/components/query-pagination";
+import { PostList } from "@/components/post-list";
 import { Tag } from "@/components/tag";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { siteConfig } from "@/config/site";
-import { getAllTags, sortPosts, sortTagsByCount } from "@/lib/utils";
+import {
+  getAllTags,
+  getTagsByCategory,
+  getUncategorizedTags,
+  sortPosts,
+  sortTagsByCount,
+} from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: siteConfig.blog.title,
   description: siteConfig.blog.description,
 };
 
-const POSTS_PER_PAGE = 6;
-
-interface BlogPageProps {
-  searchParams: {
-    page?: string;
-  };
-}
-
-export default async function BlogPage({ searchParams }: BlogPageProps) {
-  const currentPage = Number(searchParams?.page) || 1;
+export default async function BlogPage() {
   const sortedPosts = sortPosts(posts.filter((post) => post.published));
-  const totalPages = Math.ceil(sortedPosts.length / POSTS_PER_PAGE);
-
-  const displayPosts = sortedPosts.slice(
-    POSTS_PER_PAGE * (currentPage - 1),
-    POSTS_PER_PAGE * currentPage,
-  );
 
   const tags = getAllTags(posts);
-  const sortedTags = sortTagsByCount(tags);
+  const _sortedTags = sortTagsByCount(tags);
+  const tagsByCategory = getTagsByCategory(tags);
+  const uncategorizedTags = getUncategorizedTags(tags);
 
   const { title, description, placeholder } = siteConfig.blog;
 
@@ -49,39 +41,61 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
         <div className="relative mt-8 grid flex-1 grid-cols-12 gap-3 sm:max-h-[calc(100%-10rem)]">
           <div className="relative col-span-12 col-start-1 max-h-full sm:col-span-8">
             <hr />
-            {displayPosts?.length > 0 ? (
-              <ul className="flex flex-col sm:absolute sm:h-full sm:w-full sm:overflow-auto">
-                {displayPosts.map((post) => {
-                  const { slug, date, update, title, description, tags } = post;
-                  return (
-                    <li key={slug}>
-                      <PostItem
-                        slug={slug}
-                        date={update || date}
-                        title={title}
-                        description={description}
-                        tags={tags}
-                      />
-                    </li>
-                  );
-                })}
-              </ul>
+            {sortedPosts?.length > 0 ? (
+              <PostList posts={sortedPosts} />
             ) : (
               <p>{placeholder}</p>
             )}
-            <QueryPagination
-              totalPages={totalPages}
-              className="mt-4 justify-end sm:absolute sm:top-[100%]"
-            />
           </div>
-          <Card className="col-span-12 row-start-3 h-fit sm:col-span-4 sm:col-start-9 sm:row-start-1">
+          <Card className="col-span-12 row-start-3 h-fit max-h-[60vh] overflow-y-auto sm:col-span-4 sm:col-start-9 sm:row-start-1">
             <CardHeader>
               <CardTitle>Tags</CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-wrap gap-2">
-              {sortedTags?.map((tag) => (
-                <Tag tag={tag} key={tag} count={tags[tag]} />
+            <CardContent className="flex flex-col gap-4">
+              {tagsByCategory.map((categoryGroup) => (
+                <div
+                  key={categoryGroup.category}
+                  className="flex flex-col gap-2"
+                >
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="h-3 w-3 rounded-full"
+                      style={{ backgroundColor: categoryGroup.color }}
+                    />
+                    <span className="font-medium text-sm">
+                      {categoryGroup.label}
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-2 pl-5">
+                    {categoryGroup.tags.map((tag) => (
+                      <Tag
+                        tag={tag.name}
+                        key={tag.name}
+                        count={tag.count}
+                        showCategory={false}
+                      />
+                    ))}
+                  </div>
+                </div>
               ))}
+              {uncategorizedTags.length > 0 && (
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2">
+                    <span className="h-3 w-3 rounded-full bg-gray-400" />
+                    <span className="font-medium text-sm">Other</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2 pl-5">
+                    {uncategorizedTags.map((tag) => (
+                      <Tag
+                        tag={tag.name}
+                        key={tag.name}
+                        count={tag.count}
+                        showCategory={false}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
