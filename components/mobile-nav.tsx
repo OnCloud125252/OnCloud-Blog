@@ -2,78 +2,12 @@
 
 import { Menu } from "lucide-react";
 import Link, { LinkProps } from "next/link";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { siteConfig } from "@/config/site";
 import { Icons } from "./icons";
+import { SocialIcon, type SocialLinkKey } from "./social-icons";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
-
-const IconsList = {
-  email: (
-    <div className="flex items-center gap-1">
-      <Icons.email className="h-4 w-4" />
-      <span className="sr-only">Email</span>
-      Email
-    </div>
-  ),
-  github: (
-    <div className="flex items-center gap-1">
-      <Icons.github className="h-4 w-4" />
-      <span className="sr-only">GitHub</span>
-      GitHub
-    </div>
-  ),
-  twitter: (
-    <div className="flex items-center gap-1">
-      <Icons.twitter className="h-4 w-4" />
-      <span className="sr-only">Twitter</span>
-      Twitter
-    </div>
-  ),
-  linkedin: (
-    <div className="flex items-center gap-1">
-      <Icons.linkedin className="h-4 w-4" />
-      <span className="sr-only">LinkedIn</span>
-      LinkedIn
-    </div>
-  ),
-  facebook: (
-    <div className="flex items-center gap-1">
-      <Icons.facebook className="h-4 w-4" />
-      <span className="sr-only">Facebook</span>
-      Facebook
-    </div>
-  ),
-  instagram: (
-    <div className="flex items-center gap-1">
-      <Icons.instagram className="h-4 w-4" />
-      <span className="sr-only">Instagram</span>
-      Instagram
-    </div>
-  ),
-  youtube: (
-    <div className="flex items-center gap-1">
-      <Icons.youtube className="h-4 w-4" />
-      <span className="sr-only">YouTube</span>
-      YouTube
-    </div>
-  ),
-  discord: (
-    <div className="flex items-center gap-1">
-      <Icons.discord className="h-4 w-4" />
-      <span className="sr-only">Discord</span>
-      Discord
-    </div>
-  ),
-  gravatar: (
-    <div className="flex items-center gap-1">
-      <Icons.gravatar className="h-4 w-4" />
-      <span className="sr-only">Gravatar</span>
-      Gravatar
-    </div>
-  ),
-};
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -109,12 +43,12 @@ export function MobileNav() {
             if (name) {
               return (
                 <Link
-                  href={siteConfig.links[name as keyof typeof siteConfig.links]}
+                  href={siteConfig.links[name as SocialLinkKey]}
                   target="_blank"
                   rel="noreferrer"
                   key={name}
                 >
-                  {IconsList[name as keyof typeof IconsList]}
+                  <SocialIcon name={name as SocialLinkKey} showLabel />
                 </Link>
               );
             }
@@ -139,14 +73,10 @@ function MobileLink({
   className,
   ...props
 }: MobileLinkProps) {
-  const router = useRouter();
   return (
     <Link
       href={href}
-      onClick={() => {
-        router.push(href.toString());
-        onOpenChange?.(false);
-      }}
+      onClick={() => onOpenChange?.(false)}
       className={className}
       {...props}
     >

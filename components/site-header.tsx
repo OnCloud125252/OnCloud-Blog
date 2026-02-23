@@ -6,95 +6,11 @@ import {
 } from "@/components/ui/tooltip";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { Icons } from "./icons";
 import { MainNav } from "./main-nav";
 import { MobileNav } from "./mobile-nav";
 import { ModeToggle } from "./mode-toggle";
+import { getSocialIconLabel, SocialIcon, SocialLinkKey } from "./social-icons";
 import { buttonVariants } from "./ui/button";
-
-const IconsList = {
-  email: {
-    name: "Email",
-    html: (
-      <>
-        <Icons.email className="h-4 w-4" />
-        <span className="sr-only">Email</span>
-      </>
-    ),
-  },
-  github: {
-    name: "GitHub",
-    html: (
-      <>
-        <Icons.github className="h-4 w-4" />
-        <span className="sr-only">GitHub</span>
-      </>
-    ),
-  },
-  twitter: {
-    name: "Twitter",
-    html: (
-      <>
-        <Icons.twitter className="h-4 w-4" />
-        <span className="sr-only">Twitter</span>
-      </>
-    ),
-  },
-  linkedin: {
-    name: "Linkedin",
-    html: (
-      <>
-        <Icons.linkedin className="h-4 w-4" />
-        <span className="sr-only">Linkedin</span>
-      </>
-    ),
-  },
-  facebook: {
-    name: "Facebook",
-    html: (
-      <>
-        <Icons.facebook className="h-4 w-4" />
-        <span className="sr-only">Facebook</span>
-      </>
-    ),
-  },
-  instagram: {
-    name: "Instagram",
-    html: (
-      <>
-        <Icons.instagram className="h-4 w-4" />
-        <span className="sr-only">Instagram</span>
-      </>
-    ),
-  },
-  youtube: {
-    name: "YouTube",
-    html: (
-      <>
-        <Icons.youtube className="h-4 w-4" />
-        <span className="sr-only">YouTube</span>
-      </>
-    ),
-  },
-  discord: {
-    name: "Discord",
-    html: (
-      <>
-        <Icons.discord className="h-4 w-4" />
-        <span className="sr-only">Discord</span>
-      </>
-    ),
-  },
-  gravatar: {
-    name: "Gravatar",
-    html: (
-      <>
-        <Icons.gravatar className="h-4 w-4" />
-        <span className="sr-only">Gravatar</span>
-      </>
-    ),
-  },
-};
 
 export function SiteHeader() {
   return (
@@ -105,31 +21,28 @@ export function SiteHeader() {
           <nav className="flex items-center">
             {Object.keys(siteConfig.links).map((name: string) => {
               if (name) {
+                const key = name as SocialLinkKey;
                 return (
                   <Tooltip key={name}>
                     <TooltipTrigger>
                       <Link
-                        href={
-                          siteConfig.links[
-                            name as keyof typeof siteConfig.links
-                          ]
-                        }
+                        href={siteConfig.links[key]}
                         target="_blank"
                         rel="noreferrer"
                       >
                         <div
                           className={cn(
-                            buttonVariants({ variant: "ghost" }),
+                            buttonVariants({
+                              variant: "ghost",
+                            }),
                             "hidden w-10 px-0 sm:inline-flex",
                           )}
                         >
-                          {IconsList[name as keyof typeof IconsList].html}
+                          <SocialIcon name={key} />
                         </div>
                       </Link>
                     </TooltipTrigger>
-                    <TooltipContent>
-                      {IconsList[name as keyof typeof IconsList].name}
-                    </TooltipContent>
+                    <TooltipContent>{getSocialIconLabel(key)}</TooltipContent>
                   </Tooltip>
                 );
               }
