@@ -9,6 +9,37 @@ interface TagSidebarProps {
   currentTag?: string;
 }
 
+interface TagGroupProps {
+  color: string;
+  label: string;
+  tags: Array<{ name: string; count: number }>;
+  currentTag?: string;
+}
+
+function TagGroup({ color, label, tags, currentTag }: TagGroupProps) {
+  return (
+    <div className="flex flex-col gap-2">
+      <div className="flex items-center gap-2">
+        <span
+          className="h-3 w-3 rounded-full shadow-[0_0_6px_var(--glow-primary)]"
+          style={{ backgroundColor: color }}
+        />
+        <span className="font-medium text-sm">{label}</span>
+      </div>
+      <div className="flex flex-wrap gap-2 pl-5">
+        {tags.map((tag) => (
+          <Tag
+            key={tag.name}
+            tag={tag.name}
+            count={tag.count}
+            current={currentTag ? slug(tag.name) === currentTag : undefined}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function TagSidebar({
   tagsByCategory,
   uncategorizedTags,
@@ -20,52 +51,22 @@ export function TagSidebar({
         <CardTitle className="font-display">Tags</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
-        {tagsByCategory.map((categoryGroup) => (
-          <div key={categoryGroup.category} className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <span
-                className="h-3 w-3 rounded-full shadow-[0_0_6px_var(--glow-primary)]"
-                style={{
-                  backgroundColor: categoryGroup.color,
-                }}
-              />
-              <span className="font-medium text-sm">{categoryGroup.label}</span>
-            </div>
-            <div className="flex flex-wrap gap-2 pl-5">
-              {categoryGroup.tags.map((tag) => (
-                <Tag
-                  tag={tag.name}
-                  key={tag.name}
-                  count={tag.count}
-                  showCategory={false}
-                  current={
-                    currentTag ? slug(tag.name) === currentTag : undefined
-                  }
-                />
-              ))}
-            </div>
-          </div>
+        {tagsByCategory.map((category) => (
+          <TagGroup
+            key={category.category}
+            color={category.color}
+            label={category.label}
+            tags={category.tags}
+            currentTag={currentTag}
+          />
         ))}
         {uncategorizedTags.length > 0 && (
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <span className="h-3 w-3 rounded-full bg-gray-400 shadow-[0_0_6px_var(--glow-primary)]" />
-              <span className="font-medium text-sm">Other</span>
-            </div>
-            <div className="flex flex-wrap gap-2 pl-5">
-              {uncategorizedTags.map((tag) => (
-                <Tag
-                  tag={tag.name}
-                  key={tag.name}
-                  count={tag.count}
-                  showCategory={false}
-                  current={
-                    currentTag ? slug(tag.name) === currentTag : undefined
-                  }
-                />
-              ))}
-            </div>
-          </div>
+          <TagGroup
+            color="#9ca3af"
+            label="Other"
+            tags={uncategorizedTags}
+            currentTag={currentTag}
+          />
         )}
       </CardContent>
     </Card>

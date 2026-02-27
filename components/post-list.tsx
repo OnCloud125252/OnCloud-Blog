@@ -10,6 +10,8 @@ interface PostListProps {
 }
 
 const POSTS_PER_PAGE = 6;
+const LOAD_DELAY_MS = 300;
+const OBSERVER_MARGIN = "200px";
 
 export function PostList({ posts }: PostListProps) {
   const [displayedPosts, setDisplayedPosts] = useState<Post[]>(() =>
@@ -28,7 +30,7 @@ export function PostList({ posts }: PostListProps) {
           loadMorePosts();
         }
       },
-      { rootMargin: "200px" },
+      { rootMargin: OBSERVER_MARGIN },
     );
 
     const currentTarget = observerTarget.current;
@@ -50,7 +52,6 @@ export function PostList({ posts }: PostListProps) {
 
     setIsLoading(true);
 
-    // Simulate a small delay for better UX (shows skeleton)
     setTimeout(() => {
       const nextPage = page + 1;
       const start = POSTS_PER_PAGE * (nextPage - 1);
@@ -61,7 +62,7 @@ export function PostList({ posts }: PostListProps) {
       setPage(nextPage);
       setHasMore(end < posts.length);
       setIsLoading(false);
-    }, 300);
+    }, LOAD_DELAY_MS);
   };
 
   if (posts.length === 0) {

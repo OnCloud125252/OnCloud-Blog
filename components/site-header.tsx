@@ -19,34 +19,29 @@ export function SiteHeader() {
         <MainNav />
         <div className="flex flex-1 items-center justify-end space-x-2">
           <nav className="flex items-center">
-            {Object.keys(siteConfig.links).map((name: string) => {
-              if (name) {
-                const key = name as SocialLinkKey;
-                return (
-                  <Tooltip key={name}>
-                    <TooltipTrigger>
-                      <Link
-                        href={siteConfig.links[key]}
-                        target="_blank"
-                        rel="noreferrer"
+            {Object.keys(siteConfig.links).map((name) => {
+              const key = name as SocialLinkKey;
+              return (
+                <Tooltip key={name}>
+                  <TooltipTrigger>
+                    <Link
+                      href={siteConfig.links[key]}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <div
+                        className={cn(
+                          buttonVariants({ variant: "ghost" }),
+                          "hidden w-10 px-0 transition-colors hover:text-primary sm:inline-flex",
+                        )}
                       >
-                        <div
-                          className={cn(
-                            buttonVariants({
-                              variant: "ghost",
-                            }),
-                            "hidden w-10 px-0 transition-colors hover:text-primary sm:inline-flex",
-                          )}
-                        >
-                          <SocialIcon name={key} />
-                        </div>
-                      </Link>
-                    </TooltipTrigger>
-                    <TooltipContent>{getSocialIconLabel(key)}</TooltipContent>
-                  </Tooltip>
-                );
-              }
-              return null;
+                        <SocialIcon name={key} />
+                      </div>
+                    </Link>
+                  </TooltipTrigger>
+                  <TooltipContent>{getSocialIconLabel(key)}</TooltipContent>
+                </Tooltip>
+              );
             })}
             <ModeToggle />
             <MobileNav />

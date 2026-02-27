@@ -10,16 +10,56 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
-export function ProjectList({
-  isGrid,
-  project,
-}: {
+interface Project {
+  name: string;
+  technology: string[];
+  description: string;
+  github?: string;
+  link?: string;
+  status: string;
+}
+
+interface ProjectListProps {
   isGrid: boolean;
-  project: typeof siteConfig.project;
+  project: {
+    projects: Project[];
+    getStatus: (status: string) => { color: string; text: string };
+    target: string;
+  };
+}
+
+function ProjectLinks({
+  github,
+  link,
+  target,
+}: {
+  github?: string;
+  link?: string;
+  target: string;
 }) {
+  return (
+    <>
+      {github && (
+        <Link href={github} target={target}>
+          <Button variant="ghost" size="icon">
+            <Icons.github className="h-5 w-5" />
+          </Button>
+        </Link>
+      )}
+      {link && (
+        <Link href={link} target={target}>
+          <Button variant="ghost" size="icon">
+            <ExternalLink size={20} />
+          </Button>
+        </Link>
+      )}
+    </>
+  );
+}
+
+export function ProjectList({ isGrid, project }: ProjectListProps) {
   const { projects, getStatus, target } = project;
 
   return (
@@ -29,9 +69,10 @@ export function ProjectList({
         isGrid ? "grid-cols-1 md:grid-cols-3" : "grid-cols-1",
       )}
     >
-      {projects.map((project) => {
-        const { name, technology, description, github, link } = project;
-        const { color, text } = getStatus(project.status);
+      {projects.map((proj) => {
+        const { name, technology, description, github, link } = proj;
+        const { color, text } = getStatus(proj.status);
+
         return (
           <Card
             key={name}
@@ -47,11 +88,11 @@ export function ProjectList({
                   isGrid && "justify-between",
                 )}
               >
-                <CardTitle className={"mr-3"}>{name}</CardTitle>
+                <CardTitle className="mr-3">{name}</CardTitle>
                 <Badge color={color}>{text}</Badge>
               </div>
               <div className="!mt-0 !mb-2 flex items-center gap-1 font-mono text-muted-foreground text-sm">
-                {technology.length && (
+                {technology.length > 0 && (
                   <>
                     <Icons.bolt className="h-3 w-3" />
                     {technology.join(", ")}
@@ -66,20 +107,7 @@ export function ProjectList({
                 !isGrid && "p-0",
               )}
             >
-              {github && (
-                <Link href={github} target={target}>
-                  <Button variant={"ghost"} size={"icon"}>
-                    <Icons.github className="h-5 w-5" />
-                  </Button>
-                </Link>
-              )}
-              {link && (
-                <Link href={link} target={target}>
-                  <Button variant={"ghost"} size={"icon"}>
-                    <ExternalLink size={20} />
-                  </Button>
-                </Link>
-              )}
+              <ProjectLinks github={github} link={link} target={target} />
             </CardFooter>
           </Card>
         );

@@ -9,6 +9,34 @@ import { SocialIcon, type SocialLinkKey } from "./social-icons";
 import { Button } from "./ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 
+interface MobileLinkProps extends LinkProps {
+  children: React.ReactNode;
+  onOpenChange?: (open: boolean) => void;
+  className?: string;
+}
+
+function MobileLink({
+  href,
+  onOpenChange,
+  children,
+  className,
+  ...props
+}: MobileLinkProps) {
+  return (
+    <Link
+      href={href}
+      onClick={() => onOpenChange?.(false)}
+      className={className}
+      {...props}
+    >
+      {children}
+    </Link>
+  );
+}
+
+const mobileLinkClass =
+  "border-transparent border-l-2 pl-2 font-display transition-colors hover:border-primary hover:text-primary";
+
 export function MobileNav() {
   const [open, setOpen] = useState(false);
 
@@ -33,67 +61,37 @@ export function MobileNav() {
           <MobileLink
             onOpenChange={setOpen}
             href="/blog"
-            className="border-transparent border-l-2 pl-2 font-display transition-colors hover:border-primary hover:text-primary"
+            className={mobileLinkClass}
           >
             Blog
           </MobileLink>
           <MobileLink
             onOpenChange={setOpen}
             href="/project"
-            className="border-transparent border-l-2 pl-2 font-display transition-colors hover:border-primary hover:text-primary"
+            className={mobileLinkClass}
           >
             Project
           </MobileLink>
           <MobileLink
             onOpenChange={setOpen}
             href="/about"
-            className="border-transparent border-l-2 pl-2 font-display transition-colors hover:border-primary hover:text-primary"
+            className={mobileLinkClass}
           >
             About
           </MobileLink>
-          {Object.keys(siteConfig.links).map((name: string) => {
-            if (name) {
-              return (
-                <Link
-                  href={siteConfig.links[name as SocialLinkKey]}
-                  target="_blank"
-                  rel="noreferrer"
-                  key={name}
-                  className="transition-colors hover:text-primary"
-                >
-                  <SocialIcon name={name as SocialLinkKey} showLabel />
-                </Link>
-              );
-            }
-            return null;
-          })}
+          {Object.keys(siteConfig.links).map((name) => (
+            <Link
+              key={name}
+              href={siteConfig.links[name as SocialLinkKey]}
+              target="_blank"
+              rel="noreferrer"
+              className="transition-colors hover:text-primary"
+            >
+              <SocialIcon name={name as SocialLinkKey} showLabel />
+            </Link>
+          ))}
         </div>
       </SheetContent>
     </Sheet>
-  );
-}
-
-interface MobileLinkProps extends LinkProps {
-  children: React.ReactNode;
-  onOpenChange?: (open: boolean) => void;
-  className?: string;
-}
-
-function MobileLink({
-  href,
-  onOpenChange,
-  children,
-  className,
-  ...props
-}: MobileLinkProps) {
-  return (
-    <Link
-      href={href}
-      onClick={() => onOpenChange?.(false)}
-      className={className}
-      {...props}
-    >
-      {children}
-    </Link>
   );
 }

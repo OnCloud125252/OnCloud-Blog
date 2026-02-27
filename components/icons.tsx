@@ -40,7 +40,6 @@ export const Icons = {
       />
     </svg>
   ),
-
   building: (props: IconProps) => (
     <svg viewBox="0 0 384 512" {...props}>
       <path

@@ -2,13 +2,33 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Icons } from "./icons";
 
+interface NavLinkProps {
+  href: string;
+  children: React.ReactNode;
+  isActive: boolean;
+}
+
+function NavLink({ href, children, isActive }: NavLinkProps) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "hidden font-medium text-sm transition-colors hover:text-primary sm:inline-block",
+        isActive ? "text-foreground" : "text-foreground/60",
+      )}
+    >
+      {children}
+    </Link>
+  );
+}
+
 export function MainNav() {
   const pathname = usePathname();
+
   return (
     <nav className="flex items-center space-x-4 lg:space-x-6">
       <Link href="/" className="mr-6 flex items-center space-x-2">
@@ -17,33 +37,15 @@ export function MainNav() {
           {siteConfig.name}
         </span>
       </Link>
-      <Link
-        href="/blog"
-        className={cn(
-          "hidden font-medium text-sm transition-colors hover:text-primary sm:inline-block",
-          pathname === "/blog" ? "text-foreground" : "text-foreground/60",
-        )}
-      >
+      <NavLink href="/blog" isActive={pathname === "/blog"}>
         Blog
-      </Link>
-      <Link
-        href="/project"
-        className={cn(
-          "hidden font-medium text-sm transition-colors hover:text-primary sm:inline-block",
-          pathname === "/project" ? "text-foreground" : "text-foreground/60",
-        )}
-      >
+      </NavLink>
+      <NavLink href="/project" isActive={pathname === "/project"}>
         Project
-      </Link>
-      <Link
-        href="/about"
-        className={cn(
-          "hidden font-medium text-sm transition-colors hover:text-primary sm:inline-block",
-          pathname === "/about" ? "text-foreground" : "text-foreground/60",
-        )}
-      >
+      </NavLink>
+      <NavLink href="/about" isActive={pathname === "/about"}>
         About
-      </Link>
+      </NavLink>
     </nav>
   );
 }
