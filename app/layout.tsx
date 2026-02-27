@@ -1,12 +1,12 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import dynamic from "next/dynamic";
 import { IBM_Plex_Sans, JetBrains_Mono, Space_Grotesk } from "next/font/google";
-import "./globals.css";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site-header";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import "./globals.css";
 
 const SiteFooter = dynamic(() => import("@/components/site-footer"), {
   ssr: false,
@@ -46,14 +46,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const fontVariables = cn(
+    spaceGrotesk.variable,
+    ibmPlexSans.variable,
+    jetbrainsMono.variable,
+  );
+
   return (
     <html lang="en" className="scroll-pt-[3.5rem]">
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          spaceGrotesk.variable,
-          ibmPlexSans.variable,
-          jetbrainsMono.variable,
+          fontVariables,
         )}
       >
         <Providers>

@@ -21,7 +21,7 @@ interface PostPageProps {
   };
 }
 
-async function getPostFromParams(params: PostPageProps["params"]) {
+function getPostFromParams(params: PostPageProps["params"]) {
   const slug = params?.slug?.join("/");
   return posts.find((post) => post.slugAsParams === slug);
 }
@@ -29,7 +29,7 @@ async function getPostFromParams(params: PostPageProps["params"]) {
 export async function generateMetadata({
   params,
 }: PostPageProps): Promise<Metadata> {
-  const post = await getPostFromParams(params);
+  const post = getPostFromParams(params);
 
   if (!post) {
     return {};
@@ -37,6 +37,13 @@ export async function generateMetadata({
 
   const ogSearchParams = new URLSearchParams();
   ogSearchParams.set("title", post.title);
+
+  const ogImage = {
+    url: `/api/og?${ogSearchParams.toString()}`,
+    width: 1200,
+    height: 630,
+    alt: post.title,
+  };
 
   return {
     title: post.title,
@@ -47,14 +54,7 @@ export async function generateMetadata({
       description: post.description,
       type: "article",
       url: post.slug,
-      images: [
-        {
-          url: `/api/og?${ogSearchParams.toString()}`,
-          width: 1200,
-          height: 630,
-          alt: post.title,
-        },
-      ],
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
@@ -65,18 +65,19 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams(): Promise<
-  PostPageProps["params"][]
-> {
+export function generateStaticParams(): PostPageProps["params"][] {
   return posts.map((post) => ({ slug: post.slugAsParams.split("/") }));
 }
 
-export default async function PostPage({ params }: PostPageProps) {
-  const post = await getPostFromParams(params);
+export default function PostPage({ params }: PostPageProps) {
+  const post = getPostFromParams(params);
 
   if (!post || !post.published) {
     notFound();
   }
+
+  const updateDate = post.update;
+  const hasUpdate = updateDate && post.date !== updateDate;
 
   return (
     <article className="prose dark:prose-invert container mx-auto max-w-7xl py-6">
@@ -86,11 +87,11 @@ export default async function PostPage({ params }: PostPageProps) {
           <Tag tag={tag} key={tag} />
         ))}
       </div>
-      {post.description ? (
+      {post.description && (
         <p className="mt-0 mb-2 text-muted-foreground text-xl">
           {post.description}
         </p>
-      ) : null}
+      )}
       <div className="flex gap-6 font-mono text-sm">
         <Tooltip>
           <TooltipTrigger>
@@ -101,17 +102,15 @@ export default async function PostPage({ params }: PostPageProps) {
           </TooltipTrigger>
           <TooltipContent>Posted on {formatDate(post.date)}</TooltipContent>
         </Tooltip>
-        {post.update && post.date !== post.update && (
+        {hasUpdate && updateDate && (
           <Tooltip>
             <TooltipTrigger>
               <div className="flex items-center gap-1">
                 <Icons.penToSquare className="h-4 w-4" />
-                <time dateTime={post.update}>{formatDate(post.update)}</time>
+                <time dateTime={updateDate}>{formatDate(updateDate)}</time>
               </div>
             </TooltipTrigger>
-            <TooltipContent>
-              Updated on {formatDate(post.update)}
-            </TooltipContent>
+            <TooltipContent>Updated on {formatDate(updateDate)}</TooltipContent>
           </Tooltip>
         )}
       </div>

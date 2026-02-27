@@ -8,10 +8,8 @@ export const metadata: Metadata = {
   description: siteConfig.project.description,
 };
 
-export default async function ProjectPage() {
-  const {
-    project: { title, description, defaultView },
-  } = siteConfig;
+export default function ProjectPage() {
+  const { title, description, defaultView } = siteConfig.project;
 
   return (
     <div className="container max-w-7xl py-6 lg:py-10">

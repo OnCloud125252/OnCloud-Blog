@@ -15,8 +15,9 @@ export const metadata: Metadata = {
   description: siteConfig.blog.description,
 };
 
-export default async function BlogPage() {
-  const sortedPosts = sortPosts(posts.filter((post) => post.published));
+export default function BlogPage() {
+  const publishedPosts = posts.filter((post) => post.published);
+  const sortedPosts = sortPosts(publishedPosts);
 
   const tags = getAllTags(posts);
   const tagsByCategory = getTagsByCategory(tags);
@@ -38,7 +39,7 @@ export default async function BlogPage() {
         <div className="relative mt-8 grid flex-1 grid-cols-12 gap-3 sm:max-h-[calc(100%-10rem)]">
           <div className="relative col-span-12 col-start-1 max-h-full sm:col-span-8">
             <hr className="cyber-hr" />
-            {sortedPosts?.length > 0 ? (
+            {sortedPosts.length > 0 ? (
               <PostList posts={sortedPosts} />
             ) : (
               <p>{placeholder}</p>

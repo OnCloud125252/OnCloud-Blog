@@ -12,7 +12,6 @@ export default function Home() {
   return (
     <>
       <section className="relative space-y-6 overflow-hidden pt-6 pb-8 md:mt-10 md:pb-12 lg:py-32">
-        {/* Background decorative elements */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 -left-1/4 h-[500px] w-[500px] rounded-full bg-primary/5 blur-[100px]" />
           <div className="absolute -right-1/4 bottom-1/4 h-[400px] w-[400px] rounded-full bg-secondary/5 blur-[100px]" />
@@ -54,10 +53,10 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Geometric corner decorations */}
         <div className="pointer-events-none absolute top-8 left-8 hidden h-16 w-16 border-primary/20 border-t-2 border-l-2 lg:block" />
         <div className="pointer-events-none absolute right-8 bottom-8 hidden h-16 w-16 border-primary/20 border-r-2 border-b-2 lg:block" />
       </section>
+
       <section className="container mt-60 flex max-w-4xl flex-col space-y-6 py-6 lg:py-10">
         <h2 className="text-center font-black font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
           Latest Posts

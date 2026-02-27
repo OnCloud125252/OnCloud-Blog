@@ -27,7 +27,6 @@ export default function TagsPage() {
         </div>
       </div>
       <hr className="cyber-hr my-4" />
-
       <TagsByCategoryList
         tagsByCategory={tagsByCategory}
         uncategorizedTags={uncategorizedTags}

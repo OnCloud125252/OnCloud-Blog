@@ -31,11 +31,10 @@ export async function generateMetadata({
   };
 }
 
-export const generateStaticParams = () => {
+export function generateStaticParams() {
   const tags = getAllTags(posts);
-  const paths = Object.keys(tags).map((tag) => ({ tag: slug(tag) }));
-  return paths;
-};
+  return Object.keys(tags).map((tag) => ({ tag: slug(tag) }));
+}
 
 export default function TagPage({ params }: TagPageProps) {
   const { tag } = params;
@@ -46,9 +45,7 @@ export default function TagPage({ params }: TagPageProps) {
   const tagsByCategory = getTagsByCategory(allTags);
   const uncategorizedTags = getUncategorizedTags(allTags);
 
-  // Get category for current tag
-  const currentTagName = tag.split("-").join(" ");
-  const currentCategory = getCategoryForTag(currentTagName);
+  const currentCategory = getCategoryForTag(title);
   const currentCategoryConfig = currentCategory
     ? getCategoryConfig(currentCategory as TagCategory)
     : null;
@@ -75,22 +72,19 @@ export default function TagPage({ params }: TagPageProps) {
       <div className="mt-8 grid grid-cols-12 gap-3">
         <div className="col-span-12 col-start-1 sm:col-span-8">
           <hr className="cyber-hr" />
-          {displayPosts?.length > 0 ? (
+          {displayPosts.length > 0 ? (
             <ul className="flex flex-col">
-              {displayPosts.map((post) => {
-                const { slug, date, title, description, tags } = post;
-                return (
-                  <li key={slug}>
-                    <PostItem
-                      slug={slug}
-                      date={date}
-                      title={title}
-                      description={description}
-                      tags={tags}
-                    />
-                  </li>
-                );
-              })}
+              {displayPosts.map((post) => (
+                <li key={post.slug}>
+                  <PostItem
+                    slug={post.slug}
+                    date={post.date}
+                    title={post.title}
+                    description={post.description}
+                    tags={post.tags}
+                  />
+                </li>
+              ))}
             </ul>
           ) : (
             <p>Nothing to see here yet</p>

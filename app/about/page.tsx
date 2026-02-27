@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   description: siteConfig.about.description,
 };
 
-export default async function AboutPage() {
+export default function AboutPage() {
   const { title, name, location, aka, work, detail, avatar } = siteConfig.about;
 
   return (
     <div className="container flex max-w-7xl flex-col gap-20 py-6 lg:py-10">
-      <div>
+      <section>
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
           <div className="flex-1 space-x-4">
             <h1 className="inline-block font-black font-display text-4xl lg:text-5xl">
@@ -36,15 +36,15 @@ export default async function AboutPage() {
             </p>
             <div>
               <p className="mt-1 mb-2 flex w-full items-center justify-start gap-1 break-words text-left font-mono text-muted-foreground text-sm">
-                <div className="w-5">
+                <span className="w-5">
                   <Icons.location className="h-4 w-4" />
-                </div>
+                </span>
                 {location}
               </p>
               <p className="flex w-full items-center justify-start gap-1 break-words text-left font-mono text-muted-foreground text-sm leading-5">
-                <div className="w-5">
+                <span className="w-5">
                   <Icons.building className="h-5 w-5" />
-                </div>
+                </span>
                 {work}
               </p>
             </div>
@@ -57,8 +57,9 @@ export default async function AboutPage() {
             ))}
           </div>
         </div>
-      </div>
-      <div>
+      </section>
+
+      <section>
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
           <div className="flex-1 space-x-4">
             <h1 className="inline-block font-black font-display text-4xl lg:text-5xl">
@@ -81,8 +82,9 @@ export default async function AboutPage() {
             alt="Most Used Programming Languages"
           />
         </div>
-      </div>
-      <div>
+      </section>
+
+      <section>
         <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
           <div className="flex-1 space-x-4">
             <h1 className="inline-block font-black font-display text-4xl lg:text-5xl">
@@ -99,7 +101,7 @@ export default async function AboutPage() {
             alt="Coding Activity"
           />
         </div>
-      </div>
+      </section>
     </div>
   );
 }
