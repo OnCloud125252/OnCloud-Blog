@@ -1,5 +1,3 @@
-export type TagCategory = keyof typeof TAG_CATEGORIES;
-
 export interface TagCategoryConfig {
   label: string;
   color: string;
@@ -26,13 +24,7 @@ export const TAG_CATEGORIES = {
   devops: {
     label: "DevOps",
     color: "#3b82f6",
-    tags: [
-      "docker",
-      "docker-compose",
-      "portainer",
-      "pve",
-      "pve-container",
-    ],
+    tags: ["docker", "docker-compose", "portainer", "pve", "pve-container"],
   },
   cicd: {
     label: "CI/CD",
@@ -61,14 +53,13 @@ export const TAG_CATEGORIES = {
   },
 } as const satisfies Record<string, TagCategoryConfig>;
 
+export type TagCategory = keyof typeof TAG_CATEGORIES;
+
 export function getCategoryForTag(tag: string): TagCategory | null {
   const normalizedTag = tag.toLowerCase();
 
-  for (const [category, config] of Object.entries(TAG_CATEGORIES) as [
-    string,
-    TagCategoryConfig,
-  ][]) {
-    if (config.tags.includes(normalizedTag)) {
+  for (const [category, config] of Object.entries(TAG_CATEGORIES)) {
+    if ((config.tags as readonly string[]).includes(normalizedTag)) {
       return category as TagCategory;
     }
   }
@@ -78,10 +69,6 @@ export function getCategoryForTag(tag: string): TagCategory | null {
 
 export function getCategoryConfig(category: TagCategory): TagCategoryConfig {
   return TAG_CATEGORIES[category];
-}
-
-export function getCategoryColor(category: TagCategory): string {
-  return TAG_CATEGORIES[category].color;
 }
 
 export function getAllCategories(): TagCategory[] {

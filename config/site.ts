@@ -9,11 +9,8 @@ export const siteConfig = {
   links: {
     email: "oncloud@lazco.dev",
     github: "https://github.com/OnCloud125252",
-    // twitter: "",
-    // linkedin: "",
     facebook: "https://www.facebook.com/oncloud125252",
     instagram: "https://instagram.com/oncloud125252",
-    // youtube: "",
     discord: "https://discord.com/users/755269122597585018",
     gravatar: "https://gravatar.com/oncloud125252",
   },
@@ -23,6 +20,7 @@ export const siteConfig = {
     description:
       "I'm a full-stack web developer and system designer. I build website and manage/deploy servers.",
   },
+
   project: {
     title: "My Project",
     description: "Some of my projects that I'm working on",
@@ -135,53 +133,18 @@ export const siteConfig = {
         status: "developing",
       },
     ],
-    getStatus: (status: string) => {
-      switch (status) {
-        case "done":
-          return {
-            color: "#00e676",
-            text: "DONE",
-          };
-        case "active":
-          return {
-            color: "#00e5ff",
-            text: "ACTIVE",
-          };
-        case "developing":
-          return {
-            color: "#d500f9",
-            text: "DEVELOPING",
-          };
-        case "paused":
-          return {
-            color: "#ffea00",
-            text: "PAUSED",
-          };
-        case "deprecated":
-          return {
-            color: "#ff6e40",
-            text: "DEPRECATED",
-          };
-        case "outdated":
-          return {
-            color: "#ff1744",
-            text: "OUTDATED",
-          };
-        default:
-          return {
-            color: "#949494",
-            text: "INACTIVE",
-          };
-      }
-    },
-    defaultView: "list", // grid | list
+    getStatus: (status: string) =>
+      STATUS_MAP[status] || { color: "#949494", text: "INACTIVE" },
+    defaultView: "list",
     target: "_blank",
   },
+
   blog: {
     title: "My Blog",
     description: "A collection of tips, tricks, and tutorials",
     placeholder: "No posts found",
   },
+
   about: {
     title: "About Me",
     description: "Information about me",
@@ -200,6 +163,15 @@ export const siteConfig = {
       fallback: "Alex Liao",
     },
   },
+};
+
+const STATUS_MAP: Record<string, { color: string; text: string }> = {
+  done: { color: "#00e676", text: "DONE" },
+  active: { color: "#00e5ff", text: "ACTIVE" },
+  developing: { color: "#d500f9", text: "DEVELOPING" },
+  paused: { color: "#ffea00", text: "PAUSED" },
+  deprecated: { color: "#ff6e40", text: "DEPRECATED" },
+  outdated: { color: "#ff1744", text: "OUTDATED" },
 };
 
 export type SiteConfig = typeof siteConfig;
