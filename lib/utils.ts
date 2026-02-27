@@ -10,59 +10,49 @@ import {
   type TagCategory,
 } from "@/config/tags";
 
-export function cn(...inputs: ClassValue[]) {
+export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }
 
 export function formatDate(input: string | number): string {
-  const date = new Date(input);
-  return date.toLocaleDateString("en-US", {
+  return new Date(input).toLocaleDateString("en-US", {
     month: "long",
     day: "numeric",
     year: "numeric",
   });
 }
 
-export function sortPosts(posts: Array<Post>) {
+export function sortPosts(posts: Array<Post>): Array<Post> {
   return posts.sort((a, b) => {
-    const aDate = a.update || a.date;
-    const bDate = b.update || b.date;
-
-    if (aDate > bDate) {
-      return -1;
-    }
-    if (aDate < bDate) {
-      return 1;
-    }
-    return 0;
+    const dateA = new Date(a.update || a.date).getTime();
+    const dateB = new Date(b.update || b.date).getTime();
+    return dateB - dateA;
   });
 }
 
-export function getAllTags(posts: Array<Post>) {
-  const tags: Record<string, number> = {};
+export function getAllTags(posts: Array<Post>): Record<string, number> {
+  const tagCounts: Record<string, number> = {};
+
   for (const post of posts) {
-    if (post.tags) {
-      for (const tag of post.tags) {
-        tags[tag] = (tags[tag] ?? 0) + 1;
-      }
+    for (const tag of post.tags ?? []) {
+      tagCounts[tag] = (tagCounts[tag] ?? 0) + 1;
     }
   }
 
-  return tags;
+  return tagCounts;
 }
 
-export function sortTagsByCount(tags: Record<string, number>) {
+export function sortTagsByCount(tags: Record<string, number>): Array<string> {
   return Object.keys(tags).sort((a, b) => tags[b] - tags[a]);
 }
 
-export function getPostsByTagSlug(posts: Array<Post>, tag: string) {
-  return posts.filter((post) => {
-    if (!post.tags) {
-      return false;
-    }
-    const slugifiedTags = post.tags.map((tag) => slug(tag));
-    return slugifiedTags.includes(tag);
-  });
+export function getPostsByTagSlug(
+  posts: Array<Post>,
+  tag: string,
+): Array<Post> {
+  return posts.filter((post) =>
+    (post.tags ?? []).map((t) => slug(t)).includes(tag),
+  );
 }
 
 export interface TagsByCategory {
@@ -75,38 +65,30 @@ export interface TagsByCategory {
 export function getTagsByCategory(
   tags: Record<string, number>,
 ): Array<TagsByCategory> {
-  const tagsByCategory: Record<
-    string,
-    Array<{ name: string; count: number }>
-  > = {};
+  const grouped: Record<string, Array<{ name: string; count: number }>> = {};
 
-  // Initialize all categories
   for (const category of getAllCategories()) {
-    tagsByCategory[category] = [];
+    grouped[category] = [];
   }
 
-  // Group tags by category
-  for (const [tagName, count] of Object.entries(tags)) {
-    const category = getCategoryForTag(tagName);
+  for (const [name, count] of Object.entries(tags)) {
+    const category = getCategoryForTag(name);
     if (category) {
-      tagsByCategory[category].push({ name: tagName, count });
+      grouped[category].push({ name, count });
     }
   }
 
-  // Convert to array and sort tags within each category
   const result: Array<TagsByCategory> = [];
+
   for (const category of getAllCategories()) {
-    const categoryTags = tagsByCategory[category];
-    if (categoryTags.length > 0) {
-      categoryTags.sort((a, b) => b.count - a.count);
-      const config = getCategoryConfig(category);
-      result.push({
-        category,
-        label: config.label,
-        color: config.color,
-        tags: categoryTags,
-      });
+    const tags = grouped[category];
+    if (tags.length === 0) {
+      continue;
     }
+
+    tags.sort((a, b) => b.count - a.count);
+    const config = getCategoryConfig(category);
+    result.push({ category, label: config.label, color: config.color, tags });
   }
 
   return result;
@@ -115,15 +97,13 @@ export function getTagsByCategory(
 export function getUncategorizedTags(
   tags: Record<string, number>,
 ): Array<{ name: string; count: number }> {
-  const uncategorized: Array<{ name: string; count: number }> = [];
+  const result: Array<{ name: string; count: number }> = [];
 
-  for (const [tagName, count] of Object.entries(tags)) {
-    const category = getCategoryForTag(tagName);
-    if (!category) {
-      uncategorized.push({ name: tagName, count });
+  for (const [name, count] of Object.entries(tags)) {
+    if (!getCategoryForTag(name)) {
+      result.push({ name, count });
     }
   }
 
-  uncategorized.sort((a, b) => b.count - a.count);
-  return uncategorized;
+  return result.sort((a, b) => b.count - a.count);
 }
