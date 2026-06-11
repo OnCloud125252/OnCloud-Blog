@@ -14,29 +14,27 @@ import { buttonVariants } from "./ui/button";
 
 export function SiteHeader() {
   return (
-    <header className="glass-panel sticky top-0 z-10 w-full border-border/50 border-b shadow-[0_1px_0_0_var(--glow-primary)]">
-      <div className="container flex h-14 max-w-screen-2xl items-center">
+    <header className="sticky top-0 z-50 w-full border-foreground/5 border-b bg-background/80 backdrop-blur-md">
+      <div className="container flex h-16 max-w-screen-2xl items-center">
         <MainNav />
         <div className="flex flex-1 items-center justify-end space-x-2">
-          <nav className="flex items-center">
+          <nav className="flex items-center gap-1">
             {Object.keys(siteConfig.links).map((name) => {
               const key = name as SocialLinkKey;
               return (
                 <Tooltip key={name}>
-                  <TooltipTrigger>
+                  <TooltipTrigger asChild>
                     <Link
                       href={siteConfig.links[key]}
                       target="_blank"
                       rel="noreferrer"
+                      className={cn(
+                        buttonVariants({ variant: "ghost", size: "icon" }),
+                        "hidden transition-colors hover:text-primary sm:flex",
+                      )}
                     >
-                      <div
-                        className={cn(
-                          buttonVariants({ variant: "ghost" }),
-                          "hidden w-10 px-0 transition-colors hover:text-primary sm:inline-flex",
-                        )}
-                      >
-                        <SocialIcon name={key} />
-                      </div>
+                      <SocialIcon name={key} className="h-5 w-5" />
+                      <span className="sr-only">{getSocialIconLabel(key)}</span>
                     </Link>
                   </TooltipTrigger>
                   <TooltipContent>{getSocialIconLabel(key)}</TooltipContent>

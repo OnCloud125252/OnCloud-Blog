@@ -1,4 +1,5 @@
 import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 import { Icons } from "./icons";
 
 export type SocialLinkKey = keyof typeof siteConfig.links;
@@ -34,14 +35,24 @@ const SOCIAL_ICON_MAP: Record<SocialIconName, SocialIconConfig> = {
 interface SocialIconProps {
   name: SocialLinkKey;
   showLabel?: boolean;
+  className?: string;
 }
 
-export function SocialIcon({ name, showLabel = false }: SocialIconProps) {
+export function SocialIcon({
+  name,
+  showLabel = false,
+  className,
+}: SocialIconProps) {
   const config = SOCIAL_ICON_MAP[name as SocialIconName];
   const IconComponent = config.icon;
 
   return (
-    <div className={showLabel ? "flex items-center gap-1" : undefined}>
+    <div
+      className={cn(
+        showLabel ? "flex items-center gap-1" : undefined,
+        className,
+      )}
+    >
       <IconComponent className="h-4 w-4" />
       <span className="sr-only">{config.label}</span>
       {showLabel && config.label}

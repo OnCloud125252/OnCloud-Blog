@@ -33,8 +33,8 @@ export function Tag({ tag, current, count, showCategory = false }: TagProps) {
           badgeVariants({
             variant: current ? "default" : "secondary",
             className:
-              "rounded-md font-mono text-xs no-underline transition-all duration-200 hover:shadow-neon-cyan",
-          }) + (isActive ? "bg-primary shadow-neon-cyan" : "")
+              "rounded-none font-mono text-[10px] uppercase tracking-tighter no-underline transition-colors hover:bg-primary hover:text-primary-foreground",
+          }) + (isActive ? "bg-primary text-primary-foreground" : "")
         }
         href={`/tags/${slug(tag)}`}
       >
@@ -42,7 +42,7 @@ export function Tag({ tag, current, count, showCategory = false }: TagProps) {
       </Link>
       {showCategory && categoryConfig && (
         <span
-          className="h-2 w-2 rounded-full shadow-[0_0_4px_var(--glow-primary)]"
+          className="h-1.5 w-1.5 rounded-full"
           style={{ backgroundColor: categoryConfig.color }}
           title={categoryConfig.label}
         />
