@@ -72,7 +72,7 @@ export function generateStaticParams(): PostPageProps["params"][] {
 export default function PostPage({ params }: PostPageProps) {
   const post = getPostFromParams(params);
 
-  if (!post || !post.published) {
+  if (!post?.published) {
     notFound();
   }
 
