@@ -10,60 +10,71 @@ export default function Home() {
   const { title, description } = siteConfig.home;
 
   return (
-    <>
-      <section className="relative space-y-6 overflow-hidden pt-6 pb-8 md:mt-10 md:pb-12 lg:py-32">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 -left-1/4 h-[500px] w-[500px] rounded-full bg-primary/5 blur-[100px]" />
-          <div className="absolute -right-1/4 bottom-1/4 h-[400px] w-[400px] rounded-full bg-secondary/5 blur-[100px]" />
-        </div>
+    <div className="relative">
+      <div className="grid-pattern absolute inset-0 -z-10 opacity-20" />
 
-        <div className="container relative flex flex-col gap-4 text-center">
-          <h1 className="animate-text-glow text-balance font-black font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+      <section className="container relative flex flex-col items-center justify-center space-y-10 py-24 text-center lg:py-32">
+        <div className="space-y-4">
+          <h1 className="max-w-4xl text-balance font-black font-display text-5xl tracking-tight sm:text-7xl md:text-8xl lg:text-9xl">
             {title}
           </h1>
-          <p className="mx-auto max-w-[42rem] text-balance text-muted-foreground sm:text-xl">
+          <p className="mx-auto max-w-[42rem] text-balance text-muted-foreground sm:text-xl md:text-2xl">
             {description}
           </p>
-          <p className="mx-auto mb-7 max-w-[42rem] text-balance font-mono text-muted-foreground sm:text-xl">
-            <span className="text-primary">{">"}</span>
-            {" Welcome to my Blog "}
-            <span className="inline-block h-5 w-[2px] animate-glow-pulse bg-primary align-middle" />
-          </p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row">
-            <Link
-              href="/blog"
-              className={cn(
-                buttonVariants({ variant: "neon", size: "lg" }),
-                "w-full sm:w-fit",
-              )}
-            >
-              View my blog
-            </Link>
-            <Link
-              href={siteConfig.links.github}
-              target="_blank"
-              rel="noreferrer"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
-                "w-full sm:w-fit",
-              )}
-            >
-              My GitHub
-            </Link>
-          </div>
         </div>
 
-        <div className="pointer-events-none absolute top-8 left-8 hidden h-16 w-16 border-primary/20 border-t-2 border-l-2 lg:block" />
-        <div className="pointer-events-none absolute right-8 bottom-8 hidden h-16 w-16 border-primary/20 border-r-2 border-b-2 lg:block" />
+        <div className="flex flex-wrap items-center justify-center gap-6">
+          <Link
+            href="/blog"
+            className={cn(
+              buttonVariants({ size: "lg" }),
+              "h-14 bg-primary px-8 font-bold text-lg hover:bg-primary/90",
+            )}
+          >
+            Read Articles
+          </Link>
+          <Link
+            href={siteConfig.links.github}
+            target="_blank"
+            rel="noreferrer"
+            className={cn(
+              buttonVariants({ variant: "outline", size: "lg" }),
+              "h-14 border-2 px-8 font-bold text-lg",
+            )}
+          >
+            View Projects
+          </Link>
+        </div>
+
+        <div className="mt-20 flex w-full max-w-5xl flex-col items-start gap-4 border-foreground/10 border-t pt-8 text-left sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-2 font-mono text-muted-foreground">
+            <span className="h-2 w-2 animate-pulse bg-primary" />
+            <span>Currently exploring AI & Web3</span>
+          </div>
+          <div className="font-mono text-muted-foreground">
+            Based in Taiwan • Available for collaborations
+          </div>
+        </div>
       </section>
 
-      <section className="container mt-60 flex max-w-4xl flex-col space-y-6 py-6 lg:py-10">
-        <h2 className="text-center font-black font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-          Latest Posts
-        </h2>
-        <ul className="flex flex-col">
+      <section className="container max-w-5xl py-20">
+        <div className="mb-12 flex items-end justify-between border-foreground border-b pb-4">
+          <h2 className="font-black font-display text-4xl uppercase tracking-tighter sm:text-6xl">
+            Recent Logs
+          </h2>
+          <Link
+            href="/blog"
+            className="font-bold font-display text-primary hover:underline sm:text-xl"
+          >
+            See all →
+          </Link>
+        </div>
+        <ul className="grid grid-cols-1 gap-px bg-border sm:grid-cols-2">
           {latestPosts.map((post) => (
-            <li key={post.slug} className="first:border-border first:border-t">
+            <li
+              key={post.slug}
+              className="bg-background transition-colors hover:bg-muted/50"
+            >
               <PostItem
                 slug={post.slug}
                 title={post.title}
@@ -75,6 +86,6 @@ export default function Home() {
           ))}
         </ul>
       </section>
-    </>
+    </div>
   );
 }
