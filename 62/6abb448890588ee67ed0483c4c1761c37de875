@@ -1,0 +1,19 @@
+components/post-item.tsx
+  s_c15207b10b0c3d::t_f8ec0773efab81 11-13,17-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "626abb448890588ee67ed0483c4c1761c37de875",
+  "prompts": {},
+  "sessions": {
+    "s_c15207b10b0c3d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cc4b278f-7366-4042-97c5-3e460d405cfc",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  }
+}
