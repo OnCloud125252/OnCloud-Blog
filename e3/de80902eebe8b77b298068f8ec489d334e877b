@@ -1,0 +1,21 @@
+components/project-list.tsx
+  s_a7eaca34f1244c::t_3feb0aedbb61de 6,8
+  s_a7eaca34f1244c::t_fce93c466c4c93 1-5,7,9-15
+  s_a7eaca34f1244c::t_a8db9a1df917d5 36-41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "e3de80902eebe8b77b298068f8ec489d334e877b",
+  "prompts": {},
+  "sessions": {
+    "s_a7eaca34f1244c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4a535065-98aa-4daf-8f04-318a1fbd083c",
+        "model": "claude-fable-5"
+      },
+      "human_author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  }
+}
