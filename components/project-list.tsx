@@ -1,4 +1,18 @@
-import { PROJECT_STATUS_LABELS, type Project } from "@/config/site";
+import {
+  PROJECT_STATUS_LABELS,
+  type Project,
+  type ProjectStatus,
+} from "@/config/site";
+import { cn } from "@/lib/utils";
+
+const STATUS_STYLES: Record<ProjectStatus, string> = {
+  active: "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400",
+  developing: "bg-sky-500/15 text-sky-600 dark:text-sky-400",
+  done: "bg-indigo-500/15 text-indigo-600 dark:text-indigo-400",
+  paused: "bg-amber-500/15 text-amber-600 dark:text-amber-400",
+  deprecated: "bg-red-500/15 text-red-600 dark:text-red-400",
+  outdated: "bg-orange-500/15 text-orange-600 dark:text-orange-400",
+};
 
 interface ProjectListProps {
   projects: Project[];
@@ -19,7 +33,12 @@ export function ProjectList({ projects }: ProjectListProps) {
               <h2 className="font-display font-medium text-xl tracking-tight">
                 {name}
               </h2>
-              <span className="shrink-0 rounded-full bg-muted px-2.5 py-1 font-mono text-[0.65rem] text-muted-foreground uppercase tracking-wider">
+              <span
+                className={cn(
+                  "shrink-0 rounded-full px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-wider",
+                  STATUS_STYLES[status],
+                )}
+              >
                 {PROJECT_STATUS_LABELS[status]}
               </span>
             </div>
