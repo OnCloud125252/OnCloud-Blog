@@ -1,0 +1,20 @@
+next.config.mjs
+  s_860788bc2f24fe::t_3a477be210f7af 12-14,16,22-28
+  s_860788bc2f24fe::t_b05cd653cdc8bd 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "d5fa3c96e60611149cecc40a1a5b0b9f70fcb704",
+  "prompts": {},
+  "sessions": {
+    "s_860788bc2f24fe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7ee8da1f-abc7-4153-9d8c-1bf82afd24bf",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  }
+}
