@@ -8,11 +8,20 @@ interface PostItemProps {
   date: string;
 }
 
+const STAGGER_GROUP_SIZE = 6;
+const STAGGER_STEP_MS = 60;
+
 export function PostItems({ posts }: { posts: PostListItem[] }) {
   return (
     <ul className="flex flex-col gap-3.5">
-      {posts.map((post) => (
-        <li key={post.slug}>
+      {posts.map((post, index) => (
+        <li
+          key={post.slug}
+          className="animate-fade-in-up opacity-0"
+          style={{
+            animationDelay: `${(index % STAGGER_GROUP_SIZE) * STAGGER_STEP_MS}ms`,
+          }}
+        >
           <PostItem
             slug={post.slug}
             title={post.title}
