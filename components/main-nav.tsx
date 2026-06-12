@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { Icons } from "./icons";
 
 interface NavLinkProps {
   href: string;
@@ -17,8 +15,10 @@ function NavLink({ href, children, isActive }: NavLinkProps) {
     <Link
       href={href}
       className={cn(
-        "hidden font-medium text-sm transition-colors hover:text-primary sm:inline-block",
-        isActive ? "text-foreground" : "text-foreground/60",
+        "text-sm transition-colors hover:text-foreground",
+        isActive
+          ? "text-foreground underline decoration-border underline-offset-4"
+          : "text-muted-foreground",
       )}
     >
       {children}
@@ -30,18 +30,15 @@ export function MainNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex items-center space-x-4 lg:space-x-6">
-      <Link href="/" className="mr-6 flex items-center space-x-2">
-        <Icons.logo className="h-6 w-6 text-primary" />
-        <span className="neon-text font-bold font-display">
-          {siteConfig.name}
-        </span>
+    <nav className="flex items-baseline gap-5 sm:gap-7">
+      <Link href="/" className="mr-2 font-display text-lg italic">
+        OnCloud
       </Link>
       <NavLink href="/blog" isActive={pathname === "/blog"}>
         Blog
       </NavLink>
       <NavLink href="/project" isActive={pathname === "/project"}>
-        Project
+        Projects
       </NavLink>
       <NavLink href="/about" isActive={pathname === "/about"}>
         About

@@ -73,23 +73,22 @@ export function PostList({ posts }: PostListProps) {
   const showSkeleton = hasMore && isLoading;
 
   return (
-    <ul className="flex flex-col sm:absolute sm:h-full sm:w-full sm:overflow-auto">
+    <ul className="flex flex-col divide-y divide-border">
       {displayedPosts.map((post, index) => {
-        const { slug, date, update, title, description, tags } = post;
+        const { slug, date, update, title, description } = post;
         const isLastItem = index === lastPostIndex && !showSkeleton;
         return (
           <li
             key={slug}
             ref={isLastItem ? observerTarget : null}
             className="animate-fade-in-up opacity-0"
-            style={{ animationDelay: `${(index % POSTS_PER_PAGE) * 80}ms` }}
+            style={{ animationDelay: `${(index % POSTS_PER_PAGE) * 60}ms` }}
           >
             <PostItem
               slug={slug}
               date={update || date}
               title={title}
               description={description}
-              tags={tags}
             />
           </li>
         );

@@ -1,57 +1,37 @@
 import Link from "next/link";
 import { formatDate } from "@/lib/utils";
-import { Tag } from "./tag";
 
 interface PostItemProps {
   slug: string;
   title: string;
   description?: string;
   date: string;
-  tags?: Array<string>;
 }
 
-export function PostItem({
-  slug,
-  title,
-  description,
-  date,
-  tags,
-}: PostItemProps) {
+export function PostItem({ slug, title, description, date }: PostItemProps) {
   return (
-    <article className="group relative flex h-full flex-col p-6 transition-all duration-300 hover:bg-muted/50">
-      <div className="mb-4 flex items-center justify-between">
+    <article className="group">
+      <Link
+        href={`/${slug}`}
+        className="flex flex-col gap-1 py-6 sm:flex-row sm:gap-8"
+      >
         <time
           dateTime={date}
-          className="font-mono text-muted-foreground text-sm uppercase tracking-widest"
+          className="shrink-0 pt-1 font-mono text-muted-foreground text-xs sm:w-28"
         >
           {formatDate(date)}
         </time>
-        <div className="flex gap-1">
-          {tags?.slice(0, 2).map((tag) => (
-            <Tag tag={tag} key={tag} />
-          ))}
-        </div>
-      </div>
-
-      <div className="flex-1 space-y-3">
-        <h2 className="font-bold font-display text-2xl leading-tight transition-colors group-hover:text-primary">
-          <Link href={`/${slug}`} className="after:absolute after:inset-0">
+        <div>
+          <h2 className="font-display text-xl underline-offset-4 group-hover:underline">
             {title}
-          </Link>
-        </h2>
-        {description && (
-          <p className="line-clamp-2 text-muted-foreground leading-relaxed">
-            {description}
-          </p>
-        )}
-      </div>
-
-      <div className="mt-6 flex items-center font-bold text-primary uppercase tracking-tighter sm:text-lg">
-        Read Entry
-        <span className="ml-2 transition-transform duration-300 group-hover:translate-x-2">
-          →
-        </span>
-      </div>
+          </h2>
+          {description && (
+            <p className="mt-1 line-clamp-2 text-muted-foreground text-sm leading-relaxed">
+              {description}
+            </p>
+          )}
+        </div>
+      </Link>
     </article>
   );
 }

@@ -1,19 +1,11 @@
-const shimmerClass =
-  "animate-shimmer rounded bg-[length:200%_100%] bg-gradient-to-r bg-muted from-muted via-muted-foreground/5 to-muted";
-
 export function PostSkeleton() {
   return (
-    <article className="flex flex-col gap-2 border-b border-b-border/30 border-l-2 border-l-primary/20 py-3 pl-3">
-      <div className={`h-8 w-3/4 ${shimmerClass}`} />
-      <div className="flex gap-2">
-        <div className={`h-5 w-16 ${shimmerClass}`} />
-        <div className={`h-5 w-20 ${shimmerClass}`} />
-      </div>
-      <div className={`h-4 w-full ${shimmerClass}`} />
-      <div className={`h-4 w-2/3 ${shimmerClass}`} />
-      <div className="flex items-center justify-between">
-        <div className={`h-5 w-32 ${shimmerClass}`} />
-        <div className={`h-5 w-24 ${shimmerClass}`} />
+    <article className="flex animate-pulse flex-col gap-1 py-6 sm:flex-row sm:gap-8">
+      <div className="h-4 shrink-0 bg-muted sm:w-28" />
+      <div className="flex-1 space-y-2">
+        <div className="h-6 w-3/4 bg-muted" />
+        <div className="h-4 w-full bg-muted" />
+        <div className="h-4 w-2/3 bg-muted" />
       </div>
     </article>
   );
