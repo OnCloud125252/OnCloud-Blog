@@ -18,19 +18,16 @@ export default function TagsPage() {
   const uncategorizedTags = getUncategorizedTags(tags);
 
   return (
-    <div className="container max-w-4xl py-6 lg:py-10">
-      <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
-        <div className="flex-1 space-y-4">
-          <h1 className="inline-block font-black font-display text-4xl lg:text-5xl">
-            Tags
-          </h1>
-        </div>
+    <div className="mx-auto max-w-2xl px-6 py-12">
+      <header>
+        <h1 className="font-bold font-display text-4xl tracking-tight">Tags</h1>
+      </header>
+      <div className="mt-10">
+        <TagsByCategoryList
+          tagsByCategory={tagsByCategory}
+          uncategorizedTags={uncategorizedTags}
+        />
       </div>
-      <hr className="cyber-hr my-4" />
-      <TagsByCategoryList
-        tagsByCategory={tagsByCategory}
-        uncategorizedTags={uncategorizedTags}
-      />
     </div>
   );
 }

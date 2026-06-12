@@ -1,19 +1,14 @@
 import { slug } from "github-slugger";
 import { Metadata } from "next";
+import Link from "next/link";
 import { posts } from "#site/content";
 import { PostItem } from "@/components/post-item";
-import { TagSidebar } from "@/components/tag-sidebar";
 import {
   getCategoryConfig,
   getCategoryForTag,
   type TagCategory,
 } from "@/config/tags";
-import {
-  getAllTags,
-  getPostsByTagSlug,
-  getTagsByCategory,
-  getUncategorizedTags,
-} from "@/lib/utils";
+import { getAllTags, getPostsByTagSlug } from "@/lib/utils";
 
 interface TagPageProps {
   params: {
@@ -41,9 +36,6 @@ export default function TagPage({ params }: TagPageProps) {
   const title = tag.split("-").join(" ");
 
   const displayPosts = getPostsByTagSlug(posts, tag);
-  const allTags = getAllTags(posts);
-  const tagsByCategory = getTagsByCategory(allTags);
-  const uncategorizedTags = getUncategorizedTags(allTags);
 
   const currentCategory = getCategoryForTag(title);
   const currentCategoryConfig = currentCategory
@@ -51,50 +43,42 @@ export default function TagPage({ params }: TagPageProps) {
     : null;
 
   return (
-    <div className="container max-w-4xl py-6 lg:py-10">
-      <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
-        <div className="flex-1 space-y-4">
-          <div className="flex items-center gap-3">
-            <h1 className="inline-block font-black font-display text-4xl capitalize lg:text-5xl">
-              {title}
-            </h1>
-            {currentCategoryConfig && (
-              <span
-                className="rounded-full px-3 py-1 font-medium font-mono text-sm text-white shadow-neon-cyan"
-                style={{ backgroundColor: currentCategoryConfig.color }}
-              >
-                {currentCategoryConfig.label}
-              </span>
-            )}
-          </div>
-        </div>
-      </div>
-      <div className="mt-8 grid grid-cols-12 gap-3">
-        <div className="col-span-12 col-start-1 sm:col-span-8">
-          <hr className="cyber-hr" />
-          {displayPosts.length > 0 ? (
-            <ul className="flex flex-col">
-              {displayPosts.map((post) => (
-                <li key={post.slug}>
-                  <PostItem
-                    slug={post.slug}
-                    date={post.date}
-                    title={post.title}
-                    description={post.description}
-                    tags={post.tags}
-                  />
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Nothing to see here yet</p>
+    <div className="mx-auto max-w-2xl px-6 py-12">
+      <header>
+        <Link
+          href="/tags"
+          className="font-semibold text-primary text-sm transition-colors hover:text-foreground"
+        >
+          ← All tags
+        </Link>
+        <div className="mt-4 flex items-center gap-3">
+          <h1 className="font-bold font-display text-4xl capitalize tracking-tight">
+            {title}
+          </h1>
+          {currentCategoryConfig && (
+            <span className="rounded-full bg-muted px-2.5 py-1 font-mono text-[0.65rem] text-muted-foreground uppercase tracking-wider">
+              {currentCategoryConfig.label}
+            </span>
           )}
         </div>
-        <TagSidebar
-          tagsByCategory={tagsByCategory}
-          uncategorizedTags={uncategorizedTags}
-          currentTag={tag}
-        />
+      </header>
+      <div className="mt-10">
+        {displayPosts.length > 0 ? (
+          <ul className="flex flex-col gap-3.5">
+            {displayPosts.map((post) => (
+              <li key={post.slug}>
+                <PostItem
+                  slug={post.slug}
+                  date={post.update || post.date}
+                  title={post.title}
+                  description={post.description}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-muted-foreground">Nothing to see here yet</p>
+        )}
       </div>
     </div>
   );

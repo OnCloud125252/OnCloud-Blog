@@ -9,11 +9,9 @@ interface CalloutProps {
 }
 
 const calloutStyles: Record<CalloutType, string> = {
-  default: "border-l-primary bg-primary/5 dark:bg-primary/10",
-  warning:
-    "border-l-amber-500 bg-amber-50 shadow-[inset_0_0_10px_var(--glow-amber)] dark:bg-amber-950/30",
-  danger:
-    "border-l-red-500 bg-red-50 shadow-[inset_0_0_10px_hsl(0_80%_50%_/_0.1)] dark:bg-red-950/30",
+  default: "border-l-foreground/40 bg-muted/50",
+  warning: "border-l-amber-600 bg-muted/50",
+  danger: "border-l-red-600 bg-muted/50",
 };
 
 export function Callout({
@@ -24,7 +22,7 @@ export function Callout({
   return (
     <div
       className={cn(
-        "boder-l-4 my-6 w-full items-start rounded-md border p-4 dark:max-w-none",
+        "my-6 w-full items-start border border-l-4 p-4 dark:max-w-none",
         calloutStyles[type],
       )}
       {...props}

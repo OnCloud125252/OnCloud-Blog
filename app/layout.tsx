@@ -1,11 +1,7 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import dynamic from "next/dynamic";
-import {
-  Bricolage_Grotesque,
-  JetBrains_Mono,
-  Plus_Jakarta_Sans,
-} from "next/font/google";
+import { JetBrains_Mono, Mulish, Schibsted_Grotesk } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site-header";
 import { siteConfig } from "@/config/site";
@@ -16,12 +12,12 @@ const SiteFooter = dynamic(() => import("@/components/site-footer"), {
   ssr: false,
 });
 
-const bricolageGrotesque = Bricolage_Grotesque({
+const schibstedGrotesk = Schibsted_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const mulish = Mulish({
   subsets: ["latin"],
   variable: "--font-sans",
 });
@@ -39,8 +35,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f4f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#151518" },
   ],
 };
 
@@ -50,8 +46,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const fontVariables = cn(
-    bricolageGrotesque.variable,
-    plusJakartaSans.variable,
+    schibstedGrotesk.variable,
+    mulish.variable,
     jetbrainsMono.variable,
   );
 

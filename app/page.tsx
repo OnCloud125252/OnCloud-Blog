@@ -1,86 +1,66 @@
 import Link from "next/link";
 import { posts } from "#site/content";
 import { PostItem } from "@/components/post-item";
-import { buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
-import { cn, sortPosts } from "@/lib/utils";
+import { sortPosts } from "@/lib/utils";
 
 export default function Home() {
-  const latestPosts = sortPosts(posts).slice(0, 5);
+  const latestPosts = sortPosts(posts.filter((post) => post.published)).slice(
+    0,
+    5,
+  );
   const { title, description } = siteConfig.home;
 
   return (
-    <div className="relative">
-      <div className="grid-pattern absolute inset-0 -z-10 opacity-20" />
-
-      <section className="container relative flex flex-col items-center justify-center space-y-10 py-24 text-center lg:py-32">
-        <div className="space-y-4">
-          <h1 className="max-w-4xl text-balance font-black font-display text-5xl tracking-tight sm:text-7xl md:text-8xl lg:text-9xl">
-            {title}
-          </h1>
-          <p className="mx-auto max-w-[42rem] text-balance text-muted-foreground sm:text-xl md:text-2xl">
-            {description}
-          </p>
-        </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-6">
+    <div className="mx-auto max-w-2xl px-6">
+      <section className="pt-16 pb-16 sm:pt-24">
+        <h1 className="font-bold font-display text-4xl tracking-tight sm:text-5xl">
+          {title}
+        </h1>
+        <p className="mt-6 max-w-prose text-lg text-muted-foreground leading-relaxed">
+          {description}
+        </p>
+        <p className="mt-7 flex items-center gap-2 text-muted-foreground text-sm">
+          <span className="h-2 w-2 rounded-full bg-emerald-400" />
+          Currently exploring AI & Web3 · Based in Taiwan · Available for
+          collaborations
+        </p>
+        <div className="mt-10 flex gap-3">
           <Link
             href="/blog"
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              "h-14 bg-primary px-8 font-bold text-lg hover:bg-primary/90",
-            )}
+            className="rounded-full bg-foreground px-5 py-2.5 font-semibold text-background text-sm transition-colors hover:bg-primary hover:text-primary-foreground"
           >
-            Read Articles
+            Read the blog
           </Link>
           <Link
-            href={siteConfig.links.github}
-            target="_blank"
-            rel="noreferrer"
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "h-14 border-2 px-8 font-bold text-lg",
-            )}
+            href="/project"
+            className="rounded-full border bg-card px-5 py-2.5 font-semibold text-foreground text-sm transition-colors hover:border-muted-foreground/40"
           >
-            View Projects
+            View projects
           </Link>
-        </div>
-
-        <div className="mt-20 flex w-full max-w-5xl flex-col items-start gap-4 border-foreground/10 border-t pt-8 text-left sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-2 font-mono text-muted-foreground">
-            <span className="h-2 w-2 animate-pulse bg-primary" />
-            <span>Currently exploring AI & Web3</span>
-          </div>
-          <div className="font-mono text-muted-foreground">
-            Based in Taiwan • Available for collaborations
-          </div>
         </div>
       </section>
 
-      <section className="container max-w-5xl py-20">
-        <div className="mb-12 flex items-end justify-between border-foreground border-b pb-4">
-          <h2 className="font-black font-display text-4xl uppercase tracking-tighter sm:text-6xl">
-            Recent Logs
+      <section className="pb-24">
+        <div className="flex items-baseline justify-between pb-4">
+          <h2 className="font-bold font-display text-lg tracking-tight">
+            Recent posts
           </h2>
           <Link
             href="/blog"
-            className="font-bold font-display text-primary hover:underline sm:text-xl"
+            className="font-semibold text-primary text-sm transition-colors hover:text-foreground"
           >
-            See all →
+            All posts →
           </Link>
         </div>
-        <ul className="grid grid-cols-1 gap-px bg-border sm:grid-cols-2">
+        <ul className="flex flex-col gap-3.5">
           {latestPosts.map((post) => (
-            <li
-              key={post.slug}
-              className="bg-background transition-colors hover:bg-muted/50"
-            >
+            <li key={post.slug}>
               <PostItem
                 slug={post.slug}
                 title={post.title}
                 description={post.description}
                 date={post.update || post.date}
-                tags={post.tags}
               />
             </li>
           ))}
