@@ -5,7 +5,7 @@ import { siteConfig } from "@/config/site";
 import { getPublishedPosts, sortPosts } from "@/lib/utils";
 
 export default function Home() {
-  const latestPosts = sortPosts(getPublishedPosts(posts)).slice(0, 5);
+  const latestPosts = sortPosts(getPublishedPosts(posts)).slice(0, 3);
   const { title, description, status } = siteConfig.home;
 
   return (
@@ -38,18 +38,18 @@ export default function Home() {
       </section>
 
       <section className="pb-24">
-        <div className="flex items-baseline justify-between pb-4">
-          <h2 className="font-bold font-display text-lg tracking-tight">
-            Recent posts
-          </h2>
+        <h2 className="pb-4 font-bold font-display text-lg tracking-tight">
+          Recent posts
+        </h2>
+        <PostItems posts={latestPosts} />
+        <div className="mt-6 text-center">
           <Link
             href="/blog"
             className="font-semibold text-primary text-sm transition-colors hover:text-foreground"
           >
-            All posts →
+            View all posts →
           </Link>
         </div>
-        <PostItems posts={latestPosts} />
       </section>
     </div>
   );
