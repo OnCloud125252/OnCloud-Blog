@@ -1,10 +1,31 @@
+export const PROJECT_STATUS_LABELS = {
+  done: "DONE",
+  active: "ACTIVE",
+  developing: "DEVELOPING",
+  paused: "PAUSED",
+  deprecated: "DEPRECATED",
+  outdated: "OUTDATED",
+} as const;
+
+export type ProjectStatus = keyof typeof PROJECT_STATUS_LABELS;
+
+export interface Project {
+  name: string;
+  technology: string[];
+  description: string;
+  github?: string;
+  link?: string;
+  status: ProjectStatus;
+}
+
 export const siteConfig = {
   name: "OnCloud Blog",
   url: "https://on-cloud.tw",
   description: "A place where I share my thoughts, tips, tricks, and tutorials",
   author: "OnCloud",
   githubRepo: "https://github.com/OnCloud125252/OnCloud-Blog",
-  personalSite: "https://on-cloud.tw",
+  // Must match the actual ImageResponse size in app/api/og/route.tsx
+  ogImage: { width: 900, height: 400 },
 
   links: {
     email: "oncloud@lazco.dev",
@@ -132,17 +153,18 @@ export const siteConfig = {
         github: "https://github.com/OnCloud125252/OnCloud-Blog",
         status: "developing",
       },
-    ],
-    getStatus: (status: string) =>
-      STATUS_MAP[status] || { color: "#949494", text: "INACTIVE" },
-    defaultView: "list",
-    target: "_blank",
+    ] satisfies Project[],
   },
 
   blog: {
     title: "My Blog",
     description: "A collection of tips, tricks, and tutorials",
     placeholder: "No posts found",
+  },
+
+  tags: {
+    title: "Tags",
+    description: "Topic I've written about",
   },
 
   about: {
@@ -163,15 +185,6 @@ export const siteConfig = {
       fallback: "Alex Liao",
     },
   },
-};
-
-const STATUS_MAP: Record<string, { color: string; text: string }> = {
-  done: { color: "#00e676", text: "DONE" },
-  active: { color: "#00e5ff", text: "ACTIVE" },
-  developing: { color: "#d500f9", text: "DEVELOPING" },
-  paused: { color: "#ffea00", text: "PAUSED" },
-  deprecated: { color: "#ff6e40", text: "DEPRECATED" },
-  outdated: { color: "#ff1744", text: "OUTDATED" },
 };
 
 export type SiteConfig = typeof siteConfig;

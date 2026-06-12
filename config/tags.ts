@@ -1,13 +1,11 @@
 export interface TagCategoryConfig {
   label: string;
-  color: string;
   tags: readonly string[];
 }
 
 export const TAG_CATEGORIES = {
   shell: {
     label: "Shell",
-    color: "#22c55e",
     tags: [
       "zsh",
       "bash",
@@ -23,54 +21,39 @@ export const TAG_CATEGORIES = {
   },
   devops: {
     label: "DevOps",
-    color: "#3b82f6",
     tags: ["docker", "docker-compose", "portainer", "pve", "pve-container"],
   },
   cicd: {
     label: "CI/CD",
-    color: "#a855f7",
     tags: ["github", "github-actions", "actions", "automation"],
   },
   linux: {
     label: "Linux",
-    color: "#f97316",
     tags: ["ubuntu", "linux", "nginx"],
   },
   networking: {
     label: "Networking",
-    color: "#ef4444",
     tags: ["network", "dns", "dhcp", "mtu", "pi-hole", "ad-blocking"],
   },
   programming: {
     label: "Programming",
-    color: "#eab308",
     tags: ["typescript", "bun", "c++", "script"],
   },
   personal: {
     label: "Personal",
-    color: "#ec4899",
     tags: ["life", "dev-log", "audio"],
   },
 } as const satisfies Record<string, TagCategoryConfig>;
 
 export type TagCategory = keyof typeof TAG_CATEGORIES;
 
-export function getCategoryForTag(tag: string): TagCategory | null {
-  const normalizedTag = tag.toLowerCase();
-
-  for (const [category, config] of Object.entries(TAG_CATEGORIES)) {
-    if ((config.tags as readonly string[]).includes(normalizedTag)) {
-      return category as TagCategory;
-    }
+const TAG_TO_CATEGORY = new Map<string, TagCategory>();
+for (const [category, config] of Object.entries(TAG_CATEGORIES)) {
+  for (const tag of config.tags) {
+    TAG_TO_CATEGORY.set(tag, category as TagCategory);
   }
-
-  return null;
 }
 
-export function getCategoryConfig(category: TagCategory): TagCategoryConfig {
-  return TAG_CATEGORIES[category];
-}
-
-export function getAllCategories(): TagCategory[] {
-  return Object.keys(TAG_CATEGORIES) as TagCategory[];
+export function getCategoryForTag(tag: string): TagCategory | null {
+  return TAG_TO_CATEGORY.get(tag.toLowerCase()) ?? null;
 }
