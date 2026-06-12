@@ -9,20 +9,23 @@ export default {
 };
 
 class VeliteWebpackPlugin {
-  static started = false;
+  // Next.js runs three compilers concurrently (client, server-nodejs, edge).
+  // A shared promise makes every compiler await the same build, so none start
+  // resolving `#site/content` before `.velite` is written.
+  /** @type {Promise<unknown> | null} */
+  static buildPromise = null;
   constructor(/** @type {import('velite').Options} */ options = {}) {
     this.options = options;
   }
   apply(/** @type {import('webpack').Compiler} */ compiler) {
-    // executed three times in nextjs !!!
-    // twice for the server (nodejs / edge runtime) and once for the client
     compiler.hooks.beforeCompile.tapPromise("VeliteWebpackPlugin", async () => {
-      if (VeliteWebpackPlugin.started) return;
-      VeliteWebpackPlugin.started = true;
-      const dev = compiler.options.mode === "development";
-      this.options.watch = this.options.watch ?? dev;
-      this.options.clean = this.options.clean ?? !dev;
-      await build(this.options); // start velite
+      if (!VeliteWebpackPlugin.buildPromise) {
+        const dev = compiler.options.mode === "development";
+        this.options.watch = this.options.watch ?? dev;
+        this.options.clean = this.options.clean ?? !dev;
+        VeliteWebpackPlugin.buildPromise = build(this.options);
+      }
+      await VeliteWebpackPlugin.buildPromise;
     });
   }
 }
