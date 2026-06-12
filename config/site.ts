@@ -39,7 +39,9 @@ export const siteConfig = {
   home: {
     title: "Hello, I'm Alex Liao",
     description:
-      "I'm a full-stack web developer and system designer. I build website and manage/deploy servers.",
+      "I'm a platform and full-stack engineer focused on cloud infrastructure, containerized deployment, and platform reliability. I build backend systems in Go and TypeScript, and write about what I learn along the way.",
+    status:
+      "Building platform infrastructure at Zeabur · Based in Taiwan · Open to collaborations",
   },
 
   project: {

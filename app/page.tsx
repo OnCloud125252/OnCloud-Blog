@@ -6,7 +6,7 @@ import { getPublishedPosts, sortPosts } from "@/lib/utils";
 
 export default function Home() {
   const latestPosts = sortPosts(getPublishedPosts(posts)).slice(0, 5);
-  const { title, description } = siteConfig.home;
+  const { title, description, status } = siteConfig.home;
 
   return (
     <div className="mx-auto max-w-4xl px-6">
@@ -19,8 +19,7 @@ export default function Home() {
         </p>
         <p className="mt-7 flex items-center gap-2 text-muted-foreground text-sm">
           <span className="h-2 w-2 rounded-full bg-emerald-400" />
-          Currently exploring AI & Web3 · Based in Taiwan · Available for
-          collaborations
+          {status}
         </p>
         <div className="mt-10 flex gap-3">
           <Link
