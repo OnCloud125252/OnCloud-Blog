@@ -1,0 +1,41 @@
+components/tags-by-category.tsx
+  s_a7eaca34f1244c::t_76812877c4aaba 2,6,11
+components/project-list.tsx
+  s_a7eaca34f1244c::t_c3a233046bf985 11
+  s_a7eaca34f1244c::t_f162c63ddac3f1 1,4,7,10,23,38,48
+components/post-list.tsx
+  s_a7eaca34f1244c::t_11b7c6632bec09 6,9,17,21-23,27-32,48,63,69-72
+components/site-footer.tsx
+  s_a7eaca34f1244c::t_304c15d2963697 2-10,17,28-42
+  h_964b3dfa0bfd24 15
+components/site-header.tsx
+  h_964b3dfa0bfd24 7
+components/post-item.tsx
+  s_a7eaca34f1244c::t_2fccc5e1518c7b 11-25
+  s_a7eaca34f1244c::t_c3a233046bf985 2
+components/providers.tsx
+  s_a7eaca34f1244c::t_675c9d098f5bd9 18
+components/tag.tsx
+  s_a7eaca34f1244c::t_6223f53de83d00 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "afd99b7d1cae5bc3cf6a49c18e4185bbd56bcd85",
+  "prompts": {},
+  "humans": {
+    "h_964b3dfa0bfd24": {
+      "author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a7eaca34f1244c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4a535065-98aa-4daf-8f04-318a1fbd083c",
+        "model": "claude-fable-5"
+      },
+      "human_author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  }
+}
