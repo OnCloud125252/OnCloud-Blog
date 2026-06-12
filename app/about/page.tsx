@@ -8,7 +8,17 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  const { title, name, location, aka, work, detail, avatar } = siteConfig.about;
+  const {
+    title,
+    name,
+    location,
+    aka,
+    work,
+    education,
+    detail,
+    experience,
+    avatar,
+  } = siteConfig.about;
 
   return (
     <div className="mx-auto max-w-4xl px-6 py-12">
@@ -19,7 +29,7 @@ export default function AboutPage() {
       </header>
 
       <section className="mt-10 flex flex-col gap-6 rounded-2xl border bg-card p-6 sm:flex-row sm:items-center sm:p-7">
-        <Avatar className="h-20 w-20">
+        <Avatar className="h-28 w-28">
           <AvatarImage src={avatar.url} alt={name} />
           <AvatarFallback>{avatar.fallback}</AvatarFallback>
         </Avatar>
@@ -28,8 +38,9 @@ export default function AboutPage() {
             {name}
           </h2>
           <p className="mt-1 text-muted-foreground text-sm">{aka}</p>
-          <p className="mt-2 text-muted-foreground text-sm">
-            {location} · {work}
+          <p className="mt-2 text-muted-foreground text-sm">{work}</p>
+          <p className="mt-1 text-muted-foreground text-sm">
+            {education} · {location}
           </p>
         </div>
       </section>
@@ -42,52 +53,34 @@ export default function AboutPage() {
         ))}
       </section>
 
-      {STAT_SECTIONS.map((section) => (
-        <section className="mt-14" key={section.heading}>
-          <h2 className="font-bold font-display text-lg tracking-tight">
-            {section.heading}
-          </h2>
-          <div className="mt-5 flex flex-col items-start gap-5">
-            {section.images.map((image) => (
-              // biome-ignore lint/performance/noImgElement: external dynamic SVG from GitHub stats API
-              <img
-                key={image.src}
-                src={image.src}
-                title={image.label}
-                alt={image.label}
-                loading="lazy"
-                decoding="async"
-                className="rounded-2xl"
-              />
-            ))}
-          </div>
-        </section>
-      ))}
+      <section className="mt-14">
+        <h2 className="font-bold font-display text-lg tracking-tight">
+          Experience
+        </h2>
+        <ul className="mt-5 flex flex-col gap-3.5">
+          {experience.map((entry) => (
+            <li
+              key={entry.company}
+              className="rounded-2xl border bg-card p-6 sm:p-7"
+            >
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <h3 className="font-display font-medium text-lg tracking-tight">
+                  {entry.company}
+                </h3>
+                <span className="font-mono text-[0.7rem] text-muted-foreground uppercase">
+                  {entry.period}
+                </span>
+              </div>
+              <p className="mt-1 font-medium text-primary text-sm">
+                {entry.role}
+              </p>
+              <p className="mt-3 text-muted-foreground text-sm leading-relaxed">
+                {entry.summary}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   );
 }
-
-const STAT_SECTIONS = [
-  {
-    heading: "GitHub Status",
-    images: [
-      {
-        src: "https://github-readme-stats.on-cloud.eu.org/api?username=OnCloud125252&show_icons=true&theme=onedark",
-        label: "Overall GitHub Stats",
-      },
-      {
-        src: "https://github-readme-stats.on-cloud.eu.org/api/top-langs/?username=OnCloud125252&langs_count=8&theme=onedark&layout=donut",
-        label: "Most Used Programming Languages",
-      },
-    ],
-  },
-  {
-    heading: "Coding Activity (All Time)",
-    images: [
-      {
-        src: "https://github-readme-stats.vercel.app/api/wakatime?username=OnCloud&theme=onedark&layout=compact",
-        label: "Coding Activity",
-      },
-    ],
-  },
-];

@@ -171,16 +171,55 @@ export const siteConfig = {
 
   about: {
     title: "About Me",
-    description: "Information about me",
+    description: "Who I am and what I work on",
     name: "Alex Liao",
-    location: "Taiwan, Taichung",
+    location: "Taiwan",
     aka: "OnCloud, 上雲",
-    work: "Chief Technology Officer, Lazco Studio LTD",
+    work: "Platform Engineer Intern @ Zeabur",
+    education: "Electrical Engineering @ Tamkang University",
     detail: [
       "Greetings 👋",
-      "I'm Alex, a dedicated student with a deep passion for coding, computers, and electronics. I am currently expanding my skills in system design and web development.",
-      "In my role as Chief Technology Officer and full-stack developer at Lazco Studio, I oversee server management, deployment, and the creation of backend applications.",
-      "I have invested considerable time honing my coding abilities and am eager to share my knowledge with others. By teaching coding, I hope to make programming more approachable and empowering for all. Please take a look at my repositories and resources that showcase my dedication to coding education.",
+      "I'm Alex, a platform and full-stack engineer. I work on cloud infrastructure, containerized deployment, and platform reliability. Right now that means building database backup/restore and multi-cloud server provisioning at Zeabur, a cloud PaaS, with Go and Kubernetes.",
+      "Before that I was the technical director of Lazco, a cloud hosting provider running its own ASN (AS131630). I built its VPS rental platform end to end: the backend, the distributed usage metering and billing engine, and the physical infrastructure across two server rooms. I also co-founded PickTrip, an AI travel-planning startup that reached the top 5% of a Y Combinator batch.",
+      "I like tracing problems from user reports down to root cause, then turning the fix into docs, rules, and automation so it doesn't happen twice. Lately that includes building AI-assisted development workflows with custom skills, rules, and hooks.",
+      "I also teach: backend courses at NTU's iOS app development club, programming and security communities at Mingdao High School, and AI courses at hackathon camps. Sharing what I learn is a big part of why this blog exists.",
+    ],
+    experience: [
+      {
+        company: "Zeabur",
+        role: "Platform Engineer Intern",
+        period: "Apr 2026 – Jun 2026",
+        summary:
+          "Database backup/restore and volume clone features, multi-cloud server provisioning with cloud-init, and security response on a cloud PaaS. Go, Kubernetes, GitOps.",
+      },
+      {
+        company: "Lazco",
+        role: "Chief Technology Officer",
+        period: "Nov 2022 – Mar 2026",
+        summary:
+          "Built Lazco Cloud, a VPS rental platform on our own ASN (AS131630): backend and billing engine, Proxmox VE virtualization, and physical infrastructure across two server rooms with 99.8%+ SLA.",
+      },
+      {
+        company: "PickTrip",
+        role: "Co-founder & CTO",
+        period: "May 2024 – Aug 2025",
+        summary:
+          "AI travel-planning startup, top 5% of a Y Combinator batch. Built the AI planning backend, itinerary optimization algorithms, data pipeline, and AWS deployment.",
+      },
+      {
+        company: "Mingdao SIG 2.0",
+        role: "Technical Director & Full-stack Engineer",
+        period: "2023 – 2025",
+        summary:
+          "Campus community platform serving 1,000+ students and teachers. TypeScript + Express + MongoDB backend with a two-node HA deployment that held 100% uptime for 6 months.",
+      },
+      {
+        company: "Freelance",
+        role: "Full-stack Engineer",
+        period: "Jan 2022 – May 2024",
+        summary:
+          "Websites and systems with React, Next.js, Express, and MongoDB. Deployment and performance troubleshooting, plus a modular Discord bot template.",
+      },
     ],
     avatar: {
       url: "/avatar.jpg",
