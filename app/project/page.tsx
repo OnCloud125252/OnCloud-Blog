@@ -11,7 +11,7 @@ export default function ProjectPage() {
   const { title, description } = siteConfig.project;
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-12">
+    <div className="mx-auto max-w-4xl px-6 py-12">
       <header>
         <h1 className="font-bold font-display text-4xl tracking-tight">
           {title}
@@ -19,7 +19,7 @@ export default function ProjectPage() {
         <p className="mt-3 text-muted-foreground">{description}</p>
       </header>
       <div className="mt-10">
-        <ProjectList project={siteConfig.project} />
+        <ProjectList projects={siteConfig.project.projects} />
       </div>
     </div>
   );

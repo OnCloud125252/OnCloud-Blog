@@ -2,13 +2,15 @@ import { slug } from "github-slugger";
 import { Metadata } from "next";
 import Link from "next/link";
 import { posts } from "#site/content";
-import { PostItem } from "@/components/post-item";
+import { PostItems } from "@/components/post-item";
+import { getCategoryForTag, TAG_CATEGORIES } from "@/config/tags";
 import {
-  getCategoryConfig,
-  getCategoryForTag,
-  type TagCategory,
-} from "@/config/tags";
-import { getAllTags, getPostsByTagSlug } from "@/lib/utils";
+  getAllTags,
+  getPostsByTagSlug,
+  getPublishedPosts,
+  getTagFromSlug,
+  sortPosts,
+} from "@/lib/utils";
 
 interface TagPageProps {
   params: {
@@ -19,31 +21,32 @@ interface TagPageProps {
 export async function generateMetadata({
   params,
 }: TagPageProps): Promise<Metadata> {
-  const { tag } = params;
+  const title = getTagFromSlug(posts, params.tag) ?? params.tag;
   return {
-    title: tag,
-    description: `Posts on the topic of ${tag}`,
+    title,
+    description: `Posts on the topic of ${title}`,
   };
 }
 
 export function generateStaticParams() {
-  const tags = getAllTags(posts);
+  const tags = getAllTags(getPublishedPosts(posts));
   return Object.keys(tags).map((tag) => ({ tag: slug(tag) }));
 }
 
 export default function TagPage({ params }: TagPageProps) {
   const { tag } = params;
-  const title = tag.split("-").join(" ");
+  const realTag = getTagFromSlug(posts, tag);
+  const title = realTag ?? tag.split("-").join(" ");
 
-  const displayPosts = getPostsByTagSlug(posts, tag);
+  const displayPosts = sortPosts(
+    getPostsByTagSlug(getPublishedPosts(posts), tag),
+  );
 
-  const currentCategory = getCategoryForTag(title);
-  const currentCategoryConfig = currentCategory
-    ? getCategoryConfig(currentCategory as TagCategory)
-    : null;
+  const category = realTag ? getCategoryForTag(realTag) : null;
+  const categoryLabel = category ? TAG_CATEGORIES[category].label : null;
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-12">
+    <div className="mx-auto max-w-4xl px-6 py-12">
       <header>
         <Link
           href="/tags"
@@ -55,27 +58,16 @@ export default function TagPage({ params }: TagPageProps) {
           <h1 className="font-bold font-display text-4xl capitalize tracking-tight">
             {title}
           </h1>
-          {currentCategoryConfig && (
+          {categoryLabel && (
             <span className="rounded-full bg-muted px-2.5 py-1 font-mono text-[0.65rem] text-muted-foreground uppercase tracking-wider">
-              {currentCategoryConfig.label}
+              {categoryLabel}
             </span>
           )}
         </div>
       </header>
       <div className="mt-10">
         {displayPosts.length > 0 ? (
-          <ul className="flex flex-col gap-3.5">
-            {displayPosts.map((post) => (
-              <li key={post.slug}>
-                <PostItem
-                  slug={post.slug}
-                  date={post.update || post.date}
-                  title={post.title}
-                  description={post.description}
-                />
-              </li>
-            ))}
-          </ul>
+          <PostItems posts={displayPosts} />
         ) : (
           <p className="text-muted-foreground">Nothing to see here yet</p>
         )}

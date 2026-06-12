@@ -1,16 +1,13 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
-import dynamic from "next/dynamic";
 import { JetBrains_Mono, Mulish, Schibsted_Grotesk } from "next/font/google";
 import { Providers } from "@/components/providers";
+import SiteFooter from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import "./globals.css";
-
-const SiteFooter = dynamic(() => import("@/components/site-footer"), {
-  ssr: false,
-});
+import Script from "next/script";
 
 const schibstedGrotesk = Schibsted_Grotesk({
   subsets: ["latin"],
@@ -45,18 +42,23 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const fontVariables = cn(
-    schibstedGrotesk.variable,
-    mulish.variable,
-    jetbrainsMono.variable,
-  );
-
   return (
     <html lang="en" className="scroll-pt-[3.5rem]">
+      <head>
+        {process.env.NODE_ENV === "development" && (
+          <Script
+            src="//unpkg.com/react-grab/dist/index.global.js"
+            crossOrigin="anonymous"
+            strategy="beforeInteractive"
+          />
+        )}
+      </head>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased",
-          fontVariables,
+          schibstedGrotesk.variable,
+          mulish.variable,
+          jetbrainsMono.variable,
         )}
       >
         <Providers>

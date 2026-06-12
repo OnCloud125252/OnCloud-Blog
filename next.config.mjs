@@ -1,21 +1,11 @@
 import { build } from "velite";
 
 /** @type {import('next').NextConfig} */
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  // othor next config here...
   webpack: (config) => {
     config.plugins.push(new VeliteWebpackPlugin());
     return config;
   },
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "github-readme-stats.on-cloud.eu.org"
-      }
-    ]
-  }
 };
 
 class VeliteWebpackPlugin {

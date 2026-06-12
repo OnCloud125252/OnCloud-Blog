@@ -1,18 +1,15 @@
 import Link from "next/link";
 import { posts } from "#site/content";
-import { PostItem } from "@/components/post-item";
+import { PostItems } from "@/components/post-item";
 import { siteConfig } from "@/config/site";
-import { sortPosts } from "@/lib/utils";
+import { getPublishedPosts, sortPosts } from "@/lib/utils";
 
 export default function Home() {
-  const latestPosts = sortPosts(posts.filter((post) => post.published)).slice(
-    0,
-    5,
-  );
+  const latestPosts = sortPosts(getPublishedPosts(posts)).slice(0, 5);
   const { title, description } = siteConfig.home;
 
   return (
-    <div className="mx-auto max-w-2xl px-6">
+    <div className="mx-auto max-w-4xl px-6">
       <section className="pt-16 pb-16 sm:pt-24">
         <h1 className="font-bold font-display text-4xl tracking-tight sm:text-5xl">
           {title}
@@ -53,18 +50,7 @@ export default function Home() {
             All posts →
           </Link>
         </div>
-        <ul className="flex flex-col gap-3.5">
-          {latestPosts.map((post) => (
-            <li key={post.slug}>
-              <PostItem
-                slug={post.slug}
-                title={post.title}
-                description={post.description}
-                date={post.update || post.date}
-              />
-            </li>
-          ))}
-        </ul>
+        <PostItems posts={latestPosts} />
       </section>
     </div>
   );

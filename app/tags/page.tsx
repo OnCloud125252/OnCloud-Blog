@@ -1,31 +1,33 @@
 import { Metadata } from "next";
 import { posts } from "#site/content";
 import { TagsByCategoryList } from "@/components/tags-by-category";
+import { siteConfig } from "@/config/site";
 import {
   getAllTags,
-  getTagsByCategory,
-  getUncategorizedTags,
+  getPublishedPosts,
+  groupTagsByCategory,
 } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Tags",
-  description: "Topic I've written about",
+  title: siteConfig.tags.title,
+  description: siteConfig.tags.description,
 };
 
 export default function TagsPage() {
-  const tags = getAllTags(posts);
-  const tagsByCategory = getTagsByCategory(tags);
-  const uncategorizedTags = getUncategorizedTags(tags);
+  const tags = getAllTags(getPublishedPosts(posts));
+  const { categorized, uncategorized } = groupTagsByCategory(tags);
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-12">
+    <div className="mx-auto max-w-4xl px-6 py-12">
       <header>
-        <h1 className="font-bold font-display text-4xl tracking-tight">Tags</h1>
+        <h1 className="font-bold font-display text-4xl tracking-tight">
+          {siteConfig.tags.title}
+        </h1>
       </header>
       <div className="mt-10">
         <TagsByCategoryList
-          tagsByCategory={tagsByCategory}
-          uncategorizedTags={uncategorizedTags}
+          tagsByCategory={categorized}
+          uncategorizedTags={uncategorized}
         />
       </div>
     </div>

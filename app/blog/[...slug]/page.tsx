@@ -4,7 +4,7 @@ import { posts } from "#site/content";
 import { MDXContent } from "@/components/mdx-components";
 import { Tag } from "@/components/tag";
 import { siteConfig } from "@/config/site";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getPublishedPosts } from "@/lib/utils";
 
 import "@/styles/mdx.css";
 
@@ -16,7 +16,7 @@ interface PostPageProps {
 
 function getPostFromParams(params: PostPageProps["params"]) {
   const slug = params?.slug?.join("/");
-  return posts.find((post) => post.slugAsParams === slug);
+  return posts.find((post) => post.slugAsParams === slug && post.published);
 }
 
 export async function generateMetadata({
@@ -30,13 +30,7 @@ export async function generateMetadata({
 
   const ogSearchParams = new URLSearchParams();
   ogSearchParams.set("title", post.title);
-
-  const ogImage = {
-    url: `/api/og?${ogSearchParams.toString()}`,
-    width: 1200,
-    height: 630,
-    alt: post.title,
-  };
+  const ogUrl = `/api/og?${ogSearchParams.toString()}`;
 
   return {
     title: post.title,
@@ -47,33 +41,35 @@ export async function generateMetadata({
       description: post.description,
       type: "article",
       url: post.slug,
-      images: [ogImage],
+      images: [{ url: ogUrl, ...siteConfig.ogImage, alt: post.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.description,
-      images: [`/api/og?${ogSearchParams.toString()}`],
+      images: [ogUrl],
     },
   };
 }
 
 export function generateStaticParams(): PostPageProps["params"][] {
-  return posts.map((post) => ({ slug: post.slugAsParams.split("/") }));
+  return getPublishedPosts(posts).map((post) => ({
+    slug: post.slugAsParams.split("/"),
+  }));
 }
 
 export default function PostPage({ params }: PostPageProps) {
   const post = getPostFromParams(params);
 
-  if (!post?.published) {
+  if (!post) {
     notFound();
   }
 
-  const updateDate = post.update;
-  const hasUpdate = updateDate && post.date !== updateDate;
+  const updateDate =
+    post.update && post.update !== post.date ? post.update : undefined;
 
   return (
-    <article className="prose dark:prose-invert mx-auto max-w-2xl px-6 py-12">
+    <article className="prose dark:prose-invert mx-auto max-w-4xl px-6 py-12">
       <h1 className="font-display tracking-tight">{post.title}</h1>
       {post.description && (
         <p className="mt-0 mb-4 text-muted-foreground text-xl">
@@ -82,7 +78,7 @@ export default function PostPage({ params }: PostPageProps) {
       )}
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-muted-foreground text-sm">
         <time dateTime={post.date}>Published {formatDate(post.date)}</time>
-        {hasUpdate && updateDate && (
+        {updateDate && (
           <time dateTime={updateDate}>Updated {formatDate(updateDate)}</time>
         )}
       </div>

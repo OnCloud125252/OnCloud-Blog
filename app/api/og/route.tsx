@@ -36,21 +36,18 @@ export async function GET(req: NextRequest) {
           <path d="M4 4a16 16 0 0 1 16 16" />
           <circle cx="5" cy="19" r="1" />
         </svg>
-        <p tw="ml-2 font-bold text-2xl">OnCloud Blog</p>
+        <p tw="ml-2 font-bold text-2xl">{siteConfig.name}</p>
       </div>
       <div tw="flex flex-col flex-1 pt-2">
-        <div tw="flex text-[80px] font-bold text-6xl">{heading}</div>
+        <div tw="flex font-bold text-6xl">{heading}</div>
       </div>
       <div tw="flex items-center w-full justify-between">
         <div tw="flex text-xl">{siteConfig.url}</div>
-        <div tw="flex items-center text-xl">
-          <div tw="flex ml-2">{siteConfig.links.github}</div>
-        </div>
+        <div tw="flex text-xl">{siteConfig.links.github}</div>
       </div>
     </div>,
     {
-      width: 900,
-      height: 400,
+      ...siteConfig.ogImage,
       fonts: [
         {
           name: "Inter",
