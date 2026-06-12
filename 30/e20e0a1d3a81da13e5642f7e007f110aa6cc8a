@@ -1,0 +1,25 @@
+lib/utils.ts
+  s_a7eaca34f1244c::t_c3a233046bf985 81
+  s_a7eaca34f1244c::t_ad7d97333eeba5 8,16-48,52-55,70-74,82-86,92,95-100,105-109,113-128,130
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "30e20e0a1d3a81da13e5642f7e007f110aa6cc8a",
+  "prompts": {},
+  "humans": {
+    "h_964b3dfa0bfd24": {
+      "author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a7eaca34f1244c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4a535065-98aa-4daf-8f04-318a1fbd083c",
+        "model": "claude-fable-5"
+      },
+      "human_author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  }
+}
