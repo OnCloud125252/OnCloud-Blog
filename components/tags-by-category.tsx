@@ -1,14 +1,14 @@
 import { Tag } from "@/components/tag";
-import type { TagsByCategory } from "@/lib/utils";
+import type { TagsByCategory, TagWithCount } from "@/lib/utils";
 
 interface TagsByCategoryListProps {
   tagsByCategory: TagsByCategory[];
-  uncategorizedTags: Array<{ name: string; count: number }>;
+  uncategorizedTags: TagWithCount[];
 }
 
 interface TagGroupProps {
   label: string;
-  tags: Array<{ name: string; count: number }>;
+  tags: TagWithCount[];
 }
 
 function TagGroup({ label, tags }: TagGroupProps) {

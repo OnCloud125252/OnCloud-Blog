@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Post } from "#site/content";
 import { PostItem } from "@/components/post-item";
 import { PostSkeleton } from "@/components/post-skeleton";
+import { getPostDisplayDate, type PostListItem } from "@/lib/utils";
 
 interface PostListProps {
-  posts: Post[];
+  posts: PostListItem[];
 }
 
 const POSTS_PER_PAGE = 6;
@@ -14,20 +14,22 @@ const LOAD_DELAY_MS = 300;
 const OBSERVER_MARGIN = "200px";
 
 export function PostList({ posts }: PostListProps) {
-  const [displayedPosts, setDisplayedPosts] = useState<Post[]>(() =>
-    posts.slice(0, POSTS_PER_PAGE),
-  );
-  const [page, setPage] = useState(1);
+  const [visibleCount, setVisibleCount] = useState(POSTS_PER_PAGE);
   const [isLoading, setIsLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(posts.length > POSTS_PER_PAGE);
   const observerTarget = useRef<HTMLLIElement>(null);
+
+  const hasMore = visibleCount < posts.length;
+  const displayedPosts = posts.slice(0, visibleCount);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        const target = entries[0];
-        if (target.isIntersecting && hasMore && !isLoading) {
-          loadMorePosts();
+        if (entries[0].isIntersecting && hasMore && !isLoading) {
+          setIsLoading(true);
+          setTimeout(() => {
+            setVisibleCount((count) => count + POSTS_PER_PAGE);
+            setIsLoading(false);
+          }, LOAD_DELAY_MS);
         }
       },
       { rootMargin: OBSERVER_MARGIN },
@@ -43,27 +45,7 @@ export function PostList({ posts }: PostListProps) {
         observer.unobserve(currentTarget);
       }
     };
-  }, [hasMore, isLoading, page]);
-
-  const loadMorePosts = () => {
-    if (isLoading) {
-      return;
-    }
-
-    setIsLoading(true);
-
-    setTimeout(() => {
-      const nextPage = page + 1;
-      const start = POSTS_PER_PAGE * (nextPage - 1);
-      const end = start + POSTS_PER_PAGE;
-      const newPosts = posts.slice(start, end);
-
-      setDisplayedPosts((prev) => [...prev, ...newPosts]);
-      setPage(nextPage);
-      setHasMore(end < posts.length);
-      setIsLoading(false);
-    }, LOAD_DELAY_MS);
-  };
+  }, [hasMore, isLoading]);
 
   if (posts.length === 0) {
     return null;
@@ -75,20 +57,19 @@ export function PostList({ posts }: PostListProps) {
   return (
     <ul className="flex flex-col gap-3.5">
       {displayedPosts.map((post, index) => {
-        const { slug, date, update, title, description } = post;
         const isLastItem = index === lastPostIndex && !showSkeleton;
         return (
           <li
-            key={slug}
+            key={post.slug}
             ref={isLastItem ? observerTarget : null}
             className="animate-fade-in-up opacity-0"
             style={{ animationDelay: `${(index % POSTS_PER_PAGE) * 60}ms` }}
           >
             <PostItem
-              slug={slug}
-              date={update || date}
-              title={title}
-              description={description}
+              slug={post.slug}
+              date={getPostDisplayDate(post)}
+              title={post.title}
+              description={post.description}
             />
           </li>
         );

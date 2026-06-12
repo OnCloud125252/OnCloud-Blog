@@ -1,11 +1,28 @@
 import Link from "next/link";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getPostDisplayDate, type PostListItem } from "@/lib/utils";
 
 interface PostItemProps {
   slug: string;
   title: string;
   description?: string;
   date: string;
+}
+
+export function PostItems({ posts }: { posts: PostListItem[] }) {
+  return (
+    <ul className="flex flex-col gap-3.5">
+      {posts.map((post) => (
+        <li key={post.slug}>
+          <PostItem
+            slug={post.slug}
+            title={post.title}
+            description={post.description}
+            date={getPostDisplayDate(post)}
+          />
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 export function PostItem({ slug, title, description, date }: PostItemProps) {

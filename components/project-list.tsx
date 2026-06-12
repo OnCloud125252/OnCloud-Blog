@@ -1,28 +1,14 @@
-interface Project {
-  name: string;
-  technology: string[];
-  description: string;
-  github?: string;
-  link?: string;
-  status: string;
-}
+import { PROJECT_STATUS_LABELS, type Project } from "@/config/site";
 
 interface ProjectListProps {
-  project: {
-    projects: Project[];
-    getStatus: (status: string) => { color: string; text: string };
-    target: string;
-  };
+  projects: Project[];
 }
 
-export function ProjectList({ project }: ProjectListProps) {
-  const { projects, getStatus, target } = project;
-
+export function ProjectList({ projects }: ProjectListProps) {
   return (
     <ul className="flex flex-col gap-3.5">
-      {projects.map((proj) => {
-        const { name, technology, description, github, link } = proj;
-        const { text } = getStatus(proj.status);
+      {projects.map((project) => {
+        const { name, technology, description, github, link, status } = project;
 
         return (
           <li
@@ -34,7 +20,7 @@ export function ProjectList({ project }: ProjectListProps) {
                 {name}
               </h2>
               <span className="shrink-0 rounded-full bg-muted px-2.5 py-1 font-mono text-[0.65rem] text-muted-foreground uppercase tracking-wider">
-                {text}
+                {PROJECT_STATUS_LABELS[status]}
               </span>
             </div>
             {technology.length > 0 && (
@@ -49,7 +35,7 @@ export function ProjectList({ project }: ProjectListProps) {
               {github && (
                 <a
                   href={github}
-                  target={target}
+                  target="_blank"
                   rel="noreferrer"
                   className="text-foreground transition-colors hover:text-primary"
                 >
@@ -59,7 +45,7 @@ export function ProjectList({ project }: ProjectListProps) {
               {link && (
                 <a
                   href={link}
-                  target={target}
+                  target="_blank"
                   rel="noreferrer"
                   className="text-foreground transition-colors hover:text-primary"
                 >
