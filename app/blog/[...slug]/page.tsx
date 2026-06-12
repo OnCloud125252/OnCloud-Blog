@@ -1,15 +1,8 @@
-import { Calendar } from "lucide-react";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { posts } from "#site/content";
-import { Icons } from "@/components/icons";
 import { MDXContent } from "@/components/mdx-components";
 import { Tag } from "@/components/tag";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { siteConfig } from "@/config/site";
 import { formatDate } from "@/lib/utils";
 
@@ -80,41 +73,27 @@ export default function PostPage({ params }: PostPageProps) {
   const hasUpdate = updateDate && post.date !== updateDate;
 
   return (
-    <article className="prose dark:prose-invert container mx-auto max-w-7xl py-6">
-      <h1 className="mb-2 font-display">{post.title}</h1>
-      <div className="mb-2 flex gap-2">
-        {post.tags?.map((tag) => (
-          <Tag tag={tag} key={tag} />
-        ))}
-      </div>
+    <article className="prose dark:prose-invert mx-auto max-w-2xl px-6 py-16">
+      <h1 className="font-display">{post.title}</h1>
       {post.description && (
-        <p className="mt-0 mb-2 text-muted-foreground text-xl">
+        <p className="mt-0 mb-4 text-muted-foreground text-xl">
           {post.description}
         </p>
       )}
-      <div className="flex gap-6 font-mono text-sm">
-        <Tooltip>
-          <TooltipTrigger>
-            <div className="flex items-center gap-1">
-              <Calendar className="h-4 w-4" />
-              <time dateTime={post.date}>{formatDate(post.date)}</time>
-            </div>
-          </TooltipTrigger>
-          <TooltipContent>Posted on {formatDate(post.date)}</TooltipContent>
-        </Tooltip>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-muted-foreground text-xs">
+        <time dateTime={post.date}>Published {formatDate(post.date)}</time>
         {hasUpdate && updateDate && (
-          <Tooltip>
-            <TooltipTrigger>
-              <div className="flex items-center gap-1">
-                <Icons.penToSquare className="h-4 w-4" />
-                <time dateTime={updateDate}>{formatDate(updateDate)}</time>
-              </div>
-            </TooltipTrigger>
-            <TooltipContent>Updated on {formatDate(updateDate)}</TooltipContent>
-          </Tooltip>
+          <time dateTime={updateDate}>Updated {formatDate(updateDate)}</time>
         )}
       </div>
-      <hr className="cyber-hr my-4" />
+      {post.tags && post.tags.length > 0 && (
+        <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
+          {post.tags.map((tag) => (
+            <Tag tag={tag} key={tag} />
+          ))}
+        </div>
+      )}
+      <hr className="my-8" />
       <MDXContent code={post.body} />
     </article>
   );

@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import { ProjectList } from "@/components/project-list";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { siteConfig } from "@/config/site";
 
 export const metadata: Metadata = {
@@ -9,30 +8,17 @@ export const metadata: Metadata = {
 };
 
 export default function ProjectPage() {
-  const { title, description, defaultView } = siteConfig.project;
+  const { title, description } = siteConfig.project;
 
   return (
-    <div className="container max-w-7xl py-6 lg:py-10">
-      <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
-        <div className="flex-1 space-y-4">
-          <h1 className="inline-block font-black font-display text-4xl lg:text-5xl">
-            {title}
-          </h1>
-          <p className="text-muted-foreground text-xl">{description}</p>
-        </div>
+    <div className="mx-auto max-w-2xl px-6 py-16">
+      <header>
+        <h1 className="font-display text-4xl">{title}</h1>
+        <p className="mt-3 text-muted-foreground">{description}</p>
+      </header>
+      <div className="mt-10 border-border border-t">
+        <ProjectList project={siteConfig.project} />
       </div>
-      <Tabs defaultValue={defaultView} className="mt-8">
-        <TabsList>
-          <TabsTrigger value="list">List View</TabsTrigger>
-          <TabsTrigger value="grid">Grid View</TabsTrigger>
-        </TabsList>
-        <TabsContent value="list">
-          <ProjectList isGrid={false} project={siteConfig.project} />
-        </TabsContent>
-        <TabsContent value="grid">
-          <ProjectList isGrid={true} project={siteConfig.project} />
-        </TabsContent>
-      </Tabs>
     </div>
   );
 }

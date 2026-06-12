@@ -1,14 +1,9 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { posts } from "#site/content";
 import { PostList } from "@/components/post-list";
-import { TagSidebar } from "@/components/tag-sidebar";
 import { siteConfig } from "@/config/site";
-import {
-  getAllTags,
-  getTagsByCategory,
-  getUncategorizedTags,
-  sortPosts,
-} from "@/lib/utils";
+import { sortPosts } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: siteConfig.blog.title,
@@ -19,37 +14,28 @@ export default function BlogPage() {
   const publishedPosts = posts.filter((post) => post.published);
   const sortedPosts = sortPosts(publishedPosts);
 
-  const tags = getAllTags(posts);
-  const tagsByCategory = getTagsByCategory(tags);
-  const uncategorizedTags = getUncategorizedTags(tags);
-
   const { title, description, placeholder } = siteConfig.blog;
 
   return (
-    <div className="h-full w-full sm:absolute">
-      <div className="container relative right-0 left-0 flex h-full max-w-7xl flex-col py-6 lg:py-10">
-        <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
-          <div className="flex-1 space-y-4">
-            <h1 className="inline-block font-black font-display text-4xl lg:text-5xl">
-              {title}
-            </h1>
-            <p className="text-muted-foreground text-xl">{description}</p>
-          </div>
+    <div className="mx-auto max-w-2xl px-6 py-16">
+      <header className="flex items-baseline justify-between gap-4">
+        <div>
+          <h1 className="font-display text-4xl">{title}</h1>
+          <p className="mt-3 text-muted-foreground">{description}</p>
         </div>
-        <div className="relative mt-8 grid flex-1 grid-cols-12 gap-3 sm:max-h-[calc(100%-10rem)]">
-          <div className="relative col-span-12 col-start-1 max-h-full sm:col-span-8">
-            <hr className="cyber-hr" />
-            {sortedPosts.length > 0 ? (
-              <PostList posts={sortedPosts} />
-            ) : (
-              <p>{placeholder}</p>
-            )}
-          </div>
-          <TagSidebar
-            tagsByCategory={tagsByCategory}
-            uncategorizedTags={uncategorizedTags}
-          />
-        </div>
+        <Link
+          href="/tags"
+          className="shrink-0 font-mono text-muted-foreground text-xs transition-colors hover:text-foreground"
+        >
+          Browse tags →
+        </Link>
+      </header>
+      <div className="mt-10 border-border border-t">
+        {sortedPosts.length > 0 ? (
+          <PostList posts={sortedPosts} />
+        ) : (
+          <p className="py-6 text-muted-foreground">{placeholder}</p>
+        )}
       </div>
     </div>
   );
