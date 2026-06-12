@@ -13,27 +13,28 @@ export default function Home() {
 
   return (
     <div className="mx-auto max-w-2xl px-6">
-      <section className="pt-20 pb-16 sm:pt-28">
-        <h1 className="font-display text-4xl leading-tight sm:text-5xl">
+      <section className="pt-16 pb-16 sm:pt-24">
+        <h1 className="font-bold font-display text-4xl tracking-tight sm:text-5xl">
           {title}
         </h1>
         <p className="mt-6 max-w-prose text-lg text-muted-foreground leading-relaxed">
           {description}
         </p>
-        <p className="mt-8 font-mono text-muted-foreground text-xs">
+        <p className="mt-7 flex items-center gap-2 text-muted-foreground text-sm">
+          <span className="h-2 w-2 rounded-full bg-emerald-400" />
           Currently exploring AI & Web3 · Based in Taiwan · Available for
           collaborations
         </p>
-        <div className="mt-10 flex gap-6 text-sm">
+        <div className="mt-10 flex gap-3">
           <Link
             href="/blog"
-            className="underline underline-offset-4 transition-colors hover:text-muted-foreground"
+            className="rounded-full bg-foreground px-5 py-2.5 font-semibold text-background text-sm transition-colors hover:bg-primary hover:text-primary-foreground"
           >
             Read the blog
           </Link>
           <Link
             href="/project"
-            className="underline underline-offset-4 transition-colors hover:text-muted-foreground"
+            className="rounded-full border bg-card px-5 py-2.5 font-semibold text-foreground text-sm transition-colors hover:border-muted-foreground/40"
           >
             View projects
           </Link>
@@ -41,18 +42,18 @@ export default function Home() {
       </section>
 
       <section className="pb-24">
-        <div className="flex items-baseline justify-between border-border border-b pb-3">
-          <h2 className="font-mono text-muted-foreground text-xs uppercase tracking-widest">
+        <div className="flex items-baseline justify-between pb-4">
+          <h2 className="font-bold font-display text-lg tracking-tight">
             Recent posts
           </h2>
           <Link
             href="/blog"
-            className="font-mono text-muted-foreground text-xs transition-colors hover:text-foreground"
+            className="font-semibold text-primary text-sm transition-colors hover:text-foreground"
           >
             All posts →
           </Link>
         </div>
-        <ul className="divide-y divide-border">
+        <ul className="flex flex-col gap-3.5">
           {latestPosts.map((post) => (
             <li key={post.slug}>
               <PostItem

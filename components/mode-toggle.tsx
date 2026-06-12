@@ -10,7 +10,7 @@ export function ModeToggle() {
     <button
       type="button"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-      className="text-muted-foreground transition-colors hover:text-foreground"
+      className="rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
     >
       <Sun className="h-4 w-4 dark:hidden" />
       <Moon className="hidden h-4 w-4 dark:block" />

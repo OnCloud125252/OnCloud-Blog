@@ -1,7 +1,7 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import dynamic from "next/dynamic";
-import { IBM_Plex_Mono, Instrument_Sans, Newsreader } from "next/font/google";
+import { JetBrains_Mono, Mulish, Schibsted_Grotesk } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site-header";
 import { siteConfig } from "@/config/site";
@@ -12,20 +12,18 @@ const SiteFooter = dynamic(() => import("@/components/site-footer"), {
   ssr: false,
 });
 
-const newsreader = Newsreader({
+const schibstedGrotesk = Schibsted_Grotesk({
   subsets: ["latin"],
-  style: ["normal", "italic"],
   variable: "--font-display",
 });
 
-const instrumentSans = Instrument_Sans({
+const mulish = Mulish({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-const ibmPlexMono = IBM_Plex_Mono({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["400", "500"],
   variable: "--font-mono",
 });
 
@@ -37,8 +35,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f9f8f5" },
-    { media: "(prefers-color-scheme: dark)", color: "#131211" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f4f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#151518" },
   ],
 };
 
@@ -48,9 +46,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const fontVariables = cn(
-    newsreader.variable,
-    instrumentSans.variable,
-    ibmPlexMono.variable,
+    schibstedGrotesk.variable,
+    mulish.variable,
+    jetbrainsMono.variable,
   );
 
   return (

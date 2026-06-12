@@ -43,24 +43,28 @@ export default function TagPage({ params }: TagPageProps) {
     : null;
 
   return (
-    <div className="mx-auto max-w-2xl px-6 py-16">
+    <div className="mx-auto max-w-2xl px-6 py-12">
       <header>
         <Link
           href="/tags"
-          className="font-mono text-muted-foreground text-xs transition-colors hover:text-foreground"
+          className="font-semibold text-primary text-sm transition-colors hover:text-foreground"
         >
           ← All tags
         </Link>
-        <h1 className="mt-4 font-display text-4xl capitalize">{title}</h1>
-        {currentCategoryConfig && (
-          <p className="mt-2 font-mono text-muted-foreground text-xs uppercase tracking-widest">
-            {currentCategoryConfig.label}
-          </p>
-        )}
+        <div className="mt-4 flex items-center gap-3">
+          <h1 className="font-bold font-display text-4xl capitalize tracking-tight">
+            {title}
+          </h1>
+          {currentCategoryConfig && (
+            <span className="rounded-full bg-muted px-2.5 py-1 font-mono text-[0.65rem] text-muted-foreground uppercase tracking-wider">
+              {currentCategoryConfig.label}
+            </span>
+          )}
+        </div>
       </header>
-      <div className="mt-10 border-border border-t">
+      <div className="mt-10">
         {displayPosts.length > 0 ? (
-          <ul className="divide-y divide-border">
+          <ul className="flex flex-col gap-3.5">
             {displayPosts.map((post) => (
               <li key={post.slug}>
                 <PostItem
@@ -73,7 +77,7 @@ export default function TagPage({ params }: TagPageProps) {
             ))}
           </ul>
         ) : (
-          <p className="py-6 text-muted-foreground">Nothing to see here yet</p>
+          <p className="text-muted-foreground">Nothing to see here yet</p>
         )}
       </div>
     </div>

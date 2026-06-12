@@ -13,24 +13,22 @@ export function PostItem({ slug, title, description, date }: PostItemProps) {
     <article className="group">
       <Link
         href={`/${slug}`}
-        className="flex flex-col gap-1 py-6 sm:flex-row sm:gap-8"
+        className="block rounded-2xl border bg-card p-6 transition-all duration-200 hover:-translate-y-px hover:shadow-[0_4px_16px_rgb(0_0_0/0.06)] sm:p-7"
       >
         <time
           dateTime={date}
-          className="shrink-0 pt-1 font-mono text-muted-foreground text-xs sm:w-28"
+          className="font-mono text-[0.7rem] text-muted-foreground uppercase"
         >
           {formatDate(date)}
         </time>
-        <div>
-          <h2 className="font-display text-xl underline-offset-4 group-hover:underline">
-            {title}
-          </h2>
-          {description && (
-            <p className="mt-1 line-clamp-2 text-muted-foreground text-sm leading-relaxed">
-              {description}
-            </p>
-          )}
-        </div>
+        <h2 className="mt-2 font-display font-medium text-xl tracking-tight transition-colors group-hover:text-primary">
+          {title}
+        </h2>
+        {description && (
+          <p className="mt-2 line-clamp-2 text-muted-foreground text-sm leading-relaxed">
+            {description}
+          </p>
+        )}
       </Link>
     </article>
   );

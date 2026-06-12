@@ -18,12 +18,14 @@ export function Tag({ tag, count }: TagProps) {
     <Link
       href={`/tags/${slug(tag)}`}
       className={cn(
-        "font-mono text-xs underline-offset-4 transition-colors hover:text-foreground hover:underline",
-        isActive ? "text-foreground underline" : "text-muted-foreground",
+        "rounded-full border px-3 py-1 font-medium text-xs transition-colors",
+        isActive
+          ? "border-transparent bg-primary text-primary-foreground"
+          : "bg-card text-muted-foreground hover:border-muted-foreground/40 hover:text-foreground",
       )}
     >
       {tag}
-      {count ? ` (${count})` : null}
+      {count ? ` · ${count}` : null}
     </Link>
   );
 }

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Proposal 1 — Ink on Paper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Instrument+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #f9f8f5;
+    --ink: #211e1a;
+    --muted: #6e6a63;
+    --line: #e0ddd5;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Instrument Sans", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection { background: var(--ink); color: var(--bg); }
+  .wrap { max-width: 42rem; margin: 0 auto; padding: 0 1.5rem; }
+  .banner {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px;
+    color: var(--muted); text-align: center; padding: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+  header.site { display: flex; justify-content: space-between; align-items: baseline; padding: 2.5rem 0 1rem; }
+  .brand { font-family: "Newsreader", serif; font-style: italic; font-size: 1.2rem; color: var(--ink); text-decoration: none; margin-right: 0.5rem; }
+  nav { display: flex; gap: 1.75rem; align-items: baseline; }
+  nav a { font-size: 0.875rem; color: var(--muted); text-decoration: none; }
+  nav a:hover { color: var(--ink); }
+  nav a.active { color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: var(--line); }
+  .hero { padding: 5.5rem 0 4rem; }
+  .hero h1 { font-family: "Newsreader", serif; font-weight: 500; font-size: 3rem; line-height: 1.15; }
+  .hero p.desc { margin-top: 1.5rem; font-size: 1.125rem; color: var(--muted); line-height: 1.65; max-width: 36rem; }
+  .hero p.meta { margin-top: 2rem; font-family: "IBM Plex Mono", monospace; font-size: 0.75rem; color: var(--muted); }
+  .hero .links { margin-top: 2.5rem; display: flex; gap: 1.5rem; font-size: 0.875rem; }
+  .hero .links a { color: var(--ink); text-underline-offset: 4px; }
+  .posts { padding-bottom: 6rem; }
+  .posts .head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--line); padding-bottom: 0.75rem; }
+  .posts .head h2, .posts .head a { font-family: "IBM Plex Mono", monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 400; text-decoration: none; }
+  .post { display: flex; gap: 2rem; padding: 1.5rem 0; border-bottom: 1px solid var(--line); text-decoration: none; }
+  .post time { flex-shrink: 0; width: 7rem; padding-top: 0.25rem; font-family: "IBM Plex Mono", monospace; font-size: 0.75rem; color: var(--muted); }
+  .post h3 { font-family: "Newsreader", serif; font-weight: 500; font-size: 1.25rem; color: var(--ink); }
+  .post:hover h3 { text-decoration: underline; text-underline-offset: 4px; }
+  .post p { margin-top: 0.25rem; font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+  footer.site { border-top: 1px solid var(--line); padding: 2.5rem 0; font-family: "IBM Plex Mono", monospace; font-size: 0.75rem; color: var(--muted); }
+  footer.site .social { display: flex; gap: 1.25rem; margin-bottom: 1rem; }
+  footer.site a { color: var(--muted); text-decoration: none; }
+  footer.site a:hover { color: var(--ink); }
+</style>
+</head>
+<body>
+<div class="banner">PROPOSAL 1 · INK ON PAPER — warm paper, Newsreader serif, quiet editorial (currently on the branch)</div>
+<div class="wrap">
+  <header class="site">
+    <nav>
+      <a class="brand" href="#">OnCloud</a>
+      <a href="#" class="active">Blog</a>
+      <a href="#">Projects</a>
+      <a href="#">About</a>
+    </nav>
+    <span style="color: var(--muted)">◐</span>
+  </header>
+
+  <section class="hero">
+    <h1>Hello, I'm Alex Liao</h1>
+    <p class="desc">I'm a full-stack web developer and system designer. I build website and manage/deploy servers.</p>
+    <p class="meta">Currently exploring AI &amp; Web3 · Based in Taiwan · Available for collaborations</p>
+    <div class="links">
+      <a href="#">Read the blog</a>
+      <a href="#">View projects</a>
+    </div>
+  </section>
+
+  <section class="posts">
+    <div class="head"><h2>Recent posts</h2><a href="#">All posts →</a></div>
+    <a class="post" href="#">
+      <time>June 2, 2025</time>
+      <div>
+        <h3>Managing Shell Configuration with CustomRC</h3>
+        <p>A cleaner way to organize your shell configuration files across multiple machines without losing your mind.</p>
+      </div>
+    </a>
+    <a class="post" href="#">
+      <time>March 18, 2025</time>
+      <div>
+        <h3>Setting up Zsh with Oh-My-Zsh on macOS</h3>
+        <p>Step-by-step guide to a productive terminal setup with sensible defaults and useful plugins.</p>
+      </div>
+    </a>
+    <a class="post" href="#">
+      <time>January 7, 2025</time>
+      <div>
+        <h3>Streamlining Development Processes with GitHub Actions</h3>
+        <p>Automate builds, tests, and deployments so you can focus on writing code instead of shipping it.</p>
+      </div>
+    </a>
+  </section>
+
+  <footer class="site">
+    <div class="social">
+      <a href="#">Email</a><a href="#">GitHub</a><a href="#">Facebook</a><a href="#">Instagram</a><a href="#">Discord</a>
+    </div>
+    <p>© 2026 OnCloud · Built with Next.js &amp; Velite · <a href="#">Source</a></p>
+  </footer>
+</div>
+</body>
+</html>

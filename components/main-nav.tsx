@@ -15,10 +15,10 @@ function NavLink({ href, children, isActive }: NavLinkProps) {
     <Link
       href={href}
       className={cn(
-        "text-sm transition-colors hover:text-foreground",
+        "rounded-full px-3.5 py-1.5 font-medium text-sm transition-colors",
         isActive
-          ? "text-foreground underline decoration-border underline-offset-4"
-          : "text-muted-foreground",
+          ? "bg-card text-foreground shadow-sm"
+          : "text-muted-foreground hover:bg-muted hover:text-foreground",
       )}
     >
       {children}
@@ -30,8 +30,11 @@ export function MainNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex items-baseline gap-5 sm:gap-7">
-      <Link href="/" className="mr-2 font-display text-lg italic">
+    <nav className="flex items-center gap-1">
+      <Link
+        href="/"
+        className="mr-3 font-bold font-display text-base tracking-tight"
+      >
         OnCloud
       </Link>
       <NavLink href="/blog" isActive={pathname === "/blog"}>

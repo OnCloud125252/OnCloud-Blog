@@ -1,12 +1,13 @@
 /* Code block figure */
 [data-rehype-pretty-code-figure] pre {
   @apply px-0 border border-border;
+  border-radius: 12px;
 }
 
 /* Inline code */
 span[data-rehype-pretty-code-figure] > code {
   @apply inline !bg-muted !text-foreground;
-  border-radius: 0;
+  border-radius: 6px;
   font-family: var(--font-mono), ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 0.9em;
   font-weight: normal;
@@ -81,8 +82,8 @@ span[data-rehype-pretty-code-figure] > code::after {
 
 /* Blockquote */
 .prose :where(blockquote):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  border-left-color: hsl(var(--foreground) / 0.25);
-  font-style: italic;
+  border-left-color: hsl(var(--primary) / 0.5);
+  font-style: normal;
 }
 
 blockquote > p::before,

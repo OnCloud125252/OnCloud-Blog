@@ -13,11 +13,11 @@ interface TagGroupProps {
 
 function TagGroup({ label, tags }: TagGroupProps) {
   return (
-    <section>
-      <h2 className="font-mono text-muted-foreground text-xs uppercase tracking-widest">
+    <section className="rounded-2xl border bg-card p-6 sm:p-7">
+      <h2 className="font-display font-medium text-base tracking-tight">
         {label}
       </h2>
-      <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+      <div className="mt-4 flex flex-wrap gap-2">
         {tags.map((tag) => (
           <Tag key={tag.name} tag={tag.name} count={tag.count} />
         ))}
@@ -31,7 +31,7 @@ export function TagsByCategoryList({
   uncategorizedTags,
 }: TagsByCategoryListProps) {
   return (
-    <div className="space-y-10">
+    <div className="flex flex-col gap-3.5">
       {tagsByCategory.map((category) => (
         <TagGroup
           key={category.category}

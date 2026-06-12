@@ -1,12 +1,10 @@
 export function PostSkeleton() {
   return (
-    <article className="flex animate-pulse flex-col gap-1 py-6 sm:flex-row sm:gap-8">
-      <div className="h-4 shrink-0 bg-muted sm:w-28" />
-      <div className="flex-1 space-y-2">
-        <div className="h-6 w-3/4 bg-muted" />
-        <div className="h-4 w-full bg-muted" />
-        <div className="h-4 w-2/3 bg-muted" />
-      </div>
+    <article className="animate-pulse rounded-2xl border bg-card p-6 sm:p-7">
+      <div className="h-3 w-24 rounded bg-muted" />
+      <div className="mt-3 h-6 w-3/4 rounded bg-muted" />
+      <div className="mt-3 h-4 w-full rounded bg-muted" />
+      <div className="mt-2 h-4 w-2/3 rounded bg-muted" />
     </article>
   );
 }

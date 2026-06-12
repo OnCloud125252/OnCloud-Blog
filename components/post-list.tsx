@@ -73,7 +73,7 @@ export function PostList({ posts }: PostListProps) {
   const showSkeleton = hasMore && isLoading;
 
   return (
-    <ul className="flex flex-col divide-y divide-border">
+    <ul className="flex flex-col gap-3.5">
       {displayedPosts.map((post, index) => {
         const { slug, date, update, title, description } = post;
         const isLastItem = index === lastPostIndex && !showSkeleton;

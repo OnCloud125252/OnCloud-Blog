@@ -73,14 +73,14 @@ export default function PostPage({ params }: PostPageProps) {
   const hasUpdate = updateDate && post.date !== updateDate;
 
   return (
-    <article className="prose dark:prose-invert mx-auto max-w-2xl px-6 py-16">
-      <h1 className="font-display">{post.title}</h1>
+    <article className="prose dark:prose-invert mx-auto max-w-2xl px-6 py-12">
+      <h1 className="font-display tracking-tight">{post.title}</h1>
       {post.description && (
         <p className="mt-0 mb-4 text-muted-foreground text-xl">
           {post.description}
         </p>
       )}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 font-mono text-muted-foreground text-xs">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-muted-foreground text-sm">
         <time dateTime={post.date}>Published {formatDate(post.date)}</time>
         {hasUpdate && updateDate && (
           <time dateTime={updateDate}>Updated {formatDate(updateDate)}</time>
