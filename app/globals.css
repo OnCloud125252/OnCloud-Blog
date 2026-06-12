@@ -34,54 +34,54 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 160 84% 39%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 160 84% 39%;
+    --background: 40 23% 97%;
+    --foreground: 30 8% 12%;
+    --card: 40 23% 97%;
+    --card-foreground: 30 8% 12%;
+    --popover: 40 23% 97%;
+    --popover-foreground: 30 8% 12%;
+    --primary: 30 8% 12%;
+    --primary-foreground: 40 23% 97%;
+    --secondary: 40 12% 92%;
+    --secondary-foreground: 30 8% 12%;
+    --muted: 40 12% 92%;
+    --muted-foreground: 30 5% 42%;
+    --accent: 40 12% 92%;
+    --accent-foreground: 30 8% 12%;
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 40 23% 97%;
+    --border: 40 9% 86%;
+    --input: 40 9% 86%;
+    --ring: 30 8% 12%;
     --radius: 0rem;
-    --scrollbar-thumb: 240 5% 85%;
-    --scrollbar-thumb-hover: 240 5% 75%;
-    --scrollbar-track: 0 0% 100%;
+    --scrollbar-thumb: 40 8% 84%;
+    --scrollbar-thumb-hover: 40 7% 72%;
+    --scrollbar-track: 40 23% 97%;
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 160 84% 39%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 160 84% 39%;
-    --scrollbar-thumb: 240 5% 25%;
-    --scrollbar-thumb-hover: 240 5% 35%;
-    --scrollbar-track: 240 10% 3.9%;
+    --background: 30 6% 7%;
+    --foreground: 40 14% 89%;
+    --card: 30 6% 7%;
+    --card-foreground: 40 14% 89%;
+    --popover: 30 6% 7%;
+    --popover-foreground: 40 14% 89%;
+    --primary: 40 14% 89%;
+    --primary-foreground: 30 6% 7%;
+    --secondary: 30 5% 14%;
+    --secondary-foreground: 40 14% 89%;
+    --muted: 30 5% 14%;
+    --muted-foreground: 35 6% 58%;
+    --accent: 30 5% 14%;
+    --accent-foreground: 40 14% 89%;
+    --destructive: 0 50% 40%;
+    --destructive-foreground: 40 14% 89%;
+    --border: 30 5% 17%;
+    --input: 30 5% 17%;
+    --ring: 40 14% 89%;
+    --scrollbar-thumb: 30 5% 22%;
+    --scrollbar-thumb-hover: 30 5% 32%;
+    --scrollbar-track: 30 6% 7%;
   }
 }
 
@@ -90,42 +90,9 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground selection:bg-primary/30;
-  }
-  .dark body {
-    background-image: 
-      radial-gradient(at 0% 0%, hsla(160, 84%, 39%, 0.15) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, hsla(160, 84%, 39%, 0.1) 0px, transparent 50%);
-    background-attachment: fixed;
-  }
-}
-
-@layer utilities {
-  .noise-bg {
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.03;
-  }
-
-  .grid-pattern {
-    background-image: radial-gradient(hsl(var(--border)) 1px, transparent 1px);
-    background-size: 32px 32px;
-  }
-
-  .editorial-shadow {
-    box-shadow: 8px 8px 0px 0px hsl(var(--foreground) / 0.1);
-  }
-
-  .sharp-accent {
-    @apply relative overflow-hidden;
-  }
-
-  .sharp-accent::after {
-    content: '';
-    @apply absolute bottom-0 left-0 h-[2px] w-0 bg-primary transition-all duration-300;
-  }
-
-  .sharp-accent:hover::after {
-    @apply w-full;
+    @apply bg-background text-foreground selection:bg-foreground selection:text-background;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 

@@ -1,11 +1,7 @@
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import dynamic from "next/dynamic";
-import {
-  Bricolage_Grotesque,
-  JetBrains_Mono,
-  Plus_Jakarta_Sans,
-} from "next/font/google";
+import { IBM_Plex_Mono, Instrument_Sans, Newsreader } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SiteHeader } from "@/components/site-header";
 import { siteConfig } from "@/config/site";
@@ -16,18 +12,20 @@ const SiteFooter = dynamic(() => import("@/components/site-footer"), {
   ssr: false,
 });
 
-const bricolageGrotesque = Bricolage_Grotesque({
+const newsreader = Newsreader({
   subsets: ["latin"],
+  style: ["normal", "italic"],
   variable: "--font-display",
 });
 
-const plusJakartaSans = Plus_Jakarta_Sans({
+const instrumentSans = Instrument_Sans({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
+  weight: ["400", "500"],
   variable: "--font-mono",
 });
 
@@ -39,8 +37,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#f9f8f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#131211" },
   ],
 };
 
@@ -50,9 +48,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const fontVariables = cn(
-    bricolageGrotesque.variable,
-    plusJakartaSans.variable,
-    jetbrainsMono.variable,
+    newsreader.variable,
+    instrumentSans.variable,
+    ibmPlexMono.variable,
   );
 
   return (
