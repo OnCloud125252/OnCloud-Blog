@@ -1,0 +1,28 @@
+tailwind.config.ts
+  s_d1514439ffacda::t_fd132827156689 15,23,76,87
+styles/mdx.css
+  s_d1514439ffacda::t_efda19d71251e7 3,8-9,11,49-50,54-55,65,84-85,95
+app/layout.tsx
+  s_d1514439ffacda::t_501c5371c6e77a 4
+  s_d1514439ffacda::t_bf5aa2eacd9310 40-41
+  s_d1514439ffacda::t_7b94387844d9c2 15,17,21,26,28
+  s_d1514439ffacda::t_74c56bf2c8196b 51-53
+app/globals.css
+  s_d1514439ffacda::t_e73cf64697eee8 37-55,57-59,63-84,93-95
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "f5cd6c03574bbe5170b67a46e8109a5323e7479b",
+  "prompts": {},
+  "sessions": {
+    "s_d1514439ffacda": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "323a5031-be9f-498a-9811-729e6c4e2a3a",
+        "model": "claude-fable-5"
+      },
+      "human_author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  }
+}
