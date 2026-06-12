@@ -1,0 +1,27 @@
+tailwind.config.ts
+  s_a7eaca34f1244c::t_8cb5f6d9be8be2 60
+  s_a7eaca34f1244c::t_c5ef7bb2c773c9 6
+package.json
+  s_a7eaca34f1244c::t_2f6b6ebd696638 23
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "ef763e9501549b731d1ee3509388d1b7ea27830c",
+  "prompts": {},
+  "humans": {
+    "h_964b3dfa0bfd24": {
+      "author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a7eaca34f1244c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4a535065-98aa-4daf-8f04-318a1fbd083c",
+        "model": "claude-fable-5"
+      },
+      "human_author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  }
+}
