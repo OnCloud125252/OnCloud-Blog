@@ -1,0 +1,20 @@
+app/page.tsx
+  s_a7eaca34f1244c::t_9e7029ed9a3567 41-45,50
+  s_a7eaca34f1244c::t_22436b6ab81b53 8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "cfcd504d828ca8d13e84741dcc2a1442b994fe17",
+  "prompts": {},
+  "sessions": {
+    "s_a7eaca34f1244c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4a535065-98aa-4daf-8f04-318a1fbd083c",
+        "model": "claude-fable-5"
+      },
+      "human_author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  }
+}
