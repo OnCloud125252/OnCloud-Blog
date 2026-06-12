@@ -1,0 +1,27 @@
+config/site.ts
+  s_a7eaca34f1244c::t_5ce958ee550687 42-44
+app/page.tsx
+  s_a7eaca34f1244c::t_59f9cdb760a16d 9
+  s_a7eaca34f1244c::t_4e978ca6475360 22
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "1a3489211fecc03ac6f697a75085a53532356827",
+  "prompts": {},
+  "humans": {
+    "h_964b3dfa0bfd24": {
+      "author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_a7eaca34f1244c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4a535065-98aa-4daf-8f04-318a1fbd083c",
+        "model": "claude-fable-5"
+      },
+      "human_author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  }
+}
