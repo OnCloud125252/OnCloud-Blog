@@ -1,0 +1,19 @@
+config/site.ts
+  s_c6b0f2506c6628::t_213333f2fe5711 52-53,55-56,60-64,68-69,71-73,77,79,82-97,101-102,104,108-109,111-112,116-128,131-132,134-136,139-144,147-148,150-152,155-159,162-167
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "24044d4fa68bcf5420e475a3d060f744ebce36ff",
+  "prompts": {},
+  "sessions": {
+    "s_c6b0f2506c6628": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "776036e0-ed5a-409f-8465-2b112f064154",
+        "model": "claude-fable-5"
+      },
+      "human_author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  }
+}
