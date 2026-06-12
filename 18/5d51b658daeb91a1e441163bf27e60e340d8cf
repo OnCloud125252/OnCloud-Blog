@@ -1,0 +1,21 @@
+extracted/content-inventory.md
+  s_d1514439ffacda::t_ea02e1e8e4f991 1-113
+extracted/site-data.json
+  s_d1514439ffacda::t_a13c6f8918d880 1-192
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "185d51b658daeb91a1e441163bf27e60e340d8cf",
+  "prompts": {},
+  "sessions": {
+    "s_d1514439ffacda": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "323a5031-be9f-498a-9811-729e6c4e2a3a",
+        "model": "claude-fable-5"
+      },
+      "human_author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  }
+}
