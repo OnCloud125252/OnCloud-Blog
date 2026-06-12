@@ -49,19 +49,68 @@ export const siteConfig = {
     description: "Some of my projects that I'm working on",
     projects: [
       {
-        name: "Component Manager",
-        technology: ["Golang", "Shell script"],
+        name: "dotagents",
+        technology: ["Claude Code", "Shell script"],
         description:
-          "Seamlessly manage and integrate your JS/TS components with ease.",
-        github: "https://github.com/Lazco-Studio/Component-Manager",
+          "An extension toolkit for Claude Code: 26 slash commands covering git workflows, PR automation, worktree management, and Linear integration, plus 19 skills, 5 hooks, a custom status line, and a catalog-style selective installer.",
+        github: "https://github.com/OnCloud125252/dotagents",
         status: "active",
       },
       {
-        name: "Spacedesk Viewer",
-        technology: ["Electron.js", "HTML", "CSS", "JavaScript"],
-        description: "A spacedesk client app that can be used offline.",
-        github: "https://github.com/OnCloud125252/Spacedesk-Viewer",
+        name: "Lazco Cloud",
+        technology: ["Bun", "Elysia", "PostgreSQL", "Next.js", "Proxmox VE"],
+        description:
+          "A VPS rental platform running on Lazco's own ASN (AS131630). I led the architecture and development: the backend and billing engine, a type-safe Proxmox VE SDK for VM lifecycle management, and physical infrastructure across two server rooms with 99.8%+ SLA.",
+        link: "https://cloud.lazco.tw",
         status: "active",
+      },
+      {
+        name: "CustomRC",
+        technology: ["Bash", "Zsh"],
+        description:
+          "A shell configuration framework that merges modules into a monolithic cache with mtime-based rebuilds and cached tool initialization, bringing typical startup down to ~20–50ms. Around 3,000 lines of shell, MIT licensed.",
+        github: "https://github.com/OnCloud125252/CustomRC",
+        status: "active",
+      },
+      {
+        name: "NewMD",
+        technology: ["Next.js", "Express.js", "MongoDB", "PWA"],
+        description:
+          "A beautiful & faster version of Mingdao High School's timetable website, with a primary/standby backend behind PM2. Continuously operated since 2022.",
+        link: "https://newmd.eu.org",
+        github: "https://github.com/NewMD-org",
+        status: "active",
+      },
+      {
+        name: "OnCloud Blog",
+        technology: ["Next.js", "Shadcn-ui", "Tailwind.css", "TypeScript"],
+        description: "My personal blog — the site you're looking at.",
+        link: "https://on-cloud.tw",
+        github: "https://github.com/OnCloud125252/OnCloud-Blog",
+        status: "active",
+      },
+      {
+        name: "LLM-JSON-Translator",
+        technology: ["Bun", "TypeScript", "Redis"],
+        description:
+          "An HTTP service that translates dynamic data-layer content (like backend API responses) with LLMs while preserving the original nested JSON structure. Features token-aware batch splitting, schema-validated output with automatic retries, and a two-layer memory + Redis cache.",
+        github: "https://github.com/OnCloud125252/LLM-JSON-Translator",
+        status: "done",
+      },
+      {
+        name: "PickTrip",
+        technology: ["NestJS", "MongoDB", "Redis", "AWS"],
+        description:
+          "An AI travel-planning startup I co-founded that reached the top 5% of a Y Combinator batch. I built the AI planning backend, itinerary optimization with PDDL constraint planning and simulated annealing, the data pipeline, and the AWS deployment.",
+        status: "done",
+      },
+      {
+        name: "MDGSA Running Program",
+        technology: ["Next.js", "Firebase"],
+        description:
+          "A platform for Mingdao High School's 2025 graduation association that tracks running distance and leaderboards for students and teachers in real time.",
+        github: "https://github.com/Lazco-Corporation/MDGSA-Running-Program",
+        status: "done",
       },
       {
         name: "Mingdao SIG 2.0 (MDSIG)",
@@ -73,24 +122,40 @@ export const siteConfig = {
           "TypeScript",
         ],
         description:
-          "The MDSIG Sharing Platform provides students of Mingdao High School with a space for discussing various topics.",
+          "A campus community platform serving 1,000+ students and teachers of Mingdao High School, deployed on a two-node HA architecture that held 100% uptime for 6 months.",
         link: "https://sig.mingdao.edu.tw",
         github: "https://github.com/MingdaoSIG",
         status: "done",
       },
       {
-        name: "NewMD",
-        technology: [
-          "Next.js",
-          "Mantine-ui",
-          "Express.js",
-          "MongoDB",
-          "JavaScript",
-        ],
+        name: "virtfusion",
+        technology: ["TypeScript", "npm"],
         description:
-          "A beautiful & faster version of Mingdao high school's timetable website.",
-        link: "https://newmd.eu.org",
-        github: "https://github.com/NewMD-org",
+          "A type-safe TypeScript client for the VirtFusion API, published on npm.",
+        link: "https://www.npmjs.com/package/virtfusion",
+        status: "done",
+      },
+      {
+        name: "Component Manager",
+        technology: ["Golang", "Shell script"],
+        description:
+          "Seamlessly manage and integrate your JS/TS components with ease.",
+        github: "https://github.com/Lazco-Corporation/Component-Manager",
+        status: "done",
+      },
+      {
+        name: "APO2cDSP-ParametricEQ",
+        technology: ["Bun", "TypeScript"],
+        description:
+          "A CLI tool that parses EqualizerAPO parametric EQ filters and converts them to CamillaDSP-compatible JSON format.",
+        github: "https://github.com/OnCloud125252/APO2cDSP-ParametricEQ",
+        status: "done",
+      },
+      {
+        name: "Spacedesk Viewer",
+        technology: ["Electron.js", "HTML", "CSS", "JavaScript"],
+        description: "A spacedesk client app that can be used offline.",
+        github: "https://github.com/OnCloud125252/Spacedesk-Viewer",
         status: "done",
       },
       {
@@ -100,60 +165,6 @@ export const siteConfig = {
           "A powerful starting point for creating a Discord bot that utilizes modern slash commands and offers features such as ChatGPT, music player and more.",
         github: "https://github.com/OnCloud125252/Discord-Bot-Template",
         status: "done",
-      },
-      {
-        name: "Frontend Practice",
-        technology: ["Express.js", "HTML", "CSS", "JavaScript"],
-        description:
-          "A website that demonstrates popular frontend optimization techniques such as debouncing, throttling, and more.",
-        link: "https://frontend-practice.on-cloud.tw",
-        github: "https://github.com/OnCloud125252/Frontend-Practice",
-        status: "done",
-      },
-      {
-        name: "Update Install",
-        technology: ["Golang", "Shell script"],
-        description: "Easy way to install deb package for Linux distributions.",
-        github: "https://github.com/Update-Install",
-        status: "developing",
-      },
-      {
-        name: "Update Install (Old)",
-        technology: ["Shell script"],
-        description:
-          "A tool designed to simplify the process of installing or updating applications on Linux.",
-        github: "https://github.com/OnCloud125252/Update-Install",
-        status: "deprecated",
-      },
-      {
-        name: "Upload Share",
-        technology: ["Next.js", "Radix-ui", "Tailwind.css", "TypeScript"],
-        description: "A website for uploading and sharing files.",
-        github: "https://github.com/OnCloud125252/Upload-Share",
-        status: "paused",
-      },
-      {
-        name: "SpiderTrigger",
-        technology: ["Docker", "Golang", "Shell script"],
-        description:
-          "A tool designed to automate the process of deploying your applications on your own server.",
-        github: "https://github.com/OnCloud125252/SpiderTrigger",
-        status: "paused",
-      },
-      {
-        name: "KILLTWG-App",
-        technology: ["Visual Basic .NET"],
-        description: "A app that can be use to disable the TWG client app.",
-        github: "https://github.com/OnCloud125252/KILLTWG-App",
-        status: "deprecated",
-      },
-      {
-        name: "OnCloud Blog",
-        technology: ["Next.js", "Shadcn-ui", "Tailwind.css", "TypeScript"],
-        description: "My personal blog.",
-        link: "https://on-cloud.tw",
-        github: "https://github.com/OnCloud125252/OnCloud-Blog",
-        status: "developing",
       },
     ] satisfies Project[],
   },
