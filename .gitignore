@@ -37,3 +37,7 @@ next-env.d.ts
 
 # velite files
 .velite
+
+/.claude/recent-work
+/.claude/worktrees
+
