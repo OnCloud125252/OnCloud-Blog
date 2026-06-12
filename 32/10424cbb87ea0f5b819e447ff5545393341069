@@ -1,0 +1,72 @@
+design-proposals/1-ink-on-paper.html
+  s_d1514439ffacda::t_a3e87b1d0a16f0 1-112
+design-proposals/4-soft-studio.html
+  s_d1514439ffacda::t_751729acbdbd90 1-116
+tailwind.config.ts
+  s_d1514439ffacda::t_69777a8e7a3cbb 23
+components/site-footer.tsx
+  s_d1514439ffacda::t_092e9d9fc186a5 9-21,30
+app/layout.tsx
+  s_d1514439ffacda::t_4ae093fc87c9e0 4
+  s_d1514439ffacda::t_f447519f4a6432 38-39
+  s_d1514439ffacda::t_58e56b12110e84 15,20,25
+  s_d1514439ffacda::t_fa70c536f30484 49-51
+components/post-item.tsx
+  s_d1514439ffacda::t_6bf9d945b3d6c3 16,20,24-31
+components/main-nav.tsx
+  s_d1514439ffacda::t_52b89a71b66108 18,20-21,33-37
+app/project/page.tsx
+  s_d1514439ffacda::t_4c67b5354605b6 14,16-18,21
+styles/mdx.css
+  s_d1514439ffacda::t_c7197ba9e9bb36 85-86
+  s_d1514439ffacda::t_43c4bbe6489696 4,10
+app/globals.css
+  s_d1514439ffacda::t_0620fdd7aaf591 37-59,63-84,93
+components/post-skeleton.tsx
+  s_d1514439ffacda::t_b617b803f393e6 3-7
+components/tags-by-category.tsx
+  s_d1514439ffacda::t_f738e490b43c71 16-17,20,34
+app/page.tsx
+  s_d1514439ffacda::t_1c8f29ef779e60 16-17,23-24,28,31,37,45-46,51,56
+components/site-header.tsx
+  s_d1514439ffacda::t_e0d6bc7999ffd3 7
+design-proposals/3-terminal.html
+  s_d1514439ffacda::t_8823b1f59658e7 1-126
+components/project-list.tsx
+  s_d1514439ffacda::t_6673fb033b03bc 22,28-36,41,48,54,64
+app/tags/page.tsx
+  s_d1514439ffacda::t_3a7dd81eece9bb 21,25
+  s_d1514439ffacda::t_4ae093fc87c9e0 23
+app/blog/[...slug]/page.tsx
+  s_d1514439ffacda::t_36b108bc54bb15 76-77,83
+components/tag.tsx
+  s_d1514439ffacda::t_c612d045ef495d 21-24,28
+design-proposals/2-swiss-modern.html
+  s_d1514439ffacda::t_f341b57a403c13 1-118
+app/about/page.tsx
+  s_d1514439ffacda::t_cfa17f227d9714 14,16-18,21,27-29,31,37,45-46,49,55,62,67-68,71,77
+app/blog/page.tsx
+  s_d1514439ffacda::t_70a43267d32653 20-21,23-25,30,35,39
+app/tags/[tag]/page.tsx
+  s_d1514439ffacda::t_72695ce29bcda0 46,50,54-63,65,67,80
+components/post-list.tsx
+  s_d1514439ffacda::t_3f2de9a44dac20 76
+components/mode-toggle.tsx
+  s_d1514439ffacda::t_2f6daf574f9c4c 13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.6",
+  "base_commit_sha": "3210424cbb87ea0f5b819e447ff5545393341069",
+  "prompts": {},
+  "sessions": {
+    "s_d1514439ffacda": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "323a5031-be9f-498a-9811-729e6c4e2a3a",
+        "model": "claude-fable-5"
+      },
+      "human_author": "OnCloud <anonymousaaaa41414141@gmail.com>"
+    }
+  }
+}
